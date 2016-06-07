@@ -18,6 +18,12 @@
 
 #import "JSQMessagesCollectionViewCellOutgoing.h"
 
+@interface JSQMessagesCollectionViewCellOutgoing ()
+
+@property (weak, nonatomic, readwrite) IBOutlet UIImageView *messageStatusImageView;
+
+@end
+
 @implementation JSQMessagesCollectionViewCellOutgoing
 
 #pragma mark - Overrides
@@ -27,6 +33,12 @@
     [super awakeFromNib];
     self.messageBubbleTopLabel.textAlignment = NSTextAlignmentRight;
     self.cellBottomLabel.textAlignment = NSTextAlignmentRight;
+}
+
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    
+    self.messageStatusImageView.image = nil;
 }
 
 @end

@@ -24,4 +24,10 @@
  */
 @interface JSQMessagesCollectionViewCellOutgoing : JSQMessagesCollectionViewCell
 
+/**
+ *  Returns image view that is pinned to the right bottom corner of the message bubble
+ *  This image is used to display the current message status
+ */
+@property (weak, nonatomic, readonly) UIImageView *messageStatusImageView;
+
 @end

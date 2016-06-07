@@ -115,11 +115,16 @@
 
         CGFloat horizontalInsetsTotal = horizontalContainerInsets + horizontalFrameInsets + spacingBetweenAvatarAndBubble;
         CGFloat maximumTextWidth = [self textBubbleWidthForLayout:layout] - avatarSize.width - layout.messageBubbleLeftRightMargin - horizontalInsetsTotal;
-
-        CGRect stringRect = [[messageData text] boundingRectWithSize:CGSizeMake(maximumTextWidth, CGFLOAT_MAX)
-                                                             options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
-                                                          attributes:@{ NSFontAttributeName : layout.messageBubbleFont }
-                                                             context:nil];
+        
+        // appending `timelabel` text only needed to properly calculate the size of the cell
+        // because later we'll resize the text container by adding an exclusive path for the `timelabel` and
+        // that won't affect on the text view size and size of the cell as well
+        NSString* messageText = [[messageData text] stringByAppendingString:@"timelabel"];
+        
+        CGRect stringRect = [messageText boundingRectWithSize:CGSizeMake(maximumTextWidth, CGFLOAT_MAX)
+                                                      options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
+                                                   attributes:@{ NSFontAttributeName : layout.messageBubbleFont }
+                                                      context:nil];
 
         CGSize stringSize = CGRectIntegral(stringRect).size;
 

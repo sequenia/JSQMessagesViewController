@@ -88,6 +88,12 @@
 @interface JSQMessagesCollectionViewCell : UICollectionViewCell
 
 /**
+ *  Returns the label that is pinned to the right bottom corner of the message bubble
+ *  This label is most commonly used to display message time
+ */
+@property (weak, nonatomic, readonly) JSQMessagesLabel *messageBubbleTimeLabel;
+
+/**
  *  The object that acts as the delegate for the cell.
  */
 @property (weak, nonatomic) id<JSQMessagesCollectionViewCellDelegate> delegate;
