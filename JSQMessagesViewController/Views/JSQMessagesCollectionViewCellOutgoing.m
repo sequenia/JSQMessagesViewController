@@ -22,6 +22,8 @@
 
 @property (weak, nonatomic, readwrite) IBOutlet UIImageView *messageStatusImageView;
 
+@property (weak, nonatomic, readwrite) IBOutlet UIButton *messageInfoButton;
+
 @end
 
 @implementation JSQMessagesCollectionViewCellOutgoing
@@ -33,12 +35,22 @@
     [super awakeFromNib];
     self.messageBubbleTopLabel.textAlignment = NSTextAlignmentRight;
     self.cellBottomLabel.textAlignment = NSTextAlignmentRight;
+    self.messageInfoButton.alpha = 0.0;
 }
 
 - (void)prepareForReuse {
     [super prepareForReuse];
     
     self.messageStatusImageView.image = nil;
+    self.messageInfoButton.alpha = 0.0;
+    self.infoButtonActionHandler = nil;
 }
+
+- (IBAction) tapInfoButton:(id)sender {
+    if (self.infoButtonActionHandler) {
+        self.infoButtonActionHandler(self);
+    }
+}
+
 
 @end
