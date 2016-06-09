@@ -46,16 +46,15 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BRo-Mt-xKZ" userLabel="Time Label" customClass="JSQMessagesLabel">
-                                <rect key="frame" x="208" y="74" width="0.0" height="0.0"/>
+                                <rect key="frame" x="209" y="74" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jbs-uJ-sbm" userLabel="Status Image View">
-                                <rect key="frame" x="206" y="67" width="30" height="15"/>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.png" translatesAutoresizingMaskIntoConstraints="NO" id="jbs-uJ-sbm" userLabel="Status Image View">
+                                <rect key="frame" x="217" y="67" width="13" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="Jma-Ma-Zep"/>
-                                    <constraint firstAttribute="width" constant="30" id="max-nF-5Iw"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -72,8 +71,8 @@
                             <constraint firstAttribute="trailing" secondItem="vLY-aM-0Dr" secondAttribute="trailing" constant="6" id="aVg-yy-8K7"/>
                             <constraint firstAttribute="width" constant="244" id="imD-52-K45"/>
                             <constraint firstAttribute="bottom" secondItem="2qm-c6-OZf" secondAttribute="bottom" id="lts-Ve-wSh"/>
-                            <constraint firstItem="jbs-uJ-sbm" firstAttribute="leading" secondItem="BRo-Mt-xKZ" secondAttribute="trailing" constant="-2" id="she-JI-0ke"/>
-                            <constraint firstAttribute="trailing" secondItem="jbs-uJ-sbm" secondAttribute="trailing" constant="8" id="xBa-Sk-qTQ"/>
+                            <constraint firstItem="jbs-uJ-sbm" firstAttribute="leading" secondItem="BRo-Mt-xKZ" secondAttribute="trailing" constant="8" id="she-JI-0ke"/>
+                            <constraint firstAttribute="trailing" secondItem="jbs-uJ-sbm" secondAttribute="trailing" constant="14" id="xBa-Sk-qTQ"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X89-B1-aAd" userLabel="Avatar container">
@@ -157,4 +156,7 @@
             <point key="canvasLocation" x="371" y="145"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="checkmark.png" width="13" height="10"/>
+    </resources>
 </document>
