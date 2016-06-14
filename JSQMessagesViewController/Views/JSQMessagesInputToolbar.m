@@ -33,6 +33,12 @@ static void * kJSQMessagesInputToolbarKeyValueObservingContext = &kJSQMessagesIn
 
 @property (assign, nonatomic) BOOL jsq_isObserving;
 
+@property (assign, nonatomic) CGFloat topConstraintConstantWithAttachment;
+
+@property (assign, nonatomic) CGFloat topConstraintConstant;
+
+@property (assign, nonatomic) CGFloat imageWidthConstant;
+
 @end
 
 
@@ -59,7 +65,11 @@ static void * kJSQMessagesInputToolbarKeyValueObservingContext = &kJSQMessagesIn
     [self jsq_pinAllEdgesOfSubview:toolbarContentView];
     [self setNeedsUpdateConstraints];
     _contentView = toolbarContentView;
-
+    self.topConstraintConstant = 8.0;
+    self.topConstraintConstantWithAttachment = self.contentView.topConstraint.constant;
+    self.imageWidthConstant = self.contentView.imageViewWidthConstraint.constant;
+    [self prepareAttachmentView];
+    [self hideAttachment];
     [self jsq_addObservers];
 
     JSQMessagesToolbarButtonFactory *toolbarButtonFactory = [[JSQMessagesToolbarButtonFactory alloc] initWithFont:[UIFont boldSystemFontOfSize:17.0]];
@@ -186,6 +196,46 @@ static void * kJSQMessagesInputToolbarKeyValueObservingContext = &kJSQMessagesIn
     @catch (NSException *__unused exception) { }
     
     _jsq_isObserving = NO;
+}
+
+#pragma mark - Attachment 
+
+- (void) prepareAttachmentView {
+    self.contentView.attachmentImageView.image = nil;
+    self.contentView.attachmentTitle.text = @"";
+    self.contentView.attachmentSubtitle.text = @"";
+    
+    __weak typeof(self) wSelf = self;
+    self.contentView.closeButtonHandler = ^void(){
+        __strong typeof(self) sSelf = wSelf;
+        [sSelf hideAttachment];
+        if (sSelf.toolbarCloseButtonHandler){
+            sSelf.toolbarCloseButtonHandler();
+        }
+    };
+}
+
+- (BOOL) hasAttachment {
+    return self.contentView.topConstraint.constant == self.topConstraintConstantWithAttachment;
+}
+
+- (void) hideAttachment {
+    self.contentView.attachmentView.hidden = YES;
+    self.contentView.topConstraint.constant = self.topConstraintConstant;
+    [self.superview layoutIfNeeded];
+}
+
+- (void) showAttachmentWithSenderName: (NSString*) name
+                      attachmentTitle: (NSString*) title
+                              preview: (UIImage*) image {
+    CGFloat imageConstant = image != nil ? self.imageWidthConstant : 0.0;
+    self.contentView.topConstraint.constant = self.topConstraintConstantWithAttachment;
+    self.contentView.imageViewWidthConstraint.constant = imageConstant;
+    self.contentView.attachmentView.hidden = NO;
+    self.contentView.attachmentImageView.image = image;
+    self.contentView.attachmentTitle.text = name;
+    self.contentView.attachmentSubtitle.text = title;
+    [self.superview layoutIfNeeded];
 }
 
 @end

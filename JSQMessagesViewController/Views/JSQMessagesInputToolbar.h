@@ -108,6 +108,16 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (JSQMessagesToolbarContentView *)loadToolbarContentView;
 
+@property (copy, nonatomic, nullable) void(^toolbarCloseButtonHandler)();
+
+- (BOOL) hasAttachment;
+
+- (void) hideAttachment;
+
+- (void) showAttachmentWithSenderName: (NSString*) name
+                      attachmentTitle: (NSString*) title
+                              preview: (nullable UIImage*) image;
+
 @end
 
 NS_ASSUME_NONNULL_END

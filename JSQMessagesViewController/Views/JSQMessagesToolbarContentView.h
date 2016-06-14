@@ -122,6 +122,24 @@ FOUNDATION_EXPORT const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingD
  */
 + (UINib *)nib;
 
+#pragma mark - Attachment
+
+@property (copy, nonatomic, nullable) void(^closeButtonHandler)();
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewWidthConstraint;
+
+@property (weak, nonatomic, readonly, nullable) IBOutlet UIView *attachmentView;
+
+@property (weak, nonatomic, readonly, nullable) IBOutlet UIView *attachmentSeparator;
+
+@property (weak, nonatomic, readonly, nullable) IBOutlet UIImageView *attachmentImageView;
+
+@property (weak, nonatomic, readonly, nullable) IBOutlet UILabel *attachmentTitle;
+
+@property (weak, nonatomic, readonly, nullable) IBOutlet UILabel *attachmentSubtitle;
+
 @end
 
 NS_ASSUME_NONNULL_END

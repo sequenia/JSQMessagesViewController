@@ -189,4 +189,12 @@ const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingDefault = 8.0f;
     [self.textView setNeedsDisplay];
 }
 
+#pragma mark - Attachment
+
+- (IBAction) closeButtonTapped:(id)sender {
+    if (self.closeButtonHandler){
+        self.closeButtonHandler();
+    }
+}
+
 @end
