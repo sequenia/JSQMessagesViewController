@@ -175,6 +175,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (weak, nonatomic, readonly, nullable) UITapGestureRecognizer *tapGestureRecognizer;
 
+- (void) setAvatarImageViewHidden: (BOOL) hidden;
+
 #pragma mark - Class methods
 
 /**

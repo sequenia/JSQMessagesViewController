@@ -130,15 +130,15 @@ FOUNDATION_EXPORT const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingD
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewWidthConstraint;
 
-@property (weak, nonatomic, readonly, nullable) IBOutlet UIView *attachmentView;
+@property (weak, nonatomic, nullable) IBOutlet UIView *attachmentView;
 
-@property (weak, nonatomic, readonly, nullable) IBOutlet UIView *attachmentSeparator;
+@property (weak, nonatomic, nullable) IBOutlet UIView *attachmentSeparator;
 
-@property (weak, nonatomic, readonly, nullable) IBOutlet UIImageView *attachmentImageView;
+@property (weak, nonatomic, nullable) IBOutlet UIImageView *attachmentImageView;
 
-@property (weak, nonatomic, readonly, nullable) IBOutlet UILabel *attachmentTitle;
+@property (weak, nonatomic, nullable) IBOutlet UILabel *attachmentTitle;
 
-@property (weak, nonatomic, readonly, nullable) IBOutlet UILabel *attachmentSubtitle;
+@property (weak, nonatomic, nullable) IBOutlet UILabel *attachmentSubtitle;
 
 @end
 

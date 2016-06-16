@@ -63,6 +63,8 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 
 @property (weak, nonatomic, readwrite) UITapGestureRecognizer *tapGestureRecognizer;
 
+@property (assign, nonatomic) CGSize originAvatarSize;
+
 - (void)jsq_handleTapGesture:(UITapGestureRecognizer *)tap;
 
 - (void)jsq_updateConstraint:(NSLayoutConstraint *)constraint withConstant:(CGFloat)constant;
@@ -153,6 +155,16 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 
 #pragma mark - Collection view cell
 
+- (void) setAvatarImageViewHidden: (BOOL) hidden
+{
+    CGFloat widthConstant = hidden ? 0.0 : self.originAvatarSize.width;
+    if (widthConstant == self.avatarViewSize.width){
+        return;
+    }
+    self.avatarContainerViewWidthConstraint.constant = widthConstant;
+    [self layoutIfNeeded];
+}
+
 - (void)prepareForReuse
 {
     [super prepareForReuse];
@@ -169,6 +181,8 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     self.avatarImageView.highlightedImage = nil;
     
     self.messageBubbleTimeLabel.text = nil;
+    
+    [self setAvatarImageViewHidden: NO];
 }
 
 - (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes
@@ -297,7 +311,7 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     if (CGSizeEqualToSize(avatarViewSize, self.avatarViewSize)) {
         return;
     }
-
+    self.originAvatarSize = avatarViewSize;
     [self jsq_updateConstraint:self.avatarContainerViewWidthConstraint withConstant:avatarViewSize.width];
     [self jsq_updateConstraint:self.avatarContainerViewHeightConstraint withConstant:avatarViewSize.height];
 }
