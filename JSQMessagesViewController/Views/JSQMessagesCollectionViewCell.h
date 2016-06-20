@@ -90,6 +90,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JSQMessagesCollectionViewCell : UICollectionViewCell
 
 /**
+ *  Returns the background view for the time label and status image views
+ */
+@property (weak, nonatomic, readonly) UIView* messageBubbleTimeLabelBackground;
+
+/**
  *  Returns the label that is pinned to the right bottom corner of the message bubble
  *  This label is most commonly used to display message time
  */

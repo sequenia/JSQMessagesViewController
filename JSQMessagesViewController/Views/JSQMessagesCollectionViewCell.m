@@ -30,6 +30,7 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 
 @interface JSQMessagesCollectionViewCell ()
 
+@property (weak, nonatomic) IBOutlet UIView* messageBubbleTimeLabelBackground;
 @property (weak, nonatomic) IBOutlet JSQMessagesLabel *messageBubbleTimeLabel;
 
 @property (weak, nonatomic) IBOutlet JSQMessagesLabel *cellTopLabel;
@@ -129,6 +130,10 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 
     self.cellBottomLabel.font = [UIFont systemFontOfSize:11.0f];
     self.cellBottomLabel.textColor = [UIColor lightGrayColor];
+    
+    self.messageBubbleTimeLabelBackground.clipsToBounds = YES;
+    self.messageBubbleTimeLabelBackground.layer.cornerRadius = 5.0;
+    self.messageBubbleTimeLabelBackground.hidden = YES;
 
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jsq_handleTapGesture:)];
     [self addGestureRecognizer:tap];
@@ -181,6 +186,8 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     self.avatarImageView.highlightedImage = nil;
     
     self.messageBubbleTimeLabel.text = nil;
+    self.messageBubbleTimeLabelBackground.hidden = YES;
+    self.messageBubbleTimeLabel.hidden = NO;
     
     [self setAvatarImageViewHidden: NO];
 }
@@ -336,7 +343,7 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     [mediaView setTranslatesAutoresizingMaskIntoConstraints:NO];
     mediaView.frame = self.messageBubbleContainerView.bounds;
 
-    [self.messageBubbleContainerView addSubview:mediaView];
+    [self.messageBubbleContainerView insertSubview: mediaView  atIndex: 0];
     [self.messageBubbleContainerView jsq_pinAllEdgesOfSubview:mediaView];
     _mediaView = mediaView;
 
@@ -345,7 +352,8 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     //  thus, remove any additional subviews hidden behind the new media view
     dispatch_async(dispatch_get_main_queue(), ^{
         for (NSUInteger i = 0; i < self.messageBubbleContainerView.subviews.count; i++) {
-            if (self.messageBubbleContainerView.subviews[i] != _mediaView) {
+            if (self.messageBubbleContainerView.subviews[i] != _mediaView &&
+                self.messageBubbleContainerView.subviews[i].tag < 1000) {
                 [self.messageBubbleContainerView.subviews[i] removeFromSuperview];
             }
         }

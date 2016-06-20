@@ -45,14 +45,18 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BRo-Mt-xKZ" userLabel="Time Label" customClass="JSQMessagesLabel">
-                                <rect key="frame" x="209" y="74" width="0.0" height="0.0"/>
+                            <view alpha="0.5" tag="1000" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Iq-K2-Lfu" userLabel="Time Background">
+                                <rect key="frame" x="188" y="65" width="44" height="19"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="15" placeholderIntrinsicHeight="15" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BRo-Mt-xKZ" userLabel="Time Label" customClass="JSQMessagesLabel">
+                                <rect key="frame" x="192" y="67" width="15" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.png" translatesAutoresizingMaskIntoConstraints="NO" id="jbs-uJ-sbm" userLabel="Status Image View">
-                                <rect key="frame" x="217" y="67" width="13" height="15"/>
+                            <imageView userInteractionEnabled="NO" tag="1000" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.png" translatesAutoresizingMaskIntoConstraints="NO" id="jbs-uJ-sbm" userLabel="Status Image View">
+                                <rect key="frame" x="215" y="67" width="13" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="Jma-Ma-Zep"/>
                                 </constraints>
@@ -60,10 +64,13 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="2Iq-K2-Lfu" firstAttribute="top" secondItem="BRo-Mt-xKZ" secondAttribute="top" constant="-2" id="4Bb-MF-Inf"/>
                             <constraint firstItem="vLY-aM-0Dr" firstAttribute="leading" secondItem="2zh-vR-QJW" secondAttribute="leading" id="7rI-Nc-AK3"/>
                             <constraint firstAttribute="trailing" secondItem="2qm-c6-OZf" secondAttribute="trailing" id="AEu-1l-tqh"/>
                             <constraint firstItem="2qm-c6-OZf" firstAttribute="top" secondItem="2zh-vR-QJW" secondAttribute="top" id="DbW-Cx-zOW"/>
+                            <constraint firstItem="2Iq-K2-Lfu" firstAttribute="trailing" secondItem="jbs-uJ-sbm" secondAttribute="trailing" constant="4" id="ETg-YS-7VD"/>
                             <constraint firstItem="2qm-c6-OZf" firstAttribute="leading" secondItem="2zh-vR-QJW" secondAttribute="leading" id="H1H-yn-Raq"/>
+                            <constraint firstItem="2Iq-K2-Lfu" firstAttribute="bottom" secondItem="BRo-Mt-xKZ" secondAttribute="bottom" constant="2" id="Lfn-tz-9dR"/>
                             <constraint firstItem="vLY-aM-0Dr" firstAttribute="top" secondItem="2zh-vR-QJW" secondAttribute="top" id="RiG-21-Bqc"/>
                             <constraint firstAttribute="bottom" secondItem="vLY-aM-0Dr" secondAttribute="bottom" id="UbF-Bl-Q7v"/>
                             <constraint firstAttribute="bottom" secondItem="jbs-uJ-sbm" secondAttribute="bottom" constant="12" id="VrL-6I-Uly"/>
@@ -71,8 +78,9 @@
                             <constraint firstAttribute="trailing" secondItem="vLY-aM-0Dr" secondAttribute="trailing" constant="6" id="aVg-yy-8K7"/>
                             <constraint firstAttribute="width" constant="244" id="imD-52-K45"/>
                             <constraint firstAttribute="bottom" secondItem="2qm-c6-OZf" secondAttribute="bottom" id="lts-Ve-wSh"/>
+                            <constraint firstItem="2Iq-K2-Lfu" firstAttribute="leading" secondItem="BRo-Mt-xKZ" secondAttribute="leading" constant="-4" id="m6Q-dO-nW6"/>
                             <constraint firstItem="jbs-uJ-sbm" firstAttribute="leading" secondItem="BRo-Mt-xKZ" secondAttribute="trailing" constant="8" id="she-JI-0ke"/>
-                            <constraint firstAttribute="trailing" secondItem="jbs-uJ-sbm" secondAttribute="trailing" constant="14" id="xBa-Sk-qTQ"/>
+                            <constraint firstAttribute="trailing" secondItem="jbs-uJ-sbm" secondAttribute="trailing" constant="16" id="xBa-Sk-qTQ"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X89-B1-aAd" userLabel="Avatar container">
@@ -143,6 +151,7 @@
                 <outlet property="messageBubbleContainerWidthConstraint" destination="imD-52-K45" id="Xld-Pa-yJw"/>
                 <outlet property="messageBubbleImageView" destination="2qm-c6-OZf" id="bpy-Gv-jSh"/>
                 <outlet property="messageBubbleTimeLabel" destination="BRo-Mt-xKZ" id="izk-xl-kUj"/>
+                <outlet property="messageBubbleTimeLabelBackground" destination="2Iq-K2-Lfu" id="qOI-bT-tDk"/>
                 <outlet property="messageBubbleTopLabel" destination="p52-YN-yLu" id="SLH-sA-Chu"/>
                 <outlet property="messageBubbleTopLabelHeightConstraint" destination="8TB-va-f8L" id="FNt-BS-Wxi"/>
                 <outlet property="messageInfoButton" destination="Clz-w2-i5n" id="6ig-aM-bWt"/>

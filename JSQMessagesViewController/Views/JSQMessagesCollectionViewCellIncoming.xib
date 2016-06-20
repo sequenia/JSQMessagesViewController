@@ -45,8 +45,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5lq-vt-nFv" userLabel="Time Label" customClass="JSQMessagesLabel">
-                                <rect key="frame" x="236" y="67" width="0.0" height="15"/>
+                            <view alpha="0.5" tag="1000" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1f6-lX-tyr" userLabel="Time Background View">
+                                <rect key="frame" x="198" y="65" width="38" height="19"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="30" placeholderIntrinsicHeight="15" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5lq-vt-nFv" userLabel="Time Label" customClass="JSQMessagesLabel">
+                                <rect key="frame" x="202" y="67" width="30" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="QZR-b1-ED4"/>
                                 </constraints>
@@ -59,12 +63,16 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="KYU-B8-cUW" secondAttribute="trailing" id="4qS-03-PFO"/>
                             <constraint firstAttribute="bottom" secondItem="KYU-B8-cUW" secondAttribute="bottom" id="B2v-Gq-Y1L"/>
+                            <constraint firstItem="1f6-lX-tyr" firstAttribute="leading" secondItem="5lq-vt-nFv" secondAttribute="leading" constant="-4" id="BrI-5Y-viY"/>
                             <constraint firstAttribute="bottom" secondItem="5lq-vt-nFv" secondAttribute="bottom" constant="12" id="Hak-Mb-58a"/>
+                            <constraint firstItem="1f6-lX-tyr" firstAttribute="trailing" secondItem="5lq-vt-nFv" secondAttribute="trailing" constant="4" id="TIa-wQ-JcL"/>
                             <constraint firstAttribute="trailing" secondItem="OCS-Fu-acq" secondAttribute="trailing" id="TdB-8V-aUc"/>
                             <constraint firstItem="KYU-B8-cUW" firstAttribute="leading" secondItem="btS-p8-B7Z" secondAttribute="leading" constant="6" id="Tg9-9l-vr8"/>
-                            <constraint firstAttribute="trailing" secondItem="5lq-vt-nFv" secondAttribute="trailing" constant="8" id="Wih-dg-1Jg"/>
+                            <constraint firstItem="1f6-lX-tyr" firstAttribute="top" secondItem="5lq-vt-nFv" secondAttribute="top" constant="-2" id="UDs-1H-DWd"/>
+                            <constraint firstAttribute="trailing" secondItem="5lq-vt-nFv" secondAttribute="trailing" constant="12" id="Wih-dg-1Jg"/>
                             <constraint firstItem="KYU-B8-cUW" firstAttribute="top" secondItem="btS-p8-B7Z" secondAttribute="top" id="aEL-yH-N1p"/>
                             <constraint firstAttribute="bottom" secondItem="OCS-Fu-acq" secondAttribute="bottom" id="aJ4-ZD-tk9"/>
+                            <constraint firstItem="1f6-lX-tyr" firstAttribute="bottom" secondItem="5lq-vt-nFv" secondAttribute="bottom" constant="2" id="kjn-7f-Seq"/>
                             <constraint firstItem="OCS-Fu-acq" firstAttribute="leading" secondItem="btS-p8-B7Z" secondAttribute="leading" id="qpQ-dc-2V5"/>
                             <constraint firstAttribute="width" constant="244" id="stE-iz-VHo"/>
                             <constraint firstItem="OCS-Fu-acq" firstAttribute="top" secondItem="btS-p8-B7Z" secondAttribute="top" id="zTa-8g-VY4"/>
@@ -130,6 +138,7 @@
                 <outlet property="messageBubbleContainerWidthConstraint" destination="stE-iz-VHo" id="lle-iT-67d"/>
                 <outlet property="messageBubbleImageView" destination="OCS-Fu-acq" id="OuN-5t-30g"/>
                 <outlet property="messageBubbleTimeLabel" destination="5lq-vt-nFv" id="JM1-5a-rXf"/>
+                <outlet property="messageBubbleTimeLabelBackground" destination="1f6-lX-tyr" id="pD3-2H-ywg"/>
                 <outlet property="messageBubbleTopLabel" destination="Ufa-bF-l1Y" id="VtH-te-blR"/>
                 <outlet property="messageBubbleTopLabelHeightConstraint" destination="fal-sy-hrK" id="kgv-NO-Gud"/>
                 <outlet property="textView" destination="KYU-B8-cUW" id="1Yv-ln-EUZ"/>
