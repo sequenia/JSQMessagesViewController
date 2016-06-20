@@ -202,6 +202,7 @@ static void * kJSQMessagesInputToolbarKeyValueObservingContext = &kJSQMessagesIn
 
 - (void) prepareAttachmentView {
     self.contentView.attachmentImageView.image = nil;
+    self.contentView.attachmentImageView.layer.cornerRadius = 5.0;
     self.contentView.attachmentTitle.text = @"";
     self.contentView.attachmentSubtitle.text = @"";
     
@@ -233,6 +234,7 @@ static void * kJSQMessagesInputToolbarKeyValueObservingContext = &kJSQMessagesIn
     self.contentView.imageViewWidthConstraint.constant = imageConstant;
     self.contentView.attachmentView.hidden = NO;
     self.contentView.attachmentImageView.image = image;
+    self.contentView.attachmentImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.contentView.attachmentTitle.text = name;
     self.contentView.attachmentSubtitle.text = title;
     [self.superview layoutIfNeeded];
