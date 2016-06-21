@@ -14,6 +14,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TDr-PN-aD4" userLabel="Separator View">
                     <rect key="frame" x="51" y="8" width="2" height="107.5"/>
                     <color key="backgroundColor" red="0.29976126959999999" green="0.68824669679999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <accessibility key="accessibilityConfiguration" identifier="Separator View"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="2" id="9Fa-UD-oWW"/>
                     </constraints>
@@ -21,6 +22,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FEb-S7-Jgv" userLabel="File View">
                     <rect key="frame" x="8" y="44" width="35" height="35"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <accessibility key="accessibilityConfiguration" identifier="File View"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="FEb-S7-Jgv" secondAttribute="height" multiplier="1:1" id="ZWJ-8i-udr"/>
                         <constraint firstAttribute="width" constant="35" id="ehc-fs-ERo"/>
@@ -68,11 +70,11 @@
                 <constraint firstItem="PmS-o3-5F3" firstAttribute="leading" secondItem="TDr-PN-aD4" secondAttribute="trailing" constant="8" id="2Xc-uy-pRE"/>
                 <constraint firstItem="TDr-PN-aD4" firstAttribute="leading" secondItem="FEb-S7-Jgv" secondAttribute="trailing" constant="8" id="IHu-5E-EgW"/>
                 <constraint firstItem="PmS-o3-5F3" firstAttribute="top" secondItem="VtF-9Y-HiD" secondAttribute="bottom" id="KD9-bw-o9X"/>
-                <constraint firstItem="TDr-PN-aD4" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="UAW-Qs-rgn"/>
+                <constraint firstItem="TDr-PN-aD4" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" priority="750" constant="8" id="UAW-Qs-rgn"/>
                 <constraint firstItem="tLN-AI-arW" firstAttribute="leading" secondItem="TDr-PN-aD4" secondAttribute="trailing" constant="8" id="VHa-nk-BlE"/>
                 <constraint firstItem="nUc-SD-cWW" firstAttribute="top" secondItem="PmS-o3-5F3" secondAttribute="bottom" id="XRh-xF-L6G"/>
                 <constraint firstItem="tLN-AI-arW" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="YRE-wf-LKX"/>
-                <constraint firstAttribute="bottom" secondItem="TDr-PN-aD4" secondAttribute="bottom" constant="8" id="ksF-vZ-RpZ"/>
+                <constraint firstAttribute="bottom" secondItem="TDr-PN-aD4" secondAttribute="bottom" priority="750" constant="8" id="ksF-vZ-RpZ"/>
                 <constraint firstAttribute="trailing" secondItem="VtF-9Y-HiD" secondAttribute="trailing" constant="7" id="mlw-BA-0gS"/>
                 <constraint firstItem="VtF-9Y-HiD" firstAttribute="top" secondItem="tLN-AI-arW" secondAttribute="bottom" id="riq-qx-byR"/>
                 <constraint firstItem="nUc-SD-cWW" firstAttribute="leading" secondItem="TDr-PN-aD4" secondAttribute="trailing" constant="8" id="rpy-NW-RPx"/>

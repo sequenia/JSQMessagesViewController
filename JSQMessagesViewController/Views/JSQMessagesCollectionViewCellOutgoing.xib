@@ -39,10 +39,11 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2qm-c6-OZf" userLabel="Bubble Image View">
                                 <rect key="frame" x="0.0" y="0.0" width="244" height="94"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zeW-UE-5Na" userLabel="Attachment View">
+                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="zeW-UE-5Na" userLabel="Attachment View">
                                 <rect key="frame" x="0.0" y="0.0" width="238" height="20"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Attachment Container"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="Ktg-jS-wGs"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="20" id="Ktg-jS-wGs"/>
                                 </constraints>
                             </view>
                             <view alpha="0.5" tag="1000" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Iq-K2-Lfu" userLabel="Time Background">

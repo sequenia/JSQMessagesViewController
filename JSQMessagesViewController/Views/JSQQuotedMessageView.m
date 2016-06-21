@@ -51,7 +51,7 @@
         height += CGRectGetHeight(subview.bounds);
     }
     height += verticalPaddings;
-    return height;
+    return ceilf(height);
 }
 
 + (CGFloat) viewHeightForWidth: (CGFloat) width withData: (id<JSQMessageData>) data {
@@ -77,7 +77,7 @@
                                               font: view.dateLabel.font
                                               text: [data sentDateDescription]];
     CGFloat totalHeight = verticalPaddings + senderHeight + contentHeight + fileSizeHeight + dateHeight;
-    return totalHeight;
+    return ceilf(totalHeight);
 }
 
 + (CGFloat) labelHeightForWidth: (CGFloat) width font: (UIFont*) font text: (NSString*) text {
