@@ -33,5 +33,7 @@
 
 - (CGFloat) contentHeight;
 
+- (void) setHiddenFileView: (BOOL) hidden animated: (BOOL) animated;
+
 
 @end

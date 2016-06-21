@@ -97,6 +97,7 @@
                 <outlet property="dateLabel" destination="nUc-SD-cWW" id="gei-xa-xlp"/>
                 <outlet property="fileSizeLabel" destination="PmS-o3-5F3" id="fd5-nK-LWH"/>
                 <outlet property="fileView" destination="FEb-S7-Jgv" id="jzN-05-23P"/>
+                <outlet property="fileViewWidthConstraint" destination="ehc-fs-ERo" id="jiU-Xe-skc"/>
                 <outlet property="senderDisplayNameLabel" destination="tLN-AI-arW" id="PU4-tB-kVr"/>
                 <outlet property="separatorView" destination="TDr-PN-aD4" id="iU6-QC-gYd"/>
             </connections>

@@ -8,6 +8,14 @@
 
 #import "JSQQuotedMessageView.h"
 
+@interface JSQQuotedMessageView ()
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint* fileViewWidthConstraint;
+
+@property (assign, nonatomic) CGFloat fileViewNormalWidth;
+
+@end
+
 @implementation JSQQuotedMessageView
 
 + (instancetype) qoutedMessageView {
@@ -21,13 +29,26 @@
     self.senderDisplayNameLabel.text = [messageData senderDisplayName];
     self.contentLabel.text = [messageData text];
     self.dateLabel.text = [messageData sentDateDescription];
+    BOOL hideFileView = ![messageData isMediaMessage];
+    [self setHiddenFileView: hideFileView animated: NO];
     if ([messageData isMediaMessage]){
-        //TODO: Configure quoted message for media item
+        
     }
+}
+
+- (void) setHiddenFileView: (BOOL) hidden animated: (BOOL) animated {
+    CGFloat width = hidden ? 0.0 : self.fileViewNormalWidth;
+    CGFloat duration = animated ? 0.3 : 0.0;
+    self.fileViewWidthConstraint.constant = width;
+    [UIView animateWithDuration: duration
+                     animations:^{
+                         [self layoutIfNeeded];
+                     }];
 }
 
 - (void) awakeFromNib {
     [super awakeFromNib];
+    self.fileViewNormalWidth = CGRectGetWidth(self.fileView.bounds);
     [self configureAppearance];
 }
 
