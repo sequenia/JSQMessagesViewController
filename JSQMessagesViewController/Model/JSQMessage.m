@@ -138,6 +138,10 @@
     return [self.media mediaView] ?: [self.media mediaPlaceholderView];
 }
 
+- (NSString *)sentDateDescription {
+    return [self.date description];
+}
+
 #pragma mark - NSCoding
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder

@@ -39,12 +39,12 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2qm-c6-OZf" userLabel="Bubble Image View">
                                 <rect key="frame" x="0.0" y="0.0" width="244" height="94"/>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vLY-aM-0Dr" customClass="JSQMessagesCellTextView">
-                                <rect key="frame" x="0.0" y="0.0" width="238" height="94"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zeW-UE-5Na" userLabel="Attachment View">
+                                <rect key="frame" x="0.0" y="0.0" width="238" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="Ktg-jS-wGs"/>
+                                </constraints>
+                            </view>
                             <view alpha="0.5" tag="1000" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Iq-K2-Lfu" userLabel="Time Background">
                                 <rect key="frame" x="188" y="65" width="44" height="19"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -61,6 +61,12 @@
                                     <constraint firstAttribute="height" constant="15" id="Jma-Ma-Zep"/>
                                 </constraints>
                             </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vLY-aM-0Dr" customClass="JSQMessagesCellTextView">
+                                <rect key="frame" x="0.0" y="20" width="238" height="74"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -70,16 +76,19 @@
                             <constraint firstItem="2qm-c6-OZf" firstAttribute="top" secondItem="2zh-vR-QJW" secondAttribute="top" id="DbW-Cx-zOW"/>
                             <constraint firstItem="2Iq-K2-Lfu" firstAttribute="trailing" secondItem="jbs-uJ-sbm" secondAttribute="trailing" constant="4" id="ETg-YS-7VD"/>
                             <constraint firstItem="2qm-c6-OZf" firstAttribute="leading" secondItem="2zh-vR-QJW" secondAttribute="leading" id="H1H-yn-Raq"/>
+                            <constraint firstItem="vLY-aM-0Dr" firstAttribute="top" secondItem="zeW-UE-5Na" secondAttribute="bottom" id="I8o-85-g3A"/>
                             <constraint firstItem="2Iq-K2-Lfu" firstAttribute="bottom" secondItem="BRo-Mt-xKZ" secondAttribute="bottom" constant="2" id="Lfn-tz-9dR"/>
-                            <constraint firstItem="vLY-aM-0Dr" firstAttribute="top" secondItem="2zh-vR-QJW" secondAttribute="top" id="RiG-21-Bqc"/>
                             <constraint firstAttribute="bottom" secondItem="vLY-aM-0Dr" secondAttribute="bottom" id="UbF-Bl-Q7v"/>
                             <constraint firstAttribute="bottom" secondItem="jbs-uJ-sbm" secondAttribute="bottom" constant="12" id="VrL-6I-Uly"/>
                             <constraint firstItem="BRo-Mt-xKZ" firstAttribute="centerY" secondItem="jbs-uJ-sbm" secondAttribute="centerY" id="XoS-73-fgg"/>
                             <constraint firstAttribute="trailing" secondItem="vLY-aM-0Dr" secondAttribute="trailing" constant="6" id="aVg-yy-8K7"/>
+                            <constraint firstItem="zeW-UE-5Na" firstAttribute="leading" secondItem="2zh-vR-QJW" secondAttribute="leading" id="dPN-Rw-yWH"/>
                             <constraint firstAttribute="width" constant="244" id="imD-52-K45"/>
                             <constraint firstAttribute="bottom" secondItem="2qm-c6-OZf" secondAttribute="bottom" id="lts-Ve-wSh"/>
                             <constraint firstItem="2Iq-K2-Lfu" firstAttribute="leading" secondItem="BRo-Mt-xKZ" secondAttribute="leading" constant="-4" id="m6Q-dO-nW6"/>
+                            <constraint firstAttribute="trailing" secondItem="zeW-UE-5Na" secondAttribute="trailing" constant="6" id="oQF-uQ-9uT"/>
                             <constraint firstItem="jbs-uJ-sbm" firstAttribute="leading" secondItem="BRo-Mt-xKZ" secondAttribute="trailing" constant="8" id="she-JI-0ke"/>
+                            <constraint firstItem="zeW-UE-5Na" firstAttribute="top" secondItem="2zh-vR-QJW" secondAttribute="top" id="wAP-QM-Kjy"/>
                             <constraint firstAttribute="trailing" secondItem="jbs-uJ-sbm" secondAttribute="trailing" constant="16" id="xBa-Sk-qTQ"/>
                         </constraints>
                     </view>
@@ -111,7 +120,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Clz-w2-i5n" userLabel="Info Button">
-                        <rect key="frame" x="14" y="76" width="22" height="22"/>
+                        <rect key="frame" x="14" y="86" width="22" height="22"/>
                         <connections>
                             <action selector="tapInfoButton:" destination="23f-xH-rkY" eventType="touchUpInside" id="4Io-m3-E1h"/>
                         </connections>
@@ -160,7 +169,8 @@
                 <outlet property="textViewAvatarHorizontalSpaceConstraint" destination="aVg-yy-8K7" id="CIe-Bi-eng"/>
                 <outlet property="textViewBottomVerticalSpaceConstraint" destination="UbF-Bl-Q7v" id="KHP-49-3u4"/>
                 <outlet property="textViewMarginHorizontalSpaceConstraint" destination="7rI-Nc-AK3" id="ciu-j6-IpH"/>
-                <outlet property="textViewTopVerticalSpaceConstraint" destination="RiG-21-Bqc" id="i3j-z0-feE"/>
+                <outlet property="topBubbleView" destination="zeW-UE-5Na" id="s4M-US-5x5"/>
+                <outlet property="topBubbleViewHeightConstraint" destination="Ktg-jS-wGs" id="uEH-bj-9Ch"/>
             </connections>
             <point key="canvasLocation" x="371" y="145"/>
         </collectionViewCell>

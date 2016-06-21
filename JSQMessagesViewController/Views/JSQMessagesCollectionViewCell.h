@@ -21,7 +21,8 @@
 #import "JSQMessagesLabel.h"
 #import "JSQMessagesCellTextView.h"
 
-@class JSQMessagesCollectionViewCell;
+@class JSQMessagesCollectionViewCell, JSQQuotedMessageView;
+@protocol JSQMessageData;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -88,6 +89,14 @@ NS_ASSUME_NONNULL_BEGIN
  *  @see JSQMessagesCollectionViewCellOutgoing.
  */
 @interface JSQMessagesCollectionViewCell : UICollectionViewCell
+
+- (void) showQuotedViewWithData: (id<JSQMessageData>) data;
+
+- (void) hideQuotedView;
+
+@property (weak, nonatomic, readwrite) JSQQuotedMessageView* quotedView;
+
+@property (weak, nonatomic, readwrite) IBOutlet UIView* topBubbleView;
 
 /**
  *  Returns the background view for the time label and status image views

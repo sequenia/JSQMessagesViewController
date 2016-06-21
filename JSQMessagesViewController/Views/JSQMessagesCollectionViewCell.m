@@ -23,13 +23,14 @@
 #import "JSQMessagesCollectionViewLayoutAttributes.h"
 
 #import "UIView+JSQMessages.h"
-
+#import "JSQQuotedMessageView.h"
 
 static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 
 
 @interface JSQMessagesCollectionViewCell ()
 
+@property (weak, nonatomic, readwrite) IBOutlet NSLayoutConstraint* topBubbleViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet UIView* messageBubbleTimeLabelBackground;
 @property (weak, nonatomic) IBOutlet JSQMessagesLabel *messageBubbleTimeLabel;
 
@@ -134,6 +135,13 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     self.messageBubbleTimeLabelBackground.clipsToBounds = YES;
     self.messageBubbleTimeLabelBackground.layer.cornerRadius = 5.0;
     self.messageBubbleTimeLabelBackground.hidden = YES;
+    
+    JSQQuotedMessageView* quotedView = [JSQQuotedMessageView qoutedMessageView];
+    quotedView.translatesAutoresizingMaskIntoConstraints = NO;
+    quotedView.backgroundColor= [UIColor clearColor];
+    [self.topBubbleView addSubview: quotedView];
+    [self.topBubbleView jsq_pinAllEdgesOfSubview: quotedView];
+    self.quotedView = quotedView;
 
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jsq_handleTapGesture:)];
     [self addGestureRecognizer:tap];
@@ -159,6 +167,18 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 }
 
 #pragma mark - Collection view cell
+
+- (void) showQuotedViewWithData: (id<JSQMessageData>) data {
+    [self.quotedView configureWithMessageData: data];
+    self.topBubbleViewHeightConstraint.constant = [self.quotedView contentHeight];
+    
+    self.topBubbleView.hidden = NO;
+}
+
+- (void) hideQuotedView {
+    self.topBubbleViewHeightConstraint.constant = 0;
+    self.topBubbleView.hidden = YES;
+}
 
 - (void) setAvatarImageViewHidden: (BOOL) hidden
 {

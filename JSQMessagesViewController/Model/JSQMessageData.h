@@ -83,7 +83,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSUInteger)messageHash;
 
+- (NSString*)sentDateDescription;
+
 @optional
+
+- (CGFloat)quotedMessageViewHeightForWidth:(CGFloat)width;
+
+- (id<JSQMessageData>)quotedMessage;
 
 /**
  *  @return The body text of the message.

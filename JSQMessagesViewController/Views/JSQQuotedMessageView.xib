@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="JSQQuotedMessageView">
+            <rect key="frame" x="0.0" y="0.0" width="305" height="123.5"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TDr-PN-aD4" userLabel="Separator View">
+                    <rect key="frame" x="51" y="8" width="2" height="107.5"/>
+                    <color key="backgroundColor" red="0.29976126959999999" green="0.68824669679999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="2" id="9Fa-UD-oWW"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FEb-S7-Jgv" userLabel="File View">
+                    <rect key="frame" x="8" y="44" width="35" height="35"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="FEb-S7-Jgv" secondAttribute="height" multiplier="1:1" id="ZWJ-8i-udr"/>
+                        <constraint firstAttribute="width" constant="35" id="ehc-fs-ERo"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sender Display Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tLN-AI-arW">
+                    <rect key="frame" x="61" y="8" width="237" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="ELX-M7-HYa"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" text="Conent Label (If your table view has more than a couple dozen rows in it)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VtF-9Y-HiD">
+                    <rect key="frame" x="61" y="29" width="237" height="61"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="dzA-sX-2g5"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.37647058823529411" green="0.49019607843137253" blue="0.54509803921568623" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="dzA-sX-2g5"/>
+                        </mask>
+                    </variation>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nUc-SD-cWW">
+                    <rect key="frame" x="61" y="103" width="236" height="14"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="File Size Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PmS-o3-5F3">
+                    <rect key="frame" x="61" y="90" width="237" height="13.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <color key="textColor" red="0.37647058823529411" green="0.49019607843137253" blue="0.54509803921568623" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="FEb-S7-Jgv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="0L4-NS-ZQH"/>
+                <constraint firstItem="PmS-o3-5F3" firstAttribute="leading" secondItem="TDr-PN-aD4" secondAttribute="trailing" constant="8" id="2Xc-uy-pRE"/>
+                <constraint firstItem="TDr-PN-aD4" firstAttribute="leading" secondItem="FEb-S7-Jgv" secondAttribute="trailing" constant="8" id="IHu-5E-EgW"/>
+                <constraint firstItem="PmS-o3-5F3" firstAttribute="top" secondItem="VtF-9Y-HiD" secondAttribute="bottom" id="KD9-bw-o9X"/>
+                <constraint firstItem="TDr-PN-aD4" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="UAW-Qs-rgn"/>
+                <constraint firstItem="tLN-AI-arW" firstAttribute="leading" secondItem="TDr-PN-aD4" secondAttribute="trailing" constant="8" id="VHa-nk-BlE"/>
+                <constraint firstItem="nUc-SD-cWW" firstAttribute="top" secondItem="PmS-o3-5F3" secondAttribute="bottom" id="XRh-xF-L6G"/>
+                <constraint firstItem="tLN-AI-arW" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="YRE-wf-LKX"/>
+                <constraint firstAttribute="bottom" secondItem="TDr-PN-aD4" secondAttribute="bottom" constant="8" id="ksF-vZ-RpZ"/>
+                <constraint firstAttribute="trailing" secondItem="VtF-9Y-HiD" secondAttribute="trailing" constant="7" id="mlw-BA-0gS"/>
+                <constraint firstItem="VtF-9Y-HiD" firstAttribute="top" secondItem="tLN-AI-arW" secondAttribute="bottom" id="riq-qx-byR"/>
+                <constraint firstItem="nUc-SD-cWW" firstAttribute="leading" secondItem="TDr-PN-aD4" secondAttribute="trailing" constant="8" id="rpy-NW-RPx"/>
+                <constraint firstItem="FEb-S7-Jgv" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="vlz-EW-ye3"/>
+                <constraint firstAttribute="trailing" secondItem="tLN-AI-arW" secondAttribute="trailing" constant="7" id="wPx-we-akM"/>
+                <constraint firstAttribute="bottom" secondItem="nUc-SD-cWW" secondAttribute="bottom" constant="8" id="wZd-BJ-nXw"/>
+                <constraint firstItem="VtF-9Y-HiD" firstAttribute="leading" secondItem="TDr-PN-aD4" secondAttribute="trailing" constant="8" id="ysn-T3-2SW"/>
+                <constraint firstAttribute="trailing" secondItem="nUc-SD-cWW" secondAttribute="trailing" constant="8" id="zDH-Dk-Ud1"/>
+                <constraint firstAttribute="trailing" secondItem="PmS-o3-5F3" secondAttribute="trailing" constant="7" id="zV2-Ya-cTw"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="wZd-BJ-nXw"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="contentLabel" destination="VtF-9Y-HiD" id="KLM-aR-J7A"/>
+                <outlet property="dateLabel" destination="nUc-SD-cWW" id="gei-xa-xlp"/>
+                <outlet property="fileSizeLabel" destination="PmS-o3-5F3" id="fd5-nK-LWH"/>
+                <outlet property="fileView" destination="FEb-S7-Jgv" id="jzN-05-23P"/>
+                <outlet property="senderDisplayNameLabel" destination="tLN-AI-arW" id="PU4-tB-kVr"/>
+                <outlet property="separatorView" destination="TDr-PN-aD4" id="iU6-QC-gYd"/>
+            </connections>
+            <point key="canvasLocation" x="198.5" y="-70.25"/>
+        </view>
+    </objects>
+</document>

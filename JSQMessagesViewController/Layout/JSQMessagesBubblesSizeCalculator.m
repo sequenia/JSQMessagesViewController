@@ -139,6 +139,11 @@
         CGFloat finalWidth = MAX(stringSize.width + horizontalInsetsTotal, self.minimumBubbleWidth) + self.additionalInset;
 
         finalSize = CGSizeMake(finalWidth, stringSize.height + verticalInsets);
+        
+        if ([messageData quotedMessage]){
+            CGFloat quotedHeight = [messageData quotedMessageViewHeightForWidth: maximumTextWidth];
+            finalSize.height += quotedHeight;
+        }
     }
 
     [self.cache setObject:[NSValue valueWithCGSize:finalSize] forKey:@([messageData messageHash])];
