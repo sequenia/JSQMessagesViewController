@@ -7,6 +7,8 @@
 //
 
 #import "JSQQuotedMessageView.h"
+#import "JSQMessageMediaData.h"
+#import "UIView+JSQMessages.h"
 
 @interface JSQQuotedMessageView ()
 
@@ -27,13 +29,21 @@
 
 - (void) configureWithMessageData: (id<JSQMessageData>) messageData {
     self.senderDisplayNameLabel.text = [messageData senderDisplayName];
-    self.contentLabel.text = [messageData text];
     self.dateLabel.text = [messageData sentDateDescription];
     BOOL hideFileView = ![messageData isMediaMessage];
     [self setHiddenFileView: hideFileView animated: NO];
+    NSString* contentText = [messageData text];
     if ([messageData isMediaMessage]){
-        
+        id<JSQMessageMediaData> media = [messageData media];
+        contentText = [media mediaViewTitle];
+        self.fileSizeLabel.text = [media mediaItemInfo];
+        UIImageView* mediaView = [[UIImageView alloc] initWithImage: [[media mediaView] jsq_image]];
+        mediaView.contentMode = UIViewContentModeScaleAspectFill;
+        [self.fileView addSubview: mediaView];
+        mediaView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.fileView jsq_pinAllEdgesOfSubview: mediaView];
     }
+    self.contentLabel.text = contentText;
 }
 
 - (void) setHiddenFileView: (BOOL) hidden animated: (BOOL) animated {
@@ -57,7 +67,9 @@
     self.contentLabel.text = @"";
     self.fileSizeLabel.text = @"";
     self.dateLabel.text = @"";
-    
+    self.fileView.clipsToBounds = YES;
+    self.fileView.layer.cornerRadius = 5.0;
+    self.fileView.backgroundColor = [UIColor clearColor];
 }
 
 - (CGFloat) contentHeight {
@@ -89,18 +101,21 @@
                                            font: view.senderDisplayNameLabel.font
                                            text: [data senderDisplayName]];
     finalWidth = MAX(finalWidth, senderSize.width);
-    CGSize contentSize = [self labelSizeForWidth: width
-                                            font: view.contentLabel.font
-                                            text: [data text]];
-    finalWidth = MAX(finalWidth, contentSize.width);
+    
     CGSize fileSizeSize = CGSizeZero;
+    NSString* contentText = [data text];
     if ([data isMediaMessage]){
-        //FIXME: Remove `file size placeholder`
+        id<JSQMessageMediaData> media = [data media];
         fileSizeSize = [self labelSizeForWidth: width
                                           font: view.fileSizeLabel.font
-                                          text: @"file size placeholder"];
+                                          text: [media mediaItemInfo]];
+        contentText = [media mediaViewTitle];
+        finalWidth = MAX(finalWidth, fileSizeSize.width);
     }
-    finalWidth = MAX(finalWidth, fileSizeSize.width);
+    CGSize contentSize = [self labelSizeForWidth: width
+                                     font: view.contentLabel.font
+                                     text: contentText];
+    finalWidth = MAX(finalWidth, contentSize.width);
     
     CGSize dateSize = [self labelSizeForWidth: width
                                          font: view.dateLabel.font
@@ -108,7 +123,7 @@
     finalWidth = MAX(finalWidth, dateSize.width);
     
     CGFloat finalHeight = verticalPaddings + senderSize.height + contentSize.height + fileSizeSize.height + dateSize.height;
-    
+    //TODO: Cache the size for better performance
     return CGSizeMake(finalWidth + constantWidth, finalHeight);
 }
 

@@ -82,6 +82,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
+@property (copy, nonatomic, readwrite) NSString* mediaViewTitle;
+
+@property (copy, nonatomic, readwrite) NSString* mediaItemInfo;
+
 /**
  *  @return String which identifies type of the data returned by `mediaData` method.
  *

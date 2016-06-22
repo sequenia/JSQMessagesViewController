@@ -39,4 +39,13 @@
     [self jsq_pinSubview:subview toEdge:NSLayoutAttributeTrailing];
 }
 
+- (UIImage*)jsq_image {
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, 0.0f);
+    [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:NO];
+    UIImage * snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return snapshotImage;
+}
+
+
 @end

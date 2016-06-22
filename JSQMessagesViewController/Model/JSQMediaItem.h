@@ -34,6 +34,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface JSQMediaItem : NSObject <JSQMessageMediaData, NSCoding, NSCopying>
 
+@property (copy, nonatomic, readwrite) NSString* mediaViewTitle;
+
+@property (copy, nonatomic, readwrite) NSString* mediaItemInfo;
+
 /**
  *  A boolean value indicating whether this media item should apply
  *  an outgoing or incoming bubble image mask to its media views.

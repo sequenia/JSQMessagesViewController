@@ -37,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)jsq_pinAllEdgesOfSubview:(UIView *)subview;
 
+- (UIImage*)jsq_image;
 @end
 
 NS_ASSUME_NONNULL_END
