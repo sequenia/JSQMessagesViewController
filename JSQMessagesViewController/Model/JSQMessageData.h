@@ -87,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
-- (CGFloat)quotedMessageViewHeightForWidth:(CGFloat)width;
+- (CGSize)quotedMessageViewSizeForWidth:(CGFloat)width;
 
 - (id<JSQMessageData>)quotedMessage;
 

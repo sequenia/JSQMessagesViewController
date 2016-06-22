@@ -27,7 +27,7 @@
 
 + (instancetype) qoutedMessageView;
 
-+ (CGFloat) viewHeightForWidth: (CGFloat) width withData: (id<JSQMessageData>) data;
++ (CGSize) viewSizeForWidth: (CGFloat) width withData: (id<JSQMessageData>) data;
 
 - (void) configureWithMessageData: (id<JSQMessageData>) messageData;
 

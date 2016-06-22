@@ -116,6 +116,11 @@
         CGFloat horizontalInsetsTotal = horizontalContainerInsets + horizontalFrameInsets + spacingBetweenAvatarAndBubble;
         CGFloat maximumTextWidth = [self textBubbleWidthForLayout:layout] - avatarSize.width - layout.messageBubbleLeftRightMargin - horizontalInsetsTotal;
         
+        CGSize quotedViewSize = CGSizeZero;
+        if ([messageData quotedMessage] != nil){
+            quotedViewSize = [messageData quotedMessageViewSizeForWidth: maximumTextWidth];
+        }
+        
         // appending `timelabel` text only needed to properly calculate the size of the cell
         // because later we'll resize the text container by adding an exclusive path for the `timelabel` and
         // that won't affect on the text view size and size of the cell as well
@@ -136,14 +141,11 @@
         CGFloat verticalInsets = verticalContainerInsets + verticalFrameInsets + self.additionalInset;
 
         //  same as above, an extra 2 points of magix
-        CGFloat finalWidth = MAX(stringSize.width + horizontalInsetsTotal, self.minimumBubbleWidth) + self.additionalInset;
+        CGFloat finalWidth = MAX(MAX(quotedViewSize.width, stringSize.width) + horizontalInsetsTotal, self.minimumBubbleWidth) + self.additionalInset;
 
-        finalSize = CGSizeMake(finalWidth, stringSize.height + verticalInsets);
+        finalSize = CGSizeMake(finalWidth, stringSize.height + verticalInsets + quotedViewSize.height);
         
-        if ([messageData quotedMessage]){
-            CGFloat quotedHeight = [messageData quotedMessageViewHeightForWidth: maximumTextWidth];
-            finalSize.height += quotedHeight;
-        }
+        
     }
 
     [self.cache setObject:[NSValue valueWithCGSize:finalSize] forKey:@([messageData messageHash])];

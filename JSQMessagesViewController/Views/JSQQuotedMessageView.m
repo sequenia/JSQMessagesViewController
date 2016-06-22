@@ -75,37 +75,49 @@
     return ceilf(height);
 }
 
-+ (CGFloat) viewHeightForWidth: (CGFloat) width withData: (id<JSQMessageData>) data {
++ (CGSize) viewSizeForWidth: (CGFloat) width withData: (id<JSQMessageData>) data {
     CGFloat horisontalPaddings = 8.0 * 4;
     CGFloat verticalPaddings = 8.0 * 2;
+    CGFloat finalWidth = 0.0;
     JSQQuotedMessageView* view = [JSQQuotedMessageView qoutedMessageView];
-    width -= horisontalPaddings + CGRectGetWidth(view.fileView.bounds) + CGRectGetWidth(view.separatorView.bounds);
-    CGFloat senderHeight = [self labelHeightForWidth: width
-                                                font: view.senderDisplayNameLabel.font
-                                                text: [data senderDisplayName]];
-    CGFloat contentHeight = [self labelHeightForWidth: width
-                                                 font: view.contentLabel.font
-                                                 text: [data text]];
-    CGFloat fileSizeHeight = 0.0;
+    CGFloat constantWidth = horisontalPaddings + CGRectGetWidth(view.separatorView.bounds);
+    if ([data isMediaMessage]){
+        constantWidth += CGRectGetWidth(view.fileView.bounds);
+    }
+    width -= constantWidth;
+    CGSize senderSize = [self labelSizeForWidth: width
+                                           font: view.senderDisplayNameLabel.font
+                                           text: [data senderDisplayName]];
+    finalWidth = MAX(finalWidth, senderSize.width);
+    CGSize contentSize = [self labelSizeForWidth: width
+                                            font: view.contentLabel.font
+                                            text: [data text]];
+    finalWidth = MAX(finalWidth, contentSize.width);
+    CGSize fileSizeSize = CGSizeZero;
     if ([data isMediaMessage]){
         //FIXME: Remove `file size placeholder`
-        fileSizeHeight = [self labelHeightForWidth: width
-                                              font: view.fileSizeLabel.font
-                                              text: @"file size placeholder"];
+        fileSizeSize = [self labelSizeForWidth: width
+                                          font: view.fileSizeLabel.font
+                                          text: @"file size placeholder"];
     }
+    finalWidth = MAX(finalWidth, fileSizeSize.width);
     
-    CGFloat dateHeight = [self labelHeightForWidth: width
-                                              font: view.dateLabel.font
-                                              text: [data sentDateDescription]];
-    CGFloat totalHeight = verticalPaddings + senderHeight + contentHeight + fileSizeHeight + dateHeight;
-    return ceilf(totalHeight);
+    CGSize dateSize = [self labelSizeForWidth: width
+                                         font: view.dateLabel.font
+                                         text: [data sentDateDescription]];
+    finalWidth = MAX(finalWidth, dateSize.width);
+    
+    CGFloat finalHeight = verticalPaddings + senderSize.height + contentSize.height + fileSizeSize.height + dateSize.height;
+    
+    return CGSizeMake(finalWidth + constantWidth, finalHeight);
 }
 
-+ (CGFloat) labelHeightForWidth: (CGFloat) width font: (UIFont*) font text: (NSString*) text {
-    return [text boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
-                              options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
-                           attributes:@{ NSFontAttributeName : font }
-                              context:nil].size.height;
++ (CGSize) labelSizeForWidth: (CGFloat) width font: (UIFont*) font text: (NSString*) text {
+    CGRect rect = [text boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
+                                     options:(NSStringDrawingUsesLineFragmentOrigin)
+                                  attributes:@{ NSFontAttributeName : font }
+                                     context:nil];
+    return CGRectIntegral(rect).size;
 }
 
 
