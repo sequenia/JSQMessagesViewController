@@ -39,7 +39,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2qm-c6-OZf" userLabel="Bubble Image View">
                                 <rect key="frame" x="0.0" y="0.0" width="244" height="94"/>
                             </imageView>
-                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="zeW-UE-5Na" userLabel="Attachment View">
+                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="238" placeholderIntrinsicHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="zeW-UE-5Na" userLabel="Attachment View">
                                 <rect key="frame" x="0.0" y="0.0" width="238" height="20"/>
                                 <accessibility key="accessibilityConfiguration" identifier="Attachment Container"/>
                                 <constraints>
@@ -170,6 +170,7 @@
                 <outlet property="textViewAvatarHorizontalSpaceConstraint" destination="aVg-yy-8K7" id="CIe-Bi-eng"/>
                 <outlet property="textViewBottomVerticalSpaceConstraint" destination="UbF-Bl-Q7v" id="KHP-49-3u4"/>
                 <outlet property="textViewMarginHorizontalSpaceConstraint" destination="7rI-Nc-AK3" id="ciu-j6-IpH"/>
+                <outlet property="textViewTopVerticalSpaceConstraint" destination="I8o-85-g3A" id="3Gn-K8-hJx"/>
                 <outlet property="topBubbleView" destination="zeW-UE-5Na" id="s4M-US-5x5"/>
                 <outlet property="topBubbleViewHeightConstraint" destination="Ktg-jS-wGs" id="uEH-bj-9Ch"/>
             </connections>
