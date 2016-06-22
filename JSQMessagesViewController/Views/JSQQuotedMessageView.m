@@ -73,6 +73,7 @@
 }
 
 - (CGFloat) contentHeight {
+    [self setNeedsLayout];
     [self layoutIfNeeded];
     CGFloat verticalPaddings = 8.0 * 2;
     CGFloat height = 0.0;

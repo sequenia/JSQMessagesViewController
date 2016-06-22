@@ -209,6 +209,11 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     self.messageBubbleTimeLabelBackground.hidden = YES;
     self.messageBubbleTimeLabel.hidden = NO;
     
+    self.quotedView.senderDisplayNameLabel.text = @"";
+    self.quotedView.contentLabel.text = @"";
+    self.quotedView.fileSizeLabel.text = @"";
+    self.quotedView.dateLabel.text = @"";
+    
     [self setAvatarImageViewHidden: NO];
 }
 
