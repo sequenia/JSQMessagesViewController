@@ -124,7 +124,10 @@
         // appending `timelabel` text only needed to properly calculate the size of the cell
         // because later we'll resize the text container by adding an exclusive path for the `timelabel` and
         // that won't affect on the text view size and size of the cell as well
-        NSString* messageText = [[messageData text] stringByAppendingString:@"___timelabel"];
+        NSString* messageText = [[messageData text] stringByAppendingString:@"00:00"];
+        if ([[messageData senderId] isEqualToString:[layout.collectionView.dataSource senderId]]) {
+            messageText = [messageText stringByAppendingString:@"_VV_"];
+        }
         
         CGRect stringRect = [messageText boundingRectWithSize:CGSizeMake(maximumTextWidth, CGFLOAT_MAX)
                                                       options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
