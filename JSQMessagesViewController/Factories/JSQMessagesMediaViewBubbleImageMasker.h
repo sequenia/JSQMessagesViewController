@@ -88,6 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Specify `YES` for outgoing and `NO` for incoming.
  */
 + (void)applyBubbleImageMaskToMediaView:(UIView *)mediaView isOutgoing:(BOOL)isOutgoing;
++ (void)crp_applyBubbleImageMaskToMediaView:(UIView *)mediaView isOutgoing:(BOOL)isOutgoing;
 
 @end
 

@@ -17,9 +17,9 @@
 //
 
 #import "JSQMessagesMediaViewBubbleImageMasker.h"
-
 #import "JSQMessagesBubbleImageFactory.h"
-
+#import "UIImage+JSQMessages.h"
+#import "UIColor+JSQMessages.h"
 
 @implementation JSQMessagesMediaViewBubbleImageMasker
 
@@ -78,6 +78,66 @@
     imageViewMask.frame = CGRectInset(view.frame, 2.0f, 2.0f);
     
     view.layer.mask = imageViewMask.layer;
+}
+
+#pragma mark CRP
+
++ (void)crp_applyBubbleImageMaskToMediaView:(UIView *)mediaView isOutgoing:(BOOL)isOutgoing
+{
+    JSQMessagesBubbleImageFactory *factory =
+    [[JSQMessagesBubbleImageFactory alloc] initWithBubbleImage:[UIImage jsq_bubbleRegularStrokedImage]
+                                                     capInsets:UIEdgeInsetsZero
+                                               layoutDirection:[UIApplication sharedApplication].userInterfaceLayoutDirection];
+
+    JSQMessagesMediaViewBubbleImageMasker *masker =
+    [[JSQMessagesMediaViewBubbleImageMasker alloc] initWithBubbleImageFactory:factory];
+    
+    if (isOutgoing) {
+        [masker crp_applyOutgoingBubbleImageMaskToMediaView:mediaView];
+    }
+    else {
+        [masker crp_applyIncomingBubbleImageMaskToMediaView:mediaView];
+    }
+}
+
+- (void)crp_applyOutgoingBubbleImageMaskToMediaView:(UIView *)mediaView
+{
+    JSQMessagesBubbleImage *bubbleImageData = [self.bubbleImageFactory outgoingMessagesBubbleImageWithColor:[UIColor whiteColor]];
+    [self crp_maskView:mediaView withImage:[bubbleImageData messageBubbleImage]];
+}
+
+- (void)crp_applyIncomingBubbleImageMaskToMediaView:(UIView *)mediaView
+{
+    JSQMessagesBubbleImage *bubbleImageData = [self.bubbleImageFactory incomingMessagesBubbleImageWithColor:[UIColor whiteColor]];
+    [self crp_maskView:mediaView withImage:[bubbleImageData messageBubbleImage]];
+}
+
+- (void)crp_maskView:(UIView *)view withImage:(UIImage *)image
+{
+    NSParameterAssert(view != nil);
+    NSParameterAssert(image != nil);
+    
+    UIImageView *imageViewMask = [[UIImageView alloc] initWithImage:image];
+    imageViewMask.frame = CGRectInset(view.frame, 2.0f, 2.0f);
+    
+    view.layer.mask = imageViewMask.layer;
+    
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:view.bounds
+                                                   byRoundingCorners:UIRectCornerAllCorners
+                                                         cornerRadii:CGSizeMake(16.0f, 16.0f)];
+    
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    maskLayer.frame = imageViewMask.bounds;
+    maskLayer.path = maskPath.CGPath;
+    view.layer.mask = maskLayer;
+    
+    CAShapeLayer *shape = [CAShapeLayer layer];
+    shape.frame = imageViewMask.bounds;
+    shape.path = maskPath.CGPath;
+    shape.lineWidth = 2.0f;
+    shape.strokeColor = [UIColor jsq_messageBubbleRedColor].CGColor;
+    shape.fillColor = [UIColor clearColor].CGColor;
+    [view.layer addSublayer:shape];
 }
 
 @end
