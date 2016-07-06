@@ -41,6 +41,11 @@ NS_ASSUME_NONNULL_BEGIN
 @required
 
 /**
+ *  Set sending status of media (photo) for drawing red border.
+ */
+- (void)sentSuccesfully: (BOOL)success;
+
+/**
  *  @return An initialized `UIView` object that represents the data for this media object.
  *
  *  @discussion You may return `nil` from this method while the media data is being downloaded.
@@ -81,6 +86,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSUInteger)mediaHash;
 
 @optional
+
+@property BOOL sentStatus;
 
 @property (copy, nonatomic, readwrite) NSString* mediaViewTitle;
 

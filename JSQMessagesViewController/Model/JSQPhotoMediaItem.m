@@ -27,6 +27,8 @@
 
 @property (strong, nonatomic) UIImageView *cachedImageView;
 
+@property BOOL status;
+
 @end
 
 
@@ -40,6 +42,7 @@
     if (self) {
         _image = [image copy];
         _cachedImageView = nil;
+        _status = YES;
     }
     return self;
 }
@@ -73,16 +76,32 @@
     }
     
     if (self.cachedImageView == nil) {
-        CGSize size = [self mediaViewDisplaySize];
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:self.image];
-        imageView.frame = CGRectMake(0.0f, 0.0f, size.width, size.height);
-        imageView.contentMode = UIViewContentModeScaleAspectFill;
-        imageView.clipsToBounds = YES;
-        [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:imageView isOutgoing:self.appliesMediaViewMaskAsOutgoing];
-        self.cachedImageView = imageView;
+        self.cachedImageView = [self updateCachedImageView];
     }
     
     return self.cachedImageView;
+}
+
+- (UIImageView *) updateCachedImageView {
+    CGSize size = [self mediaViewDisplaySize];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:self.image];
+    imageView.frame = CGRectMake(0.0f, 0.0f, size.width, size.height);
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds = YES;
+    
+    if (self.appliesMediaViewMaskAsOutgoing) {
+        if (self.status) {
+            [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:imageView
+                                                                        isOutgoing:self.appliesMediaViewMaskAsOutgoing];
+        } else {
+            [JSQMessagesMediaViewBubbleImageMasker crp_applyBubbleImageMaskToMediaView:imageView
+                                                                            isOutgoing:self.appliesMediaViewMaskAsOutgoing];
+        }
+    } else {
+        [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:imageView
+                                                                    isOutgoing:self.appliesMediaViewMaskAsOutgoing];
+    }
+    return imageView;
 }
 
 - (NSUInteger)mediaHash
@@ -137,6 +156,11 @@
     JSQPhotoMediaItem *copy = [[JSQPhotoMediaItem allocWithZone:zone] initWithImage:self.image];
     copy.appliesMediaViewMaskAsOutgoing = self.appliesMediaViewMaskAsOutgoing;
     return copy;
+}
+
+- (void)sentSuccesfully:(BOOL)success {
+    self.status = success;
+    self.cachedImageView = [self updateCachedImageView];
 }
 
 @end
