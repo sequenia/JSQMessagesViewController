@@ -21,7 +21,7 @@
 #import "JSQMessagesLabel.h"
 #import "JSQMessagesCellTextView.h"
 
-@class JSQMessagesCollectionViewCell, JSQQuotedMessageView;
+@class JSQMessagesCollectionViewCell, JSQQuotedMessageView, JSQFileMessageView;
 @protocol JSQMessageData;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -94,7 +94,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) hideQuotedView;
 
+- (void) showFileViewWithData: (id<JSQMessageData>) data;
+
+- (void) hideFileView;
+
 @property (weak, nonatomic, readwrite) JSQQuotedMessageView* quotedView;
+
+@property (weak, nonatomic, readwrite) JSQFileMessageView* fileView;
 
 @property (weak, nonatomic, readwrite) IBOutlet UIView* topBubbleView;
 

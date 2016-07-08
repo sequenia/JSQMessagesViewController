@@ -24,6 +24,7 @@
 
 #import "UIView+JSQMessages.h"
 #import "JSQQuotedMessageView.h"
+#import "JSQFileMessageView.h"
 
 static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 
@@ -142,6 +143,13 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     [self.topBubbleView addSubview: quotedView];
     [self.topBubbleView jsq_pinAllEdgesOfSubview: quotedView];
     self.quotedView = quotedView;
+    
+    JSQFileMessageView* fileView = [JSQFileMessageView fileMessageView];
+    fileView.translatesAutoresizingMaskIntoConstraints = NO;
+    fileView.backgroundColor= [UIColor clearColor];
+    [self.topBubbleView addSubview: fileView];
+    [self.topBubbleView jsq_pinAllEdgesOfSubview: fileView];
+    self.fileView = fileView;
 
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jsq_handleTapGesture:)];
     [self addGestureRecognizer:tap];
@@ -180,6 +188,18 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     self.topBubbleView.hidden = YES;
 }
 
+- (void) showFileViewWithData: (id<JSQMessageData>) data {
+    [self.fileView configureWithMessageData: data];
+    self.topBubbleViewHeightConstraint.constant = [self.fileView contentHeight];
+    
+    self.topBubbleView.hidden = NO;
+}
+
+- (void) hideFileView {
+    self.topBubbleViewHeightConstraint.constant = 0;
+    self.topBubbleView.hidden = YES;
+}
+
 - (void) setAvatarImageViewHidden: (BOOL) hidden
 {
     CGFloat widthConstant = hidden ? 0.0 : self.originAvatarSize.width;
@@ -213,6 +233,10 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     self.quotedView.contentLabel.text = @"";
     self.quotedView.fileSizeLabel.text = @"";
     self.quotedView.dateLabel.text = @"";
+    
+    self.fileView.fileNameLabel.text = @"";
+    self.fileView.fileSizeLabel.text = @"";
+    self.fileView.fileView = nil;
     
     [self setAvatarImageViewHidden: NO];
 }
