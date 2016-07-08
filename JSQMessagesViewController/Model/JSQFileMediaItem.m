@@ -7,6 +7,7 @@
 //
 
 #import "JSQFileMediaItem.h"
+#import "JSQFileMessageView.h"
 #import "JSQMessagesMediaPlaceholderView.h"
 #import "JSQMessagesMediaViewBubbleImageMasker.h"
 
@@ -43,40 +44,34 @@
     _cachedView = nil;
 }
 
+#pragma mark - Getters
+
+- (JSQFile *) file {
+    return self.files.firstObject;
+}
+
 #pragma mark - JSQMessageMediaData protocol
 
-//- (CGSize)mediaViewDisplaySize
-//{
-//    CGFloat height = 64.0f;
-//    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-//        return CGSizeMake(315.0f, height);
-//    }
-//    return CGSizeMake(210.0f, height);
-//}
+- (CGSize)mediaViewDisplaySize
+{
+    CGFloat height = 64.0f;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        return CGSizeMake(315.0f, height);
+    }
+    return CGSizeMake(210.0f, height);
+}
 
 - (UIView *)mediaView
 {
-    if (self.files == nil) {
-        return nil;
-    }
-    
-    if (self.cachedView == nil) {
-        self.cachedView = [self updateCachedView];
-    }
-    
-    return self.cachedView;
-}
-
-- (UIView *) updateCachedView {
     CGSize size = [self mediaViewDisplaySize];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"image_attachment_sample"]];
-    imageView.frame = CGRectMake(0.0f, 0.0f, size.width, size.height);
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
-    imageView.clipsToBounds = YES;
-    
-    [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:imageView
+    JSQFileMessageView* view = [JSQFileMessageView fileMessageView];
+    view.fileNameLabel.text = self.file.name;
+    view.fileSizeLabel.text = [self mediaItemInfo];
+    view.frame = CGRectMake(0.0f, 0.0f, size.width, size.height);
+    [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:view
                                                                 isOutgoing:self.appliesMediaViewMaskAsOutgoing];
-    return imageView;
+
+    return view;
 }
 
 - (NSUInteger)mediaHash

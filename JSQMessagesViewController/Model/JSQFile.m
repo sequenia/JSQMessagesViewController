@@ -14,8 +14,8 @@
                           url:(NSString *)url {
     self = [super init];
     if (self) {
-        _fileName = name;
-        _fileUrl = url;
+        _name = name;
+        _url = [NSURL URLWithString:url];
     }
     return self;
 }
@@ -25,15 +25,15 @@
 @implementation JSQFile (SQAttachment)
 
 - (NSURL *) fileUrl {
-    return [NSURL URLWithString:self.fileUrl];
+    return _url;
 }
 
 - (NSString *) fileName {
-    return self.fileName;
+    return _name;
 }
 
 - (void) setFileUrl:(NSURL *)url {
-    _fileUrl = url.absoluteString;
+    _url = url.absoluteString;
 }
 
 @end

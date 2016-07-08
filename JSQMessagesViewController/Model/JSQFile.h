@@ -11,9 +11,9 @@
 
 @interface JSQFile : NSObject
 
-@property NSString *fileUrl;
+@property NSURL *url;
 
-@property NSString *fileName;
+@property NSString *name;
 
 - (instancetype) initWithName:(NSString *)name
                           url:(NSString *)url;
