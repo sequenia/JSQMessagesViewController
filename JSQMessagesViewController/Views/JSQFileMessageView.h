@@ -8,12 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "JSQMessageData.h"
+#import "NKDownloadControl.h"
+#import <SQFileViewer.h>
 
 @protocol JSQMessageData;
 
-@interface JSQFileMessageView : UIView
+@interface JSQFileMessageView : UIView <SQFileViewerDelegate>
 
-@property (weak, nonatomic) IBOutlet UIView* fileView;
+@property (unsafe_unretained, nonatomic) IBOutlet UIView *downloadView;
+
+@property (unsafe_unretained, nonatomic) IBOutlet NKDownloadControl *downloadControl;
 
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *fileNameLabel;
 
@@ -29,5 +33,6 @@
 
 - (void) setHiddenFileView: (BOOL) hidden animated: (BOOL) animated;
 
+- (void) didTapDownloadControl;
 
 @end

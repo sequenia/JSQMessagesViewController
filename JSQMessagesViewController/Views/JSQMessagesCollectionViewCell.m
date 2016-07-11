@@ -137,20 +137,9 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     self.messageBubbleTimeLabelBackground.layer.cornerRadius = 5.0;
     self.messageBubbleTimeLabelBackground.hidden = YES;
     
-    JSQQuotedMessageView* quotedView = [JSQQuotedMessageView qoutedMessageView];
-    quotedView.translatesAutoresizingMaskIntoConstraints = NO;
-    quotedView.backgroundColor= [UIColor clearColor];
-    [self.topBubbleView addSubview: quotedView];
-    [self.topBubbleView jsq_pinAllEdgesOfSubview: quotedView];
-    self.quotedView = quotedView;
+    [self configureFileView];
+    [self configureQuotedView];
     
-    JSQFileMessageView* fileView = [JSQFileMessageView fileMessageView];
-    fileView.translatesAutoresizingMaskIntoConstraints = NO;
-    fileView.backgroundColor= [UIColor clearColor];
-    [self.topBubbleView addSubview: fileView];
-    [self.topBubbleView jsq_pinAllEdgesOfSubview: fileView];
-    self.fileView = fileView;
-
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jsq_handleTapGesture:)];
     [self addGestureRecognizer:tap];
     self.tapGestureRecognizer = tap;
@@ -236,7 +225,7 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     
     self.fileView.fileNameLabel.text = @"";
     self.fileView.fileSizeLabel.text = @"";
-    self.fileView.fileView = nil;
+    self.fileView.downloadView.hidden = YES;
     
     [self setAvatarImageViewHidden: NO];
 }
@@ -409,6 +398,25 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     });
 }
 
+
+- (void) configureFileView {
+    JSQFileMessageView* fileView = [JSQFileMessageView fileMessageView];
+    fileView.translatesAutoresizingMaskIntoConstraints = NO;
+    fileView.backgroundColor= [UIColor clearColor];
+    [self.topBubbleView addSubview: fileView];
+    [self.topBubbleView jsq_pinAllEdgesOfSubview: fileView];
+    self.fileView = fileView;
+}
+
+- (void) configureQuotedView {
+    JSQQuotedMessageView* quotedView = [JSQQuotedMessageView qoutedMessageView];
+    quotedView.translatesAutoresizingMaskIntoConstraints = NO;
+    quotedView.backgroundColor= [UIColor clearColor];
+    [self.topBubbleView addSubview: quotedView];
+    [self.topBubbleView jsq_pinAllEdgesOfSubview: quotedView];
+    self.quotedView = quotedView;
+}
+
 #pragma mark - Getters
 
 - (CGSize)avatarViewSize
@@ -446,6 +454,7 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
         [self.delegate messagesCollectionViewCellDidTapAvatar:self];
     }
     else if (CGRectContainsPoint(self.messageBubbleContainerView.frame, touchPt)) {
+        [self.fileView didTapDownloadControl];
         [self.delegate messagesCollectionViewCellDidTapMessageBubble:self];
     }
     else {

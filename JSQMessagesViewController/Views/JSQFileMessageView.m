@@ -8,13 +8,17 @@
 
 #import "JSQFileMessageView.h"
 #import "JSQMessageMediaData.h"
+#import "JSQFileMediaItem.h"
 #import "UIView+JSQMessages.h"
+#import <JSQMessagesViewController.h>
 
 @interface JSQFileMessageView ()
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* fileViewWidthConstraint;
 
 @property (assign, nonatomic) CGFloat fileViewNormalWidth;
+
+@property SQFileViewer *fileViewer;
 
 @end
 
@@ -28,13 +32,13 @@
 }
 
 - (void) configureWithMessageData: (id<JSQMessageData>) messageData {
-    id <JSQMessageMediaData> mediaData = [messageData media];
-    UIImageView* mediaView = [[UIImageView alloc] initWithImage: [[mediaData mediaView] jsq_image]];
+    JSQFileMediaItem *fileItem = [messageData media];
+    [self fileViewer:fileItem.files];
+    UIImageView* mediaView = [[UIImageView alloc] initWithImage: [[fileItem mediaView] jsq_image]];
     mediaView.contentMode = UIViewContentModeScaleAspectFill;
-    [self.fileView addSubview: mediaView];
+    [self.downloadView addSubview: mediaView];
     mediaView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.fileView jsq_pinAllEdgesOfSubview: mediaView];
-    
+    [self.downloadView jsq_pinAllEdgesOfSubview: mediaView];
 }
 
 - (void) setHiddenFileView: (BOOL) hidden animated: (BOOL) animated {
@@ -49,16 +53,16 @@
 
 - (void) awakeFromNib {
     [super awakeFromNib];
-    self.fileViewNormalWidth = CGRectGetWidth(self.fileView.bounds);
+    self.fileViewNormalWidth = CGRectGetWidth(self.downloadView.bounds);
     [self configureAppearance];
 }
 
 - (void) configureAppearance {
     self.fileNameLabel.text = @"";
     self.fileSizeLabel.text = @"";
-    self.fileView.clipsToBounds = YES;
-    self.fileView.layer.cornerRadius = 5.0;
-    self.fileView.backgroundColor = [UIColor clearColor];
+    self.downloadView.clipsToBounds = YES;
+    self.downloadView.layer.cornerRadius = 5.0;
+    self.downloadView.backgroundColor = [UIColor clearColor];
 }
 
 - (CGFloat) contentHeight {
@@ -82,7 +86,7 @@
     JSQFileMessageView* view = [JSQFileMessageView fileMessageView];
     CGFloat constantWidth = horisontalPaddings;
     if ([data isMediaMessage]){
-        constantWidth += CGRectGetWidth(view.fileView.bounds);
+        constantWidth += CGRectGetWidth(view.downloadView.bounds);
     }
     width -= constantWidth;
     CGSize nameSize = [self labelSizeForWidth: width
@@ -114,5 +118,50 @@
     return CGRectIntegral(rect).size;
 }
 
+#pragma mark - Downloading
+
+- (SQFileViewer *) fileViewer: (NSArray <id <SQAttachment>> *) array {
+    if (!_fileViewer){
+        UIColor *preferredColor = [UIColor colorWithRed: 0.0f
+                                                  green: 150.0f/225.0f
+                                                   blue: 136.0f/225.0f
+                                                  alpha: 1.0f];
+        _fileViewer = [SQFileViewer fileViewerWithFileAttachments: array
+                                                         delegate: self
+                                                   preferredColor: preferredColor];
+    }
+    return _fileViewer;
+}
+
+- (void) didTapDownloadControl {
+    [self.fileViewer openFileAt:0
+                     controller:nil
+                     completion:^(UIViewController *fileViewerController, NSError *error) {
+                         NSLog(@"fileViewerController = %@", fileViewerController);
+                         UIViewController *chatController = [self currentChatController];
+                         [chatController presentViewController: fileViewerController
+                                                      animated: YES
+                                                    completion: nil];
+                     }];
+}
+
+- (UIViewController *)currentChatController {
+    UINavigationController *topVC = [[UIApplication sharedApplication].keyWindow rootViewController];
+    while (topVC.presentedViewController) {
+        topVC = topVC.presentedViewController;
+    }
+    for (UIViewController *vc in topVC.viewControllers)
+        if ([vc isKindOfClass:[JSQMessagesViewController class]])
+            return vc;
+    return nil;
+}
+
+- (void) fileDownloadedBy: (CGFloat) progress {
+    NSLog(@"progress = %@", @(progress));
+}
+
+- (void) controller {
+    NSLog(@"self = %@", self);
+}
 
 @end
