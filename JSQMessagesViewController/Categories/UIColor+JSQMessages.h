@@ -55,6 +55,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (UIColor *)jsq_colorByDarkeningColorWithValue:(CGFloat)value;
 
+#pragma mark - JSQFile colors
+
++ (UIColor *)jsq_fileViewerColor;
+
 @end
 
 NS_ASSUME_NONNULL_END

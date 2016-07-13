@@ -87,4 +87,13 @@
     return retColor;
 }
 
+#pragma mark - JSQFile colors
+
++ (UIColor *)jsq_fileViewerColor {
+    return [UIColor colorWithRed: 0.0f
+                           green: 150.0f/225.0f
+                            blue: 136.0f/225.0f
+                           alpha: 1.0f];
+}
+
 @end
