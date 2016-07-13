@@ -14,7 +14,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FEb-S7-Jgv" userLabel="File View">
                     <rect key="frame" x="18" y="8" width="35" height="35"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KPi-0C-EGR" customClass="NKDownloadControl">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KPi-0C-EGR" customClass="IBCircularProgressButton">
                             <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
@@ -57,7 +57,7 @@
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="downloadControl" destination="KPi-0C-EGR" id="UvP-6e-Cl2"/>
+                <outlet property="downloadControl" destination="KPi-0C-EGR" id="4dd-ET-NO9"/>
                 <outlet property="downloadView" destination="FEb-S7-Jgv" id="2Op-6y-4Dr"/>
                 <outlet property="fileNameLabel" destination="RTG-77-nDM" id="sLu-U0-u2u"/>
                 <outlet property="fileSizeLabel" destination="PmS-o3-5F3" id="fd5-nK-LWH"/>
