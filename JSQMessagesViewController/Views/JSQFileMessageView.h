@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JSQMessageData.h"
-#import "NKDownloadControl.h"
+#import "IBCircularProgressButton.h"
 #import <SQFileViewer.h>
 
 @protocol JSQMessageData;
@@ -17,17 +17,19 @@
 
 @property (unsafe_unretained, nonatomic) IBOutlet UIView *downloadView;
 
-@property (unsafe_unretained, nonatomic) IBOutlet NKDownloadControl *downloadControl;
+@property (unsafe_unretained, nonatomic) IBOutlet IBCircularProgressButton *downloadControl;
 
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *fileNameLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel* fileSizeLabel;
 
+@property NSIndexPath *indexPath;
+
 + (instancetype) fileMessageView;
 
 + (CGSize) viewSizeForWidth: (CGFloat) width withData: (id<JSQMessageData>) data;
 
-- (void) configureWithMessageData: (id<JSQMessageData>) messageData;
+- (void) configureWithMessageData: (id<JSQMessageData>) messageData indexPath: (NSIndexPath *)indexPath;
 
 - (CGFloat) contentHeight;
 

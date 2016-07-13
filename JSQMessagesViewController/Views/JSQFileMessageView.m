@@ -10,6 +10,7 @@
 #import "JSQMessageMediaData.h"
 #import "JSQFileMediaItem.h"
 #import "UIView+JSQMessages.h"
+#import "UIColor+JSQMessages.h"
 #import <JSQMessagesViewController.h>
 
 @interface JSQFileMessageView ()
@@ -20,6 +21,12 @@
 
 @property SQFileViewer *fileViewer;
 
+/* temp data
+ * TODO: need refactoring
+ */
+@property JSQFileMediaItem *fileData;
+@property id<JSQMessageData> messageData;
+/* temp data */
 @end
 
 @implementation JSQFileMessageView
@@ -31,8 +38,12 @@
     return subviewArray.firstObject;
 }
 
-- (void) configureWithMessageData: (id<JSQMessageData>) messageData {
+- (void) configureWithMessageData: (id<JSQMessageData>) messageData indexPath: (NSIndexPath *)indexPath {
     JSQFileMediaItem *fileItem = [messageData media];
+    self.fileData = fileItem;
+    self.messageData = messageData;
+    self.indexPath = indexPath;
+    
     [self fileViewer:fileItem.files];
     UIImageView* mediaView = [[UIImageView alloc] initWithImage: [[fileItem mediaView] jsq_image]];
     mediaView.contentMode = UIViewContentModeScaleAspectFill;
@@ -122,41 +133,49 @@
 
 - (SQFileViewer *) fileViewer: (NSArray <id <SQAttachment>> *) array {
     if (!_fileViewer){
-        UIColor *preferredColor = [UIColor colorWithRed: 0.0f
-                                                  green: 150.0f/225.0f
-                                                   blue: 136.0f/225.0f
-                                                  alpha: 1.0f];
         _fileViewer = [SQFileViewer fileViewerWithFileAttachments: array
                                                          delegate: self
-                                                   preferredColor: preferredColor];
+                                                   preferredColor: [UIColor jsq_fileViewerColor]];
     }
     return _fileViewer;
 }
 
 - (void) didTapDownloadControl {
+    (self.fileData.downloading) ? [self.fileData pauseDownloading] :[self.fileData startDownloading];
+    JSQMessagesViewController *chatController = [self currentChatController];
+    if (self.indexPath)
+        [chatController.collectionView reloadItemsAtIndexPaths:@[self.indexPath]];
+    
     [self.fileViewer openFileAt:0
                      controller:nil
                      completion:^(UIViewController *fileViewerController, NSError *error) {
                          NSLog(@"fileViewerController = %@", fileViewerController);
-                         UIViewController *chatController = [self currentChatController];
-                         [chatController presentViewController: fileViewerController
-                                                      animated: YES
-                                                    completion: nil];
+                         if (fileViewerController)
+                             [chatController presentViewController: fileViewerController
+                                                          animated: YES
+                                                    	completion: nil];
                      }];
 }
 
-- (UIViewController *)currentChatController {
+- (JSQMessagesViewController *)currentChatController {
     UINavigationController *topVC = [[UIApplication sharedApplication].keyWindow rootViewController];
     while (topVC.presentedViewController) {
         topVC = topVC.presentedViewController;
     }
-    for (UIViewController *vc in topVC.viewControllers)
-        if ([vc isKindOfClass:[JSQMessagesViewController class]])
-            return vc;
+    if ([topVC isKindOfClass:[UINavigationController class]])
+        for (UIViewController *vc in topVC.viewControllers)
+            if ([vc isKindOfClass:[JSQMessagesViewController class]])
+                return vc;
     return nil;
 }
 
 - (void) fileDownloadedBy: (CGFloat) progress {
+    //TODO: need change this function
+    self.fileData.progress = progress;
+    JSQMessagesViewController *chatController = [self currentChatController];
+    if (self.indexPath)
+        //visual artefacts will appear if you reload table too many times
+        [chatController.collectionView reloadItemsAtIndexPaths:@[self.indexPath]];
     NSLog(@"progress = %@", @(progress));
 }
 

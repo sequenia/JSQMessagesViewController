@@ -94,13 +94,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) hideQuotedView;
 
-- (void) showFileViewWithData: (id<JSQMessageData>) data;
+- (void) showFileViewWithData: (id<JSQMessageData>) data indexPath: (NSIndexPath *)indexPath;
 
 - (void) hideFileView;
 
 @property (weak, nonatomic, readwrite) JSQQuotedMessageView* quotedView;
 
-@property (weak, nonatomic, readwrite) JSQFileMessageView* fileView;
+@property (strong, nonatomic, readwrite) JSQFileMessageView* fileView;
 
 @property (weak, nonatomic, readwrite) IBOutlet UIView* topBubbleView;
 

@@ -177,8 +177,8 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     self.topBubbleView.hidden = YES;
 }
 
-- (void) showFileViewWithData: (id<JSQMessageData>) data {
-    [self.fileView configureWithMessageData: data];
+- (void) showFileViewWithData: (id<JSQMessageData>) data indexPath:(NSIndexPath *)indexPath {
+    [self.fileView configureWithMessageData: data indexPath:indexPath];
     self.topBubbleViewHeightConstraint.constant = [self.fileView contentHeight];
     
     self.topBubbleView.hidden = NO;
