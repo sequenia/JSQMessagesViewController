@@ -14,7 +14,7 @@
 
 @interface JSQFileMediaItem ()
 
-@property (strong, nonatomic) UIView *cachedView;
+@property (strong, nonatomic) JSQFileMessageView *cachedView;
 
 @end
 
@@ -25,6 +25,7 @@
     self = [super init];
     if (self) {
         _files = files;
+        _downloading = NO;
     }
     return self;
 }
@@ -67,6 +68,11 @@
     JSQFileMessageView* view = [JSQFileMessageView fileMessageView];
     view.fileNameLabel.text = self.file.name;
     view.fileSizeLabel.text = [self mediaItemInfo];
+    view.downloadControl.downloading = self.downloading;
+    
+        if (self.progress != view.downloadControl.progress)
+            [view.downloadControl setProgress:self.progress animated:NO];
+
     view.frame = CGRectMake(0.0f, 0.0f, size.width, size.height);
     [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:view
                                                                 isOutgoing:self.appliesMediaViewMaskAsOutgoing];
@@ -126,6 +132,14 @@
     JSQFileMediaItem *copy = [[JSQFileMediaItem allocWithZone:zone] initWithFiles:self.files];
     copy.appliesMediaViewMaskAsOutgoing = self.appliesMediaViewMaskAsOutgoing;
     return copy;
+}
+
+- (void)startDownloading {
+    _downloading = YES;
+}
+
+- (void)pauseDownloading {
+    _downloading = NO;
 }
 
 @end

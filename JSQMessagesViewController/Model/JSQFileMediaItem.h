@@ -21,6 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface JSQFileMediaItem : JSQMediaItem <JSQMessageMediaData, NSCoding, NSCopying>
 
+@property CGFloat progress;
+@property BOOL downloading;
+
 /**
  *  The array of files. The default value is `nil`.
  */
@@ -35,6 +38,10 @@ NS_ASSUME_NONNULL_BEGIN
  *
  */
 - (instancetype)initWithFiles:(NSArray <JSQFile *> *)files;
+
+- (void)startDownloading;
+
+- (void)pauseDownloading;
 
 @end
 
