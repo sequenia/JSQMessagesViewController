@@ -15,11 +15,11 @@
 
 @interface JSQFileMessageView : UIView <SQFileViewerDelegate>
 
-@property (unsafe_unretained, nonatomic) IBOutlet UIView *downloadView;
+@property (weak, nonatomic) IBOutlet UIView *downloadView;
 
-@property (unsafe_unretained, nonatomic) IBOutlet IBCircularProgressButton *downloadControl;
+@property (weak, nonatomic) IBOutlet IBCircularProgressButton *downloadControl;
 
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel *fileNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *fileNameLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel* fileSizeLabel;
 
