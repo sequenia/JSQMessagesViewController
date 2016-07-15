@@ -34,6 +34,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, nonatomic, nullable) UIImage *image;
 
 /**
+ *  The image url for the photo media item. The default value is `""`.
+ */
+@property (copy, nonatomic, nullable) NSString *imageURL;
+
+/**
  *  Initializes and returns a photo media item object having the given image.
  *
  *  @param image The image for the photo media item. This value may be `nil`.
@@ -45,6 +50,17 @@ NS_ASSUME_NONNULL_BEGIN
  *  Once the image has been retrieved, you can then set the image property.
  */
 - (instancetype)initWithImage:(nullable UIImage *)image;
+
+/**
+ *  Initializes and returns a photo media item object having the given image with url.
+ *
+ *  @param url The url for the photo media item.
+ *
+ *  @return An initialized `JSQPhotoMediaItem`.
+ *
+ *  @discussion Image will be downloaded from the network.
+ */
+- (instancetype)initWithURL:(NSString *)url;
 
 @end
 

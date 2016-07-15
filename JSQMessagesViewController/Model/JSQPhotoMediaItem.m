@@ -20,6 +20,9 @@
 
 #import "JSQMessagesMediaPlaceholderView.h"
 #import "JSQMessagesMediaViewBubbleImageMasker.h"
+#import "JSQMessagesViewController.h"
+#import "UIImage+JSQMessages.h"
+#import "JSQHelper.h"
 
 #import <MobileCoreServices/UTCoreTypes.h>
 
@@ -41,8 +44,29 @@
     self = [super init];
     if (self) {
         _image = [image copy];
+        _imageURL = @"";
         _cachedImageView = nil;
         _status = YES;
+    }
+    return self;
+}
+
+- (instancetype)initWithURL:(NSString *)url
+{
+    self = [super init];
+    if (self) {
+        _image = nil;
+        _imageURL = url;
+        _cachedImageView = nil;
+        _status = YES;
+        [UIImage jsq_downloadImageFromURL:[NSURL URLWithString:self.imageURL]
+                           withCompletion:^(UIImage *image, NSError *errorOrNil) {
+                               self.image = [image copy];
+                               self.cachedImageView = [self updateCachedImageView];
+                               //TODO: update this dirty mmethod (send signal to chat controller
+                               //for reloading current view cell, not all collection view)
+                               [[JSQHelper sharedInstance].currentChatController.collectionView reloadData];
+                           }];
     }
     return self;
 }
