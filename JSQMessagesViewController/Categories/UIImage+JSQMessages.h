@@ -83,6 +83,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (UIImage *)jsq_defaultPauseImage;
 
+/**
+ *  Loading and returning `UIImage` object by URL.
+ */
++ (void)jsq_downloadImageFromURL: (NSURL*) url
+                  withCompletion: (void(^)(UIImage* image, NSError* errorOrNil)) completion;
+
 @end
 
 NS_ASSUME_NONNULL_END
