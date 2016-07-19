@@ -87,12 +87,16 @@
 
 - (NSString *)mediaDataType
 {
-    return @"JSQFileMediaItem";
+    return NSStringFromClass([self class]);
 }
 
 - (id)mediaData
 {
     return self.files.firstObject;
+}
+
+- (NSDictionary *)toDictionary {
+    return @{@"file" : [self file].toDictionary};
 }
 
 #pragma mark - NSObject

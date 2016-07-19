@@ -20,6 +20,11 @@
     return self;
 }
 
+- (NSDictionary *)toDictionary {
+    return @{@"name" : self.name,
+             @"url" : self.url};
+}
+
 @end
 
 @implementation JSQFile (SQAttachment)

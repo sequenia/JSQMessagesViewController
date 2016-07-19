@@ -18,6 +18,8 @@
 - (instancetype) initWithName:(NSString *)name
                           url:(NSString *)url;
 
+- (NSDictionary *)toDictionary;
+
 @end
 
 @interface JSQFile (SQAttachment) <SQAttachment>
