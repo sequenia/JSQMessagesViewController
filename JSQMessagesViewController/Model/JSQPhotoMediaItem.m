@@ -45,6 +45,7 @@
     if (self) {
         _image = [image copy];
         _imageURL = @"";
+        _localURL = @"";
         _cachedImageView = nil;
         _status = YES;
     }
@@ -143,6 +144,11 @@
 - (id)mediaData
 {
     return UIImageJPEGRepresentation(self.image, 1);
+}
+
+- (NSDictionary *)toDictionary {
+    return @{@"mediaType" : self.mediaDataType,
+             @"imageURL": self.imageURL};
 }
 
 #pragma mark - NSObject

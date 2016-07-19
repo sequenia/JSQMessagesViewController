@@ -39,6 +39,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, nonatomic, nullable) NSString *imageURL;
 
 /**
+ *  The image local url for the photo media item. The default value is `""`.
+ */
+@property (copy, nonatomic, nullable) NSString *localURL; //TODO: need to save image
+
+/**
  *  Initializes and returns a photo media item object having the given image.
  *
  *  @param image The image for the photo media item. This value may be `nil`.
@@ -61,6 +66,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @discussion Image will be downloaded from the network.
  */
 - (instancetype)initWithURL:(NSString *)url;
+
+- (instancetype)initWithJSON:(NSDictionary *)dict;
 
 @end
 
