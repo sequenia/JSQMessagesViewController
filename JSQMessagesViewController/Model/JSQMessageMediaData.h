@@ -85,6 +85,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSUInteger)mediaHash;
 
+- (NSDictionary *)toDictionary;
+
 @optional
 
 @property BOOL sentStatus;
