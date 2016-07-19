@@ -60,6 +60,15 @@
     return self.hash;
 }
 
+- (NSString*)mediaDataType {
+    return NSStringFromClass([self class]);
+}
+
+- (NSDictionary *)toDictionary {
+    return @{@"mediaType" : self.mediaDataType,
+             @"system" : @"system"};
+}
+
 #pragma mark - NSObject
 
 - (NSUInteger)hash{
