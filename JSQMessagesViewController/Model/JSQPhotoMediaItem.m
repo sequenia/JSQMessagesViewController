@@ -65,7 +65,9 @@
                                self.cachedImageView = [self updateCachedImageView];
                                //TODO: update this dirty mmethod (send signal to chat controller
                                //for reloading current view cell, not all collection view)
-                               [[JSQHelper sharedInstance].currentChatController.collectionView reloadData];
+                               JSQMessagesViewController *controller = [JSQHelper sharedInstance].currentChatController;
+                               if (controller)
+                                   [controller finishReceivingMessage];
                            }];
     }
     return self;

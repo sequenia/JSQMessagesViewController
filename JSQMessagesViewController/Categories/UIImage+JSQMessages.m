@@ -109,6 +109,7 @@
                   withCompletion: (void(^)(UIImage* image, NSError* errorOrNil)) completion {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
+        if (!url) return;
         NSError* error = nil;
         NSData* imageData = [NSData dataWithContentsOfURL: url
                                                   options: NSDataReadingMappedIfSafe
