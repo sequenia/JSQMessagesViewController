@@ -64,16 +64,17 @@
 
 - (UIView *)mediaView
 {
-    CGSize size = [self mediaViewDisplaySize];
-    JSQFileMessageView* view = [JSQFileMessageView fileMessageView];
-    view.fileNameLabel.text = self.file.name;
-    view.fileSizeLabel.text = [self mediaItemInfo];
-    view.downloadControl.downloading = self.downloading;
-    view.frame = CGRectMake(0.0f, 0.0f, size.width, size.height);
-    [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:view
-                                                                isOutgoing:self.appliesMediaViewMaskAsOutgoing];
-
-    return view;
+    if (!self.cachedView) {
+        CGSize size = [self mediaViewDisplaySize];
+        self.cachedView = [JSQFileMessageView fileMessageView];
+        self.cachedView.fileNameLabel.text = self.file.name;
+        self.cachedView.fileSizeLabel.text = [self mediaItemInfo];
+        self.cachedView.downloadControl.downloading = self.downloading;
+        self.cachedView.frame = CGRectMake(0.0f, 0.0f, size.width, size.height);
+        [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:self.cachedView
+                                                                    isOutgoing:self.appliesMediaViewMaskAsOutgoing];
+    }
+    return self.cachedView;
 }
 
 - (NSUInteger)mediaHash
