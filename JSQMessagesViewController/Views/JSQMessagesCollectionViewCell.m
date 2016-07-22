@@ -454,7 +454,7 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
         [self.delegate messagesCollectionViewCellDidTapAvatar:self];
     }
     else if (CGRectContainsPoint(self.messageBubbleContainerView.frame, touchPt)) {
-        [self.fileView didTapDownloadControl];
+        [[self viewWithTag:111] didTapDownloadControl];
         [self.delegate messagesCollectionViewCellDidTapMessageBubble:self];
     }
     else {

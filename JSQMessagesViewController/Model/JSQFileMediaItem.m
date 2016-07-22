@@ -69,10 +69,6 @@
     view.fileNameLabel.text = self.file.name;
     view.fileSizeLabel.text = [self mediaItemInfo];
     view.downloadControl.downloading = self.downloading;
-    
-        if (self.progress != view.downloadControl.progress)
-            [view.downloadControl setProgress:self.progress animated:NO];
-
     view.frame = CGRectMake(0.0f, 0.0f, size.width, size.height);
     [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:view
                                                                 isOutgoing:self.appliesMediaViewMaskAsOutgoing];

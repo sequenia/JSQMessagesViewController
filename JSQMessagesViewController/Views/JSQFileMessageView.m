@@ -141,20 +141,29 @@
 }
 
 - (void) didTapDownloadControl {
-    (self.fileData.downloading) ? [self.fileData pauseDownloading] :[self.fileData startDownloading];
-    JSQMessagesViewController *chatController = [self currentChatController];
-    if (self.indexPath)
-        [chatController.collectionView reloadItemsAtIndexPaths:@[self.indexPath]];
-    
-    [self.fileViewer openFileAt:0
-                     controller:nil
-                     completion:^(UIViewController *fileViewerController, NSError *error) {
-                         NSLog(@"fileViewerController = %@", fileViewerController);
-                         if (fileViewerController)
-                             [chatController presentViewController: fileViewerController
-                                                          animated: YES
-                                                    	completion: nil];
-                     }];
+    [self.downloadControl setProgress:0.0];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        for (float i = 0; i < 1.0; i+=0.01) {
+            [NSThread sleepForTimeInterval:0.05];
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [self.downloadControl setProgress:i];
+            });
+        }
+    });
+//    (self.fileData.downloading) ? [self.fileData pauseDownloading] :[self.fileData startDownloading];
+//    JSQMessagesViewController *chatController = [self currentChatController];
+//    if (self.indexPath)
+//        [chatController.collectionView reloadItemsAtIndexPaths:@[self.indexPath]];
+//    
+//    [self.fileViewer openFileAt:0
+//                     controller:nil
+//                     completion:^(UIViewController *fileViewerController, NSError *error) {
+//                         NSLog(@"fileViewerController = %@", fileViewerController);
+//                         if (fileViewerController)
+//                             [chatController presentViewController: fileViewerController
+//                                                          animated: YES
+//                                                    	completion: nil];
+//                     }];
 }
 
 - (JSQMessagesViewController *)currentChatController {
@@ -172,10 +181,11 @@
 - (void) fileDownloadedBy: (CGFloat) progress {
     //TODO: need change this function
     self.fileData.progress = progress;
-    JSQMessagesViewController *chatController = [self currentChatController];
-    if (self.indexPath)
+//    JSQMessagesViewController *chatController = [self currentChatController];
+//    if (self.indexPath)
         //visual artefacts will appear if you reload table too many times
-        [chatController.collectionView reloadItemsAtIndexPaths:@[self.indexPath]];
+//        [chatController.collectionView reloadItemsAtIndexPaths:@[self.indexPath]];
+        [self.downloadControl setProgress:progress];
     NSLog(@"progress = %@", @(progress));
 }
 
