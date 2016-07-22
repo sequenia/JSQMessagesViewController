@@ -9,11 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "JSQMessageData.h"
 #import "IBCircularProgressButton.h"
-#import <SQFileViewer.h>
 
 @protocol JSQMessageData;
 
-@interface JSQFileMessageView : UIView <SQFileViewerDelegate>
+@interface JSQFileMessageView : UIView
 
 @property (weak, nonatomic) IBOutlet UIView *downloadView;
 

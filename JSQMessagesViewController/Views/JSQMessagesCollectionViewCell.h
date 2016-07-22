@@ -100,7 +100,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic, readwrite) JSQQuotedMessageView* quotedView;
 
-@property (strong, nonatomic, readwrite) JSQFileMessageView* fileView;
+@property (weak, nonatomic, readwrite) JSQFileMessageView* fileView;
 
 @property (weak, nonatomic, readwrite) IBOutlet UIView* topBubbleView;
 

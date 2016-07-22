@@ -356,7 +356,8 @@
 #pragma mark - Public methods
 
 - (void)setProgress:(CGFloat)progress {
-    [self setProgress:progress animated:NO];
+    if (progress > self.progress)
+        [self setProgress:progress animated:NO];
 }
 
 - (CGFloat)getProgress {

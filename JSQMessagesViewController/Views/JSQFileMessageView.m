@@ -19,8 +19,6 @@
 
 @property (assign, nonatomic) CGFloat fileViewNormalWidth;
 
-@property SQFileViewer *fileViewer;
-
 /* temp data
  * TODO: need refactoring
  */
@@ -44,7 +42,7 @@
     self.messageData = messageData;
     self.indexPath = indexPath;
     
-    [self fileViewer:fileItem.files];
+    //[self fileViewer:fileItem.files];
     UIImageView* mediaView = [[UIImageView alloc] initWithImage: [[fileItem mediaView] jsq_image]];
     mediaView.contentMode = UIViewContentModeScaleAspectFill;
     [self.downloadView addSubview: mediaView];
@@ -131,39 +129,26 @@
 
 #pragma mark - Downloading
 
-- (SQFileViewer *) fileViewer: (NSArray <id <SQAttachment>> *) array {
-    if (!_fileViewer){
-        _fileViewer = [SQFileViewer fileViewerWithFileAttachments: array
-                                                         delegate: self
-                                                   preferredColor: [UIColor jsq_fileViewerColor]];
-    }
-    return _fileViewer;
-}
-
 - (void) didTapDownloadControl {
-    [self.downloadControl setProgress:0.0];
+    if (self.downloadControl.downloading) {
+        [self.fileData pauseDownloading];
+    } else {
+        [self.fileData startDownloading];
+    }
+    self.downloadControl.downloading = !self.downloadControl.downloading;
+
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        for (float i = 0; i < 1.0; i+=0.01) {
+        for (float i = self.downloadControl.progress; i < 1.0; i += 0.005) {
             [NSThread sleepForTimeInterval:0.05];
             dispatch_sync(dispatch_get_main_queue(), ^{
-                [self.downloadControl setProgress:i];
+                if (self.downloadControl.downloading) {
+                    [self.downloadControl setProgress:i];
+                } else {
+                    [[NSOperationQueue mainQueue] cancelAllOperations];
+                }
             });
         }
     });
-//    (self.fileData.downloading) ? [self.fileData pauseDownloading] :[self.fileData startDownloading];
-//    JSQMessagesViewController *chatController = [self currentChatController];
-//    if (self.indexPath)
-//        [chatController.collectionView reloadItemsAtIndexPaths:@[self.indexPath]];
-//    
-//    [self.fileViewer openFileAt:0
-//                     controller:nil
-//                     completion:^(UIViewController *fileViewerController, NSError *error) {
-//                         NSLog(@"fileViewerController = %@", fileViewerController);
-//                         if (fileViewerController)
-//                             [chatController presentViewController: fileViewerController
-//                                                          animated: YES
-//                                                    	completion: nil];
-//                     }];
 }
 
 - (JSQMessagesViewController *)currentChatController {
@@ -176,21 +161,6 @@
             if ([vc isKindOfClass:[JSQMessagesViewController class]])
                 return vc;
     return nil;
-}
-
-- (void) fileDownloadedBy: (CGFloat) progress {
-    //TODO: need change this function
-    self.fileData.progress = progress;
-//    JSQMessagesViewController *chatController = [self currentChatController];
-//    if (self.indexPath)
-        //visual artefacts will appear if you reload table too many times
-//        [chatController.collectionView reloadItemsAtIndexPaths:@[self.indexPath]];
-        [self.downloadControl setProgress:progress];
-    NSLog(@"progress = %@", @(progress));
-}
-
-- (void) controller {
-    NSLog(@"self = %@", self);
 }
 
 @end
