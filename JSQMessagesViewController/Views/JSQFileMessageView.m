@@ -11,7 +11,6 @@
 #import "JSQFileMediaItem.h"
 #import "UIView+JSQMessages.h"
 #import "UIColor+JSQMessages.h"
-#import <JSQMessagesViewController.h>
 
 @interface JSQFileMessageView ()
 
@@ -19,12 +18,6 @@
 
 @property (assign, nonatomic) CGFloat fileViewNormalWidth;
 
-/* temp data
- * TODO: need refactoring
- */
-@property JSQFileMediaItem *fileData;
-@property id<JSQMessageData> messageData;
-/* temp data */
 @end
 
 @implementation JSQFileMessageView
@@ -38,11 +31,7 @@
 
 - (void) configureWithMessageData: (id<JSQMessageData>) messageData indexPath: (NSIndexPath *)indexPath {
     JSQFileMediaItem *fileItem = [messageData media];
-    self.fileData = fileItem;
-    self.messageData = messageData;
-    self.indexPath = indexPath;
     
-    //[self fileViewer:fileItem.files];
     UIImageView* mediaView = [[UIImageView alloc] initWithImage: [[fileItem mediaView] jsq_image]];
     mediaView.contentMode = UIViewContentModeScaleAspectFill;
     [self.downloadView addSubview: mediaView];
@@ -129,38 +118,8 @@
 
 #pragma mark - Downloading
 
-- (void) didTapDownloadControl {
-    if (self.downloadControl.downloading) {
-        [self.fileData pauseDownloading];
-    } else {
-        [self.fileData startDownloading];
-    }
-    self.downloadControl.downloading = !self.downloadControl.downloading;
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        for (float i = self.downloadControl.progress; i < 1.0; i += 0.005) {
-            [NSThread sleepForTimeInterval:0.05];
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                if (self.downloadControl.downloading) {
-                    [self.downloadControl setProgress:i];
-                } else {
-                    [[NSOperationQueue mainQueue] cancelAllOperations];
-                }
-            });
-        }
-    });
-}
-
-- (JSQMessagesViewController *)currentChatController {
-    UINavigationController *topVC = [[UIApplication sharedApplication].keyWindow rootViewController];
-    while (topVC.presentedViewController) {
-        topVC = topVC.presentedViewController;
-    }
-    if ([topVC isKindOfClass:[UINavigationController class]])
-        for (UIViewController *vc in topVC.viewControllers)
-            if ([vc isKindOfClass:[JSQMessagesViewController class]])
-                return vc;
-    return nil;
+- (void) setFileProgress: (CGFloat) progress {
+    [self.downloadControl setProgress: progress];
 }
 
 @end

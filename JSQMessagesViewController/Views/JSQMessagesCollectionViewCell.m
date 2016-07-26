@@ -454,7 +454,6 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
         [self.delegate messagesCollectionViewCellDidTapAvatar:self];
     }
     else if (CGRectContainsPoint(self.messageBubbleContainerView.frame, touchPt)) {
-        [[self viewWithTag:111] didTapDownloadControl];
         [self.delegate messagesCollectionViewCellDidTapMessageBubble:self];
     }
     else {
@@ -471,6 +470,10 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     }
     
     return NO;
+}
+
+- (void) setFileProgress:(CGFloat)progress {
+    [[self viewWithTag:111] setFileProgress: progress];
 }
 
 @end

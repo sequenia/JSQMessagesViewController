@@ -22,8 +22,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel* fileSizeLabel;
 
-@property NSIndexPath *indexPath;
-
 + (instancetype) fileMessageView;
 
 + (CGSize) viewSizeForWidth: (CGFloat) width withData: (id<JSQMessageData>) data;
@@ -34,6 +32,6 @@
 
 - (void) setHiddenFileView: (BOOL) hidden animated: (BOOL) animated;
 
-- (void) didTapDownloadControl;
+- (void) setFileProgress: (CGFloat) progress;
 
 @end

@@ -232,6 +232,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (void)registerMenuAction:(SEL)action;
 
+- (void) setFileProgress: (CGFloat) progress;
+
 @end
 
 NS_ASSUME_NONNULL_END
