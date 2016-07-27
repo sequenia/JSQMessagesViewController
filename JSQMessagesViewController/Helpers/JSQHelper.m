@@ -31,4 +31,13 @@
     return nil;
 }
 
+- (BOOL) isFileExist: (JSQFile *) file {
+    JSQMessagesViewController *controller = [self currentChatController];
+    if (controller && file) {
+        return [controller isJSQFileExist: file];
+    }
+    else
+        return NO;
+}
+
 @end

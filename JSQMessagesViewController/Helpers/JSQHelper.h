@@ -8,11 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "JSQMessagesViewController.h"
+#import "JSQFile.h"
 
 @interface JSQHelper : NSObject
 
 + (instancetype)sharedInstance;
 
 - (JSQMessagesViewController *)currentChatController;
+
+- (BOOL) isFileExist: (JSQFile *) file;
 
 @end

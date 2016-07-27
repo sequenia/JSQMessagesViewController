@@ -228,6 +228,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)finishReceivingMessage;
 
 /**
+ *  Checks if file exist in the application's directory.
+ */
+- (BOOL)isJSQFileExist: (id)file;
+
+/**
  *  Completes the "receiving" of a new message by showing the typing indicator, adding a new collection view cell in the collection view,
  *  reloading the collection view, and scrolling to the newly sent message as specified by `automaticallyScrollsToMostRecentMessage`.
  *  Scrolling to the new message can be animated as specified by the animated parameter.
