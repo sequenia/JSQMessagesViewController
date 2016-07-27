@@ -84,6 +84,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *)jsq_defaultPauseImage;
 
 /**
+ *  @return The default file icon image.
+ */
++ (UIImage *)jsq_fileImage;
+
+/**
  *  Loading and returning `UIImage` object by URL.
  */
 + (void)jsq_downloadImageFromURL: (NSURL*) url

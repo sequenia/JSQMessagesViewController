@@ -105,6 +105,10 @@
     return [UIImage jsq_bubbleImageFromBundleWithName:@"pause"];
 }
 
++ (UIImage *)jsq_fileImage {
+    return [UIImage jsq_bubbleImageFromBundleWithName:@"file"];
+}
+
 + (void)jsq_downloadImageFromURL: (NSURL*) url
                   withCompletion: (void(^)(UIImage* image, NSError* errorOrNil)) completion {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
