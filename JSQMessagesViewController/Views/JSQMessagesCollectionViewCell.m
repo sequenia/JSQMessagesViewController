@@ -137,7 +137,6 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     self.messageBubbleTimeLabelBackground.layer.cornerRadius = 5.0;
     self.messageBubbleTimeLabelBackground.hidden = YES;
     
-    [self configureFileView];
     [self configureQuotedView];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jsq_handleTapGesture:)];
@@ -177,10 +176,10 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     self.topBubbleView.hidden = YES;
 }
 
-- (void) showFileViewWithData: (id<JSQMessageData>) data indexPath:(NSIndexPath *)indexPath {
-    [self.fileView configureWithMessageData: data indexPath:indexPath];
+- (void) showFileViewWithData: (id<JSQMessageData>) data {
+    [[self fileView] configureWithMessageData: data];
     self.topBubbleViewHeightConstraint.constant = [self.fileView contentHeight];
-    
+
     self.topBubbleView.hidden = NO;
 }
 
@@ -398,20 +397,10 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     });
 }
 
-
-- (void) configureFileView {
-    JSQFileMessageView* fileView = [JSQFileMessageView fileMessageView];
-    fileView.translatesAutoresizingMaskIntoConstraints = NO;
-    fileView.backgroundColor= [UIColor clearColor];
-    [self.topBubbleView addSubview: fileView];
-    [self.topBubbleView jsq_pinAllEdgesOfSubview: fileView];
-    self.fileView = fileView;
-}
-
 - (void) configureQuotedView {
     JSQQuotedMessageView* quotedView = [JSQQuotedMessageView qoutedMessageView];
     quotedView.translatesAutoresizingMaskIntoConstraints = NO;
-    quotedView.backgroundColor= [UIColor clearColor];
+    quotedView.backgroundColor = [UIColor clearColor];
     [self.topBubbleView addSubview: quotedView];
     [self.topBubbleView jsq_pinAllEdgesOfSubview: quotedView];
     self.quotedView = quotedView;
@@ -474,6 +463,10 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 
 - (void) setFileProgress:(CGFloat)progress {
     [[self viewWithTag:111] setFileProgress: progress];
+}
+
+- (JSQFileMessageView *)fileView {
+    return [self viewWithTag:111];
 }
 
 @end
