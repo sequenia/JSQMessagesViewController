@@ -14,6 +14,8 @@
 
 @interface JSQFileMessageView : UIView
 
+@property (weak, nonatomic) IBOutlet UIImageView *defaultFileIcon;
+
 @property (weak, nonatomic) IBOutlet UIView *downloadView;
 
 @property (weak, nonatomic) IBOutlet IBCircularProgressButton *downloadControl;
@@ -26,7 +28,7 @@
 
 + (CGSize) viewSizeForWidth: (CGFloat) width withData: (id<JSQMessageData>) data;
 
-- (void) configureWithMessageData: (id<JSQMessageData>) messageData indexPath: (NSIndexPath *)indexPath;
+- (void) configureWithMessageData: (id<JSQMessageData>) messageData;
 
 - (CGFloat) contentHeight;
 

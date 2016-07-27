@@ -11,6 +11,7 @@
 #import "JSQFileMediaItem.h"
 #import "UIView+JSQMessages.h"
 #import "UIColor+JSQMessages.h"
+#import "UIImage+JSQMessages.h"
 
 @interface JSQFileMessageView ()
 
@@ -29,20 +30,17 @@
     return subviewArray.firstObject;
 }
 
-- (void) configureWithMessageData: (id<JSQMessageData>) messageData indexPath: (NSIndexPath *)indexPath {
+- (void) configureWithMessageData: (id<JSQMessageData>) messageData {
     JSQFileMediaItem *fileItem = [messageData media];
-    
-    UIImageView* mediaView = [[UIImageView alloc] initWithImage: [[fileItem mediaView] jsq_image]];
-    mediaView.contentMode = UIViewContentModeScaleAspectFill;
-    [self.downloadView addSubview: mediaView];
-    mediaView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.downloadView jsq_pinAllEdgesOfSubview: mediaView];
+    self.fileNameLabel.text = fileItem.files.firstObject.name;
+    self.fileNameLabel.text = fileItem.files.firstObject.name;
+    self.fileSizeLabel.text = fileItem.mediaItemInfo;
 }
 
 - (void) setHiddenFileView: (BOOL) hidden animated: (BOOL) animated {
-    CGFloat width = hidden ? 0.0 : self.fileViewNormalWidth;
     CGFloat duration = animated ? 0.3 : 0.0;
-    self.fileViewWidthConstraint.constant = width;
+    self.downloadView.hidden = hidden;
+    self.defaultFileIcon.hidden = !hidden;
     [UIView animateWithDuration: duration
                      animations:^{
                          [self layoutIfNeeded];
@@ -61,6 +59,11 @@
     self.downloadView.clipsToBounds = YES;
     self.downloadView.layer.cornerRadius = 5.0;
     self.downloadView.backgroundColor = [UIColor clearColor];
+    
+    self.downloadView.hidden = NO;
+    self.defaultFileIcon.hidden = YES;
+    self.defaultFileIcon.contentMode = UIViewContentModeScaleAspectFit;
+    self.defaultFileIcon.image = [UIImage jsq_fileImage];
 }
 
 - (CGFloat) contentHeight {
@@ -119,7 +122,11 @@
 #pragma mark - Downloading
 
 - (void) setFileProgress: (CGFloat) progress {
+    self.downloadControl.downloading = YES;
     [self.downloadControl setProgress: progress];
+    if (progress >= 1.0f) {
+        [self setHiddenFileView:YES animated:YES];
+    }
 }
 
 @end

@@ -10,6 +10,7 @@
 #import "JSQFileMessageView.h"
 #import "JSQMessagesMediaPlaceholderView.h"
 #import "JSQMessagesMediaViewBubbleImageMasker.h"
+#import "JSQHelper.h"
 
 
 @interface JSQFileMediaItem ()
@@ -70,6 +71,11 @@
         self.cachedView.fileNameLabel.text = self.file.name;
         self.cachedView.fileSizeLabel.text = [self mediaItemInfo];
         self.cachedView.downloadControl.downloading = self.downloading;
+        
+        if ([[JSQHelper sharedInstance] isFileExist: [self file]]) {
+            [self.cachedView setHiddenFileView:YES animated:YES];
+        }
+        
         self.cachedView.frame = CGRectMake(0.0f, 0.0f, size.width, size.height);
         [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:self.cachedView
                                                                     isOutgoing:self.appliesMediaViewMaskAsOutgoing];
