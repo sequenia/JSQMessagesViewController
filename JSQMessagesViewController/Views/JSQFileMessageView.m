@@ -12,6 +12,7 @@
 #import "UIView+JSQMessages.h"
 #import "UIColor+JSQMessages.h"
 #import "UIImage+JSQMessages.h"
+#import "JSQHelper.h"
 
 @interface JSQFileMessageView ()
 
@@ -32,9 +33,11 @@
 
 - (void) configureWithMessageData: (id<JSQMessageData>) messageData {
     JSQFileMediaItem *fileItem = [messageData media];
-    self.fileNameLabel.text = fileItem.files.firstObject.name;
-    self.fileNameLabel.text = fileItem.files.firstObject.name;
+    JSQFile *file = fileItem.files.firstObject;
+    self.fileNameLabel.text = file.name;
     self.fileSizeLabel.text = fileItem.mediaItemInfo;
+    BOOL fileExist = [[JSQHelper sharedInstance] isFileExist: file];
+    [self setHiddenFileView:fileExist animated:YES];
 }
 
 - (void) setHiddenFileView: (BOOL) hidden animated: (BOOL) animated {
