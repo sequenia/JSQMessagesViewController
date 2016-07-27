@@ -21,7 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface JSQFileMediaItem : JSQMediaItem <JSQMessageMediaData, NSCoding, NSCopying>
 
-@property CGFloat progress;
+/**
+ *  The boolean value which says if file is downloading at now or not. The default value is `NO`.
+ */
 @property BOOL downloading;
 
 /**
