@@ -41,4 +41,11 @@
              };
 }
 
+- (id)copyWithZone:(nullable NSZone *)zone {
+    return [[[self class] alloc] initWithType: self.type
+                                         name: self.name
+                                         size: self.size
+                                 lastModified: self.lastModified];
+}
+
 @end

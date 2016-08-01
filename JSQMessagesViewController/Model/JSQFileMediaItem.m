@@ -89,7 +89,9 @@
 }
 
 - (NSDictionary *)toDictionary {
-    return @{@"file" : [self file].toDictionary};
+    return @{@"result" : [self file].url.absoluteString,
+             @"optional" : (self.optional) ? self.optional.toDictionary : @{}
+             };
 }
 
 #pragma mark - NSObject

@@ -23,6 +23,7 @@
 #import "JSQMessagesViewController.h"
 #import "UIImage+JSQMessages.h"
 #import "JSQHelper.h"
+#import "JSQMessageMediaOptional.h"
 
 #import <MobileCoreServices/UTCoreTypes.h>
 
@@ -146,8 +147,8 @@
 }
 
 - (NSDictionary *)toDictionary {
-    return @{@"mediaType" : self.mediaDataType,
-             @"imageURL": self.imageURL};
+    return @{@"optional": self.optional.toDictionary,
+             @"result"  : self.imageURL};
 }
 
 #pragma mark - NSObject
