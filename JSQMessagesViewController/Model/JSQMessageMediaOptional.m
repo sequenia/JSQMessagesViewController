@@ -36,8 +36,8 @@
 - (NSDictionary *) toDictionary {
     return @{@"type"            : self.type,
              @"name"            : self.name,
-             @"size"            : [NSString stringWithFormat:@"%@", @(self.size)],
-             @"lastModified"    : [NSString stringWithFormat:@"%@", @(self.lastModified)]
+             @"size"            : @(self.size),
+             @"lastModified"    : @(self.lastModified)
              };
 }
 
