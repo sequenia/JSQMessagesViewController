@@ -62,13 +62,12 @@
         _status = YES;
         [UIImage jsq_downloadImageFromURL:[NSURL URLWithString:self.imageURL]
                            withCompletion:^(UIImage *image, NSError *errorOrNil) {
-                               self.image = [image copy];
-                               self.cachedImageView = [self updateCachedImageView];
+                               self.image = image;
                                //TODO: update this dirty mmethod (send signal to chat controller
                                //for reloading current view cell, not all collection view)
                                JSQMessagesViewController *controller = [JSQHelper sharedInstance].currentChatController;
                                if (controller)
-                                   [controller finishReceivingMessage];
+                                   [controller finishReceivingPhotoMessage:self];
                            }];
     }
     return self;

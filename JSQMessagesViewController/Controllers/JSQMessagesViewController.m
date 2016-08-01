@@ -365,6 +365,11 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     [self finishReceivingMessageAnimated:YES];
 }
 
+- (void)finishReceivingPhotoMessage: (id <JSQMessageMediaData>) photo
+{
+    [self finishReceivingMessageAnimated:YES];
+}
+
 - (void)finishReceivingMessageAnimated:(BOOL)animated {
 
     self.showTypingIndicator = NO;

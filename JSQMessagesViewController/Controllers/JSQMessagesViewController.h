@@ -22,6 +22,8 @@
 #import "JSQMessagesCollectionViewFlowLayout.h"
 #import "JSQMessagesInputToolbar.h"
 
+@class JSQPhotoMediaItem;
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -226,6 +228,13 @@ NS_ASSUME_NONNULL_BEGIN
  *  @see `finishReceivingMessageAnimated:`.
  */
 - (void)finishReceivingMessage;
+
+/**
+ *  Animates the receiving of a new `JSQPhotoMediaItem` message. See `finishReceivingMessageAnimated:` for more details.
+ *
+ *  @see `finishReceivingMessageAnimated:`.
+ */
+- (void)finishReceivingPhotoMessage: (JSQPhotoMediaItem *) photo;
 
 /**
  *  Checks if file exist in the application's directory.
