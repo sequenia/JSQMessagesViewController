@@ -35,10 +35,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface JSQMediaItem : NSObject <JSQMessageMediaData, NSCoding, NSCopying>
 
-@property (copy, nonatomic, readwrite) NSString* mediaViewTitle;
-
-@property (copy, nonatomic, readwrite) NSString* mediaItemInfo;
-
 @property (copy, nonatomic, readwrite) JSQMessageMediaOptional *optional;
 
 /**
@@ -63,6 +59,20 @@ NS_ASSUME_NONNULL_BEGIN
  *  Clears any media view or media placeholder view that the item has cached.
  */
 - (void)clearCachedMediaViews;
+
+/**
+ *  Rudimentary method, adapt to a new property `optional`
+ *
+ *  @see `JSQMediaItemOptional` propert
+ */
+- (NSString*) mediaViewTitle;
+
+/**
+ *  Rudimentary methods, adapt to a new property `optional`
+ *
+ *  @see `JSQMediaItemOptional` propert
+ */
+- (NSString*) mediaItemInfo;
 
 @end
 

@@ -166,4 +166,18 @@
     return [[[self class] allocWithZone:zone] initWithMaskAsOutgoing:self.appliesMediaViewMaskAsOutgoing];
 }
 
+- (NSString*)mediaItemInfo {
+    if (self.optional) {
+        return [NSString stringWithFormat:@"%@", @(self.optional.size)];
+    }
+    return @"emptyMediaItemInfo";
+}
+
+- (NSString*)mediaViewTitle {
+    if (self.optional) {
+        return self.optional.name;
+    }
+    return @"emptyMediaViewTitle";
+}
+
 @end
