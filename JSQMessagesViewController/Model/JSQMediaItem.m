@@ -168,7 +168,7 @@
 
 - (NSString*)mediaItemInfo {
     if (self.optional) {
-        return [NSString stringWithFormat:@"%@", @(self.optional.size)];
+        return [NSString stringWithFormat:@"%.1f mb", self.optional.size / 1024.0f / 1024.0f];
     }
     return @"emptyMediaItemInfo";
 }
