@@ -89,7 +89,7 @@
 }
 
 - (NSDictionary *)toDictionary {
-    return @{@"result" : [self file].url.absoluteString,
+    return @{@"result" : ([[self file].url isKindOfClass:[NSURL class]]) ? [self file].url.absoluteString : [self file].url,
              @"optional" : (self.optional) ? self.optional.toDictionary : @{}
              };
 }
