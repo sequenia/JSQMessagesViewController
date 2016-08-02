@@ -13,12 +13,12 @@
 
 @property NSURL *url;
 
+@property NSURL *networkURL;
+
 @property NSString *name;
 
 - (instancetype) initWithName:(NSString *)name
                           url:(NSString *)url;
-
-- (NSDictionary *)toDictionary;
 
 @end
 

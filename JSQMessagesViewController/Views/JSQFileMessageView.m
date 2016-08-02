@@ -41,6 +41,7 @@
 }
 
 - (void) setHiddenFileView: (BOOL) hidden animated: (BOOL) animated {
+    //???: if downloadView already hidden, sometimes it can be unhidden
     CGFloat duration = animated ? 0.3 : 0.0;
     self.downloadView.hidden = hidden;
     self.defaultFileIcon.hidden = !hidden;
@@ -126,10 +127,10 @@
 
 - (void) setFileProgress: (CGFloat) progress {
     self.downloadControl.downloading = YES;
-    [self.downloadControl setProgress: progress];
     if (progress >= 1.0f) {
         [self setHiddenFileView:YES animated:YES];
     }
+    [self.downloadControl setProgress: progress];
 }
 
 @end

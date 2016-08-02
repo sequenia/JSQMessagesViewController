@@ -16,13 +16,9 @@
     if (self) {
         _name = name;
         _url = [NSURL URLWithString:url];
+        _networkURL = [NSURL URLWithString:url];
     }
     return self;
-}
-
-- (NSDictionary *)toDictionary {
-    return @{@"name" : self.name,
-             @"url" : self.url};
 }
 
 @end
@@ -38,6 +34,7 @@
 }
 
 - (void) setFileUrl:(NSURL *)url {
+    _networkURL = _url;
     _url = url.absoluteString;
 }
 
