@@ -229,6 +229,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)finishReceivingMessage;
 
+- (void)finishReceivingOldMessage;
+
 /**
  *  Animates the receiving of a new `JSQPhotoMediaItem` message. See `finishReceivingMessageAnimated:` for more details.
  *

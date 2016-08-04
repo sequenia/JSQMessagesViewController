@@ -367,7 +367,10 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 
 - (void)finishReceivingPhotoMessage: (id <JSQMessageMediaData>) photo
 {
-    [self finishReceivingMessageAnimated:YES];
+    self.showTypingIndicator = NO;
+    
+    [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
+    [self.collectionView reloadData];
 }
 
 - (void)finishReceivingMessageAnimated:(BOOL)animated {
@@ -382,6 +385,14 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     }
 
     UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, [NSBundle jsq_localizedStringForKey:@"new_message_received_accessibility_announcement"]);
+}
+
+- (void)finishReceivingOldMessage
+{
+    self.showTypingIndicator = NO;
+    
+    [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
+    [self.collectionView reloadData];
 }
 
 - (void)scrollToBottomAnimated:(BOOL)animated
