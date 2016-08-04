@@ -387,12 +387,22 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, [NSBundle jsq_localizedStringForKey:@"new_message_received_accessibility_announcement"]);
 }
 
-- (void)finishReceivingOldMessage
+- (void)finishReceivingOldMessages:(NSInteger)count withScroll:(BOOL)scroll
 {
     self.showTypingIndicator = NO;
     
     [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
     [self.collectionView reloadData];
+    
+    if (scroll) {
+        [self scrollToBottomAnimated:YES];
+    } else {
+        NSLog(@"count = %@", @([self.collectionView numberOfItemsInSection:0]));
+        NSIndexPath *lastReceiveCell = [NSIndexPath indexPathForItem:count - 1
+                                                           inSection:0];
+        [self scrollToIndexPath:lastReceiveCell animated:NO];
+    }
+    UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, [NSBundle jsq_localizedStringForKey:@"new_message_received_accessibility_announcement"]);
 }
 
 - (void)scrollToBottomAnimated:(BOOL)animated

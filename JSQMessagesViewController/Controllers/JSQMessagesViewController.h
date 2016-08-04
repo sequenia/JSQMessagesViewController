@@ -229,7 +229,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)finishReceivingMessage;
 
-- (void)finishReceivingOldMessage;
+/**
+ *  Reloads datasource and scroll to bottom if this is first loading of history.
+ *  If this isn't first loading, then scrolls to last receiving message.
+ *
+ *  @see `finishReceivingMessageAnimated:`.
+ */
+- (void)finishReceivingOldMessages: (NSInteger) count withScroll: (BOOL) scroll;
 
 /**
  *  Animates the receiving of a new `JSQPhotoMediaItem` message. See `finishReceivingMessageAnimated:` for more details.
