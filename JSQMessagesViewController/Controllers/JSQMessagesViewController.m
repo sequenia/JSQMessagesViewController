@@ -128,7 +128,9 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 @end
 
 
-@implementation JSQMessagesViewController
+@implementation JSQMessagesViewController {
+    CGSize oldContentSize;
+}
 
 #pragma mark - Class methods
 
@@ -387,22 +389,23 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, [NSBundle jsq_localizedStringForKey:@"new_message_received_accessibility_announcement"]);
 }
 
-- (void)finishReceivingOldMessages:(NSInteger)count withScroll:(BOOL)scroll
+- (void)finishReceivingOldMessages:(NSInteger)count firstLoadingHistory:(BOOL)firstLoading
 {
     self.showTypingIndicator = NO;
     
     [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
     [self.collectionView reloadData];
     
-    if (scroll) {
+    if (firstLoading) {
         [self scrollToBottomAnimated:YES];
     } else {
-        NSLog(@"count = %@", @([self.collectionView numberOfItemsInSection:0]));
-        NSIndexPath *lastReceiveCell = [NSIndexPath indexPathForItem:count - 1
-                                                           inSection:0];
-        [self scrollToIndexPath:lastReceiveCell animated:NO];
+        CGFloat dif = [self.collectionView.collectionViewLayout collectionViewContentSize].height -
+        oldContentSize.height - 60;
+        [self.collectionView setContentOffset:CGPointMake(self.collectionView.contentOffset.x, dif)
+                                     animated:NO];
     }
     UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, [NSBundle jsq_localizedStringForKey:@"new_message_received_accessibility_announcement"]);
+    oldContentSize = [self.collectionView.collectionViewLayout collectionViewContentSize];
 }
 
 - (void)scrollToBottomAnimated:(BOOL)animated

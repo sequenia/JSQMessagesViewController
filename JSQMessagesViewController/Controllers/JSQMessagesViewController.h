@@ -235,7 +235,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @see `finishReceivingMessageAnimated:`.
  */
-- (void)finishReceivingOldMessages: (NSInteger) count withScroll: (BOOL) scroll;
+- (void)finishReceivingOldMessages: (NSInteger) count firstLoadingHistory: (BOOL) firstLoading;
 
 /**
  *  Animates the receiving of a new `JSQPhotoMediaItem` message. See `finishReceivingMessageAnimated:` for more details.
