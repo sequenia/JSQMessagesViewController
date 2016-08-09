@@ -147,8 +147,8 @@
 }
 
 - (NSDictionary *)toDictionary {
-    return @{@"optional": self.optional.toDictionary,
-             @"result"  : self.imageURL};
+    return @{@"optional": (self.optional) ? self.optional.toDictionary : @[],
+             @"result"  : (self.imageURL) ? self.imageURL : @""};
 }
 
 #pragma mark - NSObject
