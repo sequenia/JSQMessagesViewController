@@ -129,8 +129,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 
 
 @implementation JSQMessagesViewController {
-    CGSize oldContentSize1; //for handling receivingOldMessages
-    CGSize oldContentSize2; //for handling receivingNewMessages
+    
 }
 
 #pragma mark - Class methods
@@ -384,12 +383,12 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     [self.collectionView reloadData];
 
     if (self.automaticallyScrollsToMostRecentMessage && ![self jsq_isMenuVisible]) {
-        if (self.collectionView.contentOffset.y + self.collectionView.frame.size.height >= oldContentSize2.height)
+        if (self.collectionView.contentOffset.y + self.collectionView.frame.size.height >= _oldContentSize2.height)
             [self scrollToBottomAnimated:animated];
     }
 
     UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, [NSBundle jsq_localizedStringForKey:@"new_message_received_accessibility_announcement"]);
-    oldContentSize2 = [self.collectionView.collectionViewLayout collectionViewContentSize];
+    _oldContentSize2 = [self.collectionView.collectionViewLayout collectionViewContentSize];
 }
 
 - (void)finishReceivingOldMessages:(NSInteger)count firstLoadingHistory:(BOOL)firstLoading
@@ -403,12 +402,12 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
         [self scrollToBottomAnimated:YES];
     } else {
         CGFloat dif = [self.collectionView.collectionViewLayout collectionViewContentSize].height -
-        oldContentSize1.height - 60;
+        _oldContentSize1.height - 60;
         [self.collectionView setContentOffset:CGPointMake(self.collectionView.contentOffset.x, dif)
                                      animated:NO];
     }
     UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, [NSBundle jsq_localizedStringForKey:@"new_message_received_accessibility_announcement"]);
-    oldContentSize1 = [self.collectionView.collectionViewLayout collectionViewContentSize];
+    _oldContentSize1 = [self.collectionView.collectionViewLayout collectionViewContentSize];
 }
 
 - (void)scrollToBottomAnimated:(BOOL)animated
