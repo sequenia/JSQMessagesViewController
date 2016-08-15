@@ -133,7 +133,7 @@
 
 - (NSUInteger)mediaHash
 {
-    return self.hash;
+    return (self.image) ? self.image.hash : self.hash;
 }
 
 - (NSString *)mediaDataType
