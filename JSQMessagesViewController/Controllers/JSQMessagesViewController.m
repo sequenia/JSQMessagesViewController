@@ -383,12 +383,10 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     [self.collectionView reloadData];
 
     if (self.automaticallyScrollsToMostRecentMessage && ![self jsq_isMenuVisible]) {
-        if (self.collectionView.contentOffset.y + self.collectionView.frame.size.height >= _oldContentSize2.height)
-            [self scrollToBottomAnimated:animated];
+        [self scrollToBottomAnimated:animated];
     }
 
     UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, [NSBundle jsq_localizedStringForKey:@"new_message_received_accessibility_announcement"]);
-    _oldContentSize2 = [self.collectionView.collectionViewLayout collectionViewContentSize];
 }
 
 - (void)finishReceivingOldMessages:(NSInteger)count firstLoadingHistory:(BOOL)firstLoading

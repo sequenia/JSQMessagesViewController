@@ -155,7 +155,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) CGFloat topContentAdditionalInset;
 
 @property (assign, nonatomic) CGSize oldContentSize1; //for handling receivingOldMessages
-@property (assign, nonatomic) CGSize oldContentSize2; //for handling receivingNewMessages
 
 #pragma mark - Class methods
 
