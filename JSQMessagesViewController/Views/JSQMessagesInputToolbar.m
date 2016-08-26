@@ -26,6 +26,7 @@
 #import "UIImage+JSQMessages.h"
 #import "UIView+JSQMessages.h"
 
+
 static void * kJSQMessagesInputToolbarKeyValueObservingContext = &kJSQMessagesInputToolbarKeyValueObservingContext;
 
 
@@ -233,6 +234,7 @@ static void * kJSQMessagesInputToolbarKeyValueObservingContext = &kJSQMessagesIn
     self.contentView.topConstraint.constant = self.topConstraintConstantWithAttachment;
     self.contentView.imageViewWidthConstraint.constant = imageConstant;
     self.contentView.attachmentView.hidden = NO;
+    self.contentView.attachmentImageView.tintColor = [UIColor colorWithRed:53.f/255.f green:152.f/255.f blue:220.f/255.f alpha:1.f];
     self.contentView.attachmentImageView.image = image;
     self.contentView.attachmentImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.contentView.attachmentTitle.text = name;

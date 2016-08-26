@@ -52,6 +52,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (nullable UIView *)mediaView;
 
+- (nullable UIImageView *) mediaQuotedView;
+
 /**
  *  @return The frame size for the mediaView when displayed in a `JSQMessagesCollectionViewCell`. 
  *

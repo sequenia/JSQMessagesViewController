@@ -10,10 +10,12 @@
 #import "JSQFileMessageView.h"
 #import "JSQMessagesMediaPlaceholderView.h"
 #import "JSQMessagesMediaViewBubbleImageMasker.h"
+#import "UIImage+JSQMessages.h"
 
 @interface JSQFileMediaItem ()
 
 @property (strong, nonatomic) JSQFileMessageView *cachedView;
+@property (strong, nonatomic) UIImageView *cachedQuotedView;
 
 @end
 
@@ -36,12 +38,14 @@
 {
     _files = files;
     _cachedView = nil;
+    _cachedQuotedView = nil;
 }
 
 - (void)setAppliesMediaViewMaskAsOutgoing:(BOOL)appliesMediaViewMaskAsOutgoing
 {
     [super setAppliesMediaViewMaskAsOutgoing:appliesMediaViewMaskAsOutgoing];
     _cachedView = nil;
+    _cachedQuotedView = nil;
 }
 
 #pragma mark - Getters
@@ -71,6 +75,19 @@
                                                                     isOutgoing:self.appliesMediaViewMaskAsOutgoing];
     }
     return self.cachedView;
+}
+
+- (UIImageView *) mediaQuotedView{
+    if(!_cachedQuotedView){
+        _cachedQuotedView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"ic_file" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+        if(self.appliesMediaViewMaskAsOutgoing){
+            _cachedQuotedView.tintColor = [UIColor colorWithRed:53.f/255.f green:152.f/255.f blue:220.f/255.f alpha:1.f];
+        }
+        else{
+            _cachedQuotedView.tintColor = [UIColor whiteColor];
+        }
+    }
+    return _cachedQuotedView;
 }
 
 - (NSUInteger)mediaHash

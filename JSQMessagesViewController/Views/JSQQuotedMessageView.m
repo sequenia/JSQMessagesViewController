@@ -9,6 +9,10 @@
 #import "JSQQuotedMessageView.h"
 #import "JSQMessageMediaData.h"
 #import "UIView+JSQMessages.h"
+#import "JSQPhotoMediaItem.h"
+#import "UIImage+JSQMessages.h"
+#import "JSQFileMediaItem.h"
+#import <SQUtils/UIImage+SQExtended.h>
 
 @interface JSQQuotedMessageView ()
 
@@ -32,16 +36,18 @@
     self.dateLabel.text = [messageData sentDateDescription];
     BOOL hideFileView = ![messageData isMediaMessage];
     [self setHiddenFileView: hideFileView animated: NO];
+    [[self.fileView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     NSString* contentText = [messageData text];
     if ([messageData isMediaMessage]){
         id<JSQMessageMediaData> media = [messageData media];
         contentText = [media mediaViewTitle];
         self.fileSizeLabel.text = [media mediaItemInfo];
-        UIImageView* mediaView = [[UIImageView alloc] initWithImage: [[media mediaView] jsq_image]];
-        mediaView.contentMode = UIViewContentModeScaleAspectFill;
-        [self.fileView addSubview: mediaView];
-        mediaView.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.fileView jsq_pinAllEdgesOfSubview: mediaView];
+        UIImageView* mediaImageView = [media mediaQuotedView];
+        mediaImageView.contentMode = UIViewContentModeScaleAspectFill;
+        mediaImageView.translatesAutoresizingMaskIntoConstraints = NO;
+        mediaImageView.clipsToBounds = YES;
+        [self.fileView addSubview: mediaImageView];
+        [self.fileView jsq_pinAllEdgesOfSubview: mediaImageView];
     }
     self.contentLabel.text = contentText;
 }
@@ -114,8 +120,8 @@
         finalWidth = MAX(finalWidth, fileSizeSize.width);
     }
     CGSize contentSize = [self labelSizeForWidth: width
-                                     font: view.contentLabel.font
-                                     text: contentText];
+                                            font: view.contentLabel.font
+                                            text: contentText];
     finalWidth = MAX(finalWidth, contentSize.width);
     
     CGSize dateSize = [self labelSizeForWidth: width

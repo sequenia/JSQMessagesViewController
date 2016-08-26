@@ -24,12 +24,14 @@
 #import "UIImage+JSQMessages.h"
 #import "JSQHelper.h"
 #import "JSQMessageMediaOptional.h"
+#import <SQUtils/UIImage+SQExtended.h>
 
 #import <MobileCoreServices/UTCoreTypes.h>
 
 @interface JSQPhotoMediaItem ()
 
 @property (strong, nonatomic) UIImageView *cachedImageView;
+@property (strong, nonatomic) UIImageView *cachedQuoteImageView;
 
 @property BOOL status;
 
@@ -48,6 +50,7 @@
         _imageURL = @"";
         _localURL = @"";
         _cachedImageView = nil;
+        _cachedQuoteImageView = nil;
         _status = YES;
     }
     return self;
@@ -60,15 +63,19 @@
         _image = nil;
         _imageURL = url;
         _cachedImageView = nil;
+        _cachedQuoteImageView = nil;
         _status = YES;
         [UIImage jsq_downloadImageFromURL:[NSURL URLWithString:self.imageURL]
                            withCompletion:^(UIImage *image, NSError *errorOrNil) {
-                               self.image = image;
-                               //TODO: update this dirty mmethod (send signal to chat controller
-                               //for reloading current view cell, not all collection view)
-                               JSQMessagesViewController *controller = [JSQHelper sharedInstance].currentChatController;
-                               if (controller)
-                                   [controller finishReceivingPhotoMessage:self];
+                               dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                   UIImage *resultImage = [image sq_scaleProportionalToSize:[self mediaViewDisplaySize]];
+                                   dispatch_async(dispatch_get_main_queue(), ^{
+                                       self.image = resultImage;
+                                       JSQMessagesViewController *controller = [JSQHelper sharedInstance].currentChatController;
+                                       if (controller)
+                                           [controller finishReceivingPhotoMessage:self];
+                                   });
+                               });
                            }];
     }
     return self;
@@ -78,6 +85,7 @@
 {
     [super clearCachedMediaViews];
     _cachedImageView = nil;
+    _cachedQuoteImageView = nil;
 }
 
 #pragma mark - Setters
@@ -86,12 +94,14 @@
 {
     _image = [image copy];
     _cachedImageView = nil;
+    _cachedQuoteImageView = nil;
 }
 
 - (void)setAppliesMediaViewMaskAsOutgoing:(BOOL)appliesMediaViewMaskAsOutgoing
 {
     [super setAppliesMediaViewMaskAsOutgoing:appliesMediaViewMaskAsOutgoing];
     _cachedImageView = nil;
+    _cachedQuoteImageView = nil;
 }
 
 #pragma mark - JSQMessageMediaData protocol
@@ -129,6 +139,35 @@
                                                                     isOutgoing:self.appliesMediaViewMaskAsOutgoing];
     }
     return imageView;
+}
+
+- (UIImageView *)mediaQuotedView{
+    if(!_cachedQuoteImageView){
+        _cachedQuoteImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+        _cachedQuoteImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _cachedQuoteImageView.image = nil;
+        if(self.image){
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                UIImage *resultImage = [self.image sq_scaleProportionalToSize:_cachedQuoteImageView.frame.size];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    _cachedQuoteImageView.image = resultImage;
+                });
+            });
+        }
+        else{
+            [UIImage jsq_downloadImageFromURL:[NSURL URLWithString:self.imageURL]
+                               withCompletion:^(UIImage *image, NSError *errorOrNil) {
+                                   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                       UIImage *resultImage = [image sq_scaleProportionalToSize:_cachedQuoteImageView.frame.size];
+                                       self.image = resultImage;
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                           _cachedQuoteImageView.image = resultImage;
+                                       });
+                                   });
+                               }];
+        }
+    }
+    return _cachedQuoteImageView;
 }
 
 - (NSUInteger)mediaHash

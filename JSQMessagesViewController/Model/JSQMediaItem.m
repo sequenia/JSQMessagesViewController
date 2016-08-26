@@ -83,6 +83,12 @@
     return nil;
 }
 
+- (UIImageView *)mediaQuotedView{
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    imageView.image = nil;
+    return imageView;
+}
+
 - (CGSize)mediaViewDisplaySize
 {
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {

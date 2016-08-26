@@ -47,17 +47,17 @@
                                 </constraints>
                             </view>
                             <view alpha="0.5" tag="1000" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Iq-K2-Lfu" userLabel="Time Background">
-                                <rect key="frame" x="188" y="65" width="44" height="19"/>
+                                <rect key="frame" x="179" y="65" width="53" height="19"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="15" placeholderIntrinsicHeight="15" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BRo-Mt-xKZ" userLabel="Time Label" customClass="JSQMessagesLabel">
-                                <rect key="frame" x="192" y="67" width="15" height="15"/>
+                                <rect key="frame" x="183" y="67" width="15" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" tag="1000" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.png" translatesAutoresizingMaskIntoConstraints="NO" id="jbs-uJ-sbm" userLabel="Status Image View">
-                                <rect key="frame" x="215" y="67" width="13" height="15"/>
+                                <rect key="frame" x="206" y="67" width="22" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="Jma-Ma-Zep"/>
                                 </constraints>
@@ -178,6 +178,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="checkmark.png" width="13" height="10"/>
+        <image name="checkmark.png" width="22" height="22"/>
     </resources>
 </document>
