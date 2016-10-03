@@ -65,9 +65,11 @@
     UIImage *avatar = [self circularAvatarImage:image];
     UIImage *highlightedAvatar = [self circularAvatarHighlightedImage:image];
 
-    return [[JSQMessagesAvatarImage alloc] initWithAvatarImage:avatar
-                                              highlightedImage:highlightedAvatar
-                                              placeholderImage:avatar];
+    JSQMessagesAvatarImage *avatarImage = [[JSQMessagesAvatarImage alloc] initWithAvatarImage:avatar
+                                                                             highlightedImage:highlightedAvatar
+                                                                             placeholderImage:avatar];
+    avatarImage.originalImage = image;
+    return avatarImage;
 }
 
 - (UIImage *)circularAvatarImage:(UIImage *)image

@@ -33,6 +33,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JSQMessagesAvatarImage : NSObject <JSQMessageAvatarImageDataSource, NSCopying>
 
 /**
+ *  The original image for system messages.
+ */
+@property (nonatomic, strong, nullable) UIImage *originalImage;
+
+/**
  *  The avatar image for a regular display state.
  */
 @property (nonatomic, strong, nullable) UIImage *avatarImage;
