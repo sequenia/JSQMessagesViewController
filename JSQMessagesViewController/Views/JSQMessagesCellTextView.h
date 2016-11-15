@@ -22,6 +22,6 @@
  *  `JSQMessagesCellTextView` is a subclass of `UITextView` that is used to display text
  *  in a `JSQMessagesCollectionViewCell`.
  */
-@interface JSQMessagesCellTextView : UITextView
+@interface JSQMessagesCellTextView : UITextView <UITextViewDelegate>
 
 @end

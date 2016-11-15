@@ -17,6 +17,8 @@
 //
 
 #import "JSQMessagesCellTextView.h"
+#import "JSQMessagesCollectionViewCell.h"
+#import "JSQHelper.h"
 
 @implementation JSQMessagesCellTextView
 
@@ -40,6 +42,7 @@
     self.textContainer.lineFragmentPadding = 0;
     self.linkTextAttributes = @{ NSForegroundColorAttributeName : [UIColor whiteColor],
                                  NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid) };
+    self.delegate = self;
 }
 
 - (void)setSelectedRange:(NSRange)selectedRange
@@ -78,6 +81,31 @@
     }
     
     return YES;
+}
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
+    NSArray *recs = [textView gestureRecognizers];
+    BOOL longPress = NO;
+    for (UIGestureRecognizer *rec in recs) {
+        if ([rec isKindOfClass:[UILongPressGestureRecognizer class]]) {
+            UILongPressGestureRecognizer *longRec = (UILongPressGestureRecognizer *)rec;
+            if (longRec.state == UIGestureRecognizerStateBegan)
+                longPress = YES;
+        }
+    }
+    
+    if (longPress) {
+        UIView *cellView = textView.superview.superview.superview;
+        if ([cellView isKindOfClass:[JSQMessagesCollectionViewCell class]]) {
+            JSQMessagesCollectionViewCell *cell = (JSQMessagesCollectionViewCell *)cellView;
+            JSQMessagesViewController *controller = [[JSQHelper sharedInstance] currentChatController];
+            NSIndexPath *indexPath = [controller.collectionView indexPathForCell:cell];
+            [controller collectionView:controller.collectionView shouldShowMenuForItemAtIndexPath:indexPath];
+            [[NSNotificationCenter defaultCenter] postNotificationName:UIMenuControllerWillShowMenuNotification object:nil];
+        }
+    }
+    return !longPress;
+    
 }
 
 @end

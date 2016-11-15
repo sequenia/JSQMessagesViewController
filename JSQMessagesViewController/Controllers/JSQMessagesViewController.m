@@ -864,7 +864,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
                                                     name:UIMenuControllerWillShowMenuNotification
                                                   object:nil];
 
-    UIMenuController *menu = [notification object];
+    UIMenuController *menu = [UIMenuController sharedMenuController];
     [menu setMenuVisible:NO animated:NO];
 
     JSQMessagesCollectionViewCell *selectedCell = (JSQMessagesCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:self.selectedIndexPathForMenu];
