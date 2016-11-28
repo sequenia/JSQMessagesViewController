@@ -25,7 +25,7 @@
     self.subTitleLabel.text = @"";
     self.image.clipsToBounds = YES;
     
-    self.image.contentMode = UIViewContentModeScaleAspectFit;
+    self.image.contentMode = UIViewContentModeScaleAspectFill;
     self.backgroundColor = [UIColor clearColor];
 }
 
