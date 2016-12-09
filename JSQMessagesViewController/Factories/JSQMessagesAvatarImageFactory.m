@@ -62,7 +62,7 @@
 
 - (JSQMessagesAvatarImage *)avatarImageWithImage:(UIImage *)image
 {
-    UIImage *avatar = [self circularAvatarImage:image];
+    UIImage *avatar = [self scaledAvatarImageWithImage:image];
     UIImage *highlightedAvatar = [self circularAvatarHighlightedImage:image];
 
     JSQMessagesAvatarImage *avatarImage = [[JSQMessagesAvatarImage alloc] initWithAvatarImage:avatar
@@ -70,6 +70,22 @@
                                                                              placeholderImage:avatar];
     avatarImage.originalImage = image;
     return avatarImage;
+}
+
+- (UIImage *)scaledAvatarImageWithImage:(UIImage *)image {
+    CGSize newSize;
+    if (image.size.width > image.size.height) {
+        newSize.width = self.diameter;
+        newSize.height = image.size.height * self.diameter / image.size.width;
+    } else {
+        newSize.height = self.diameter;
+        newSize.width = image.size.width * self.diameter / image.size.height;
+    }
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 - (UIImage *)circularAvatarImage:(UIImage *)image

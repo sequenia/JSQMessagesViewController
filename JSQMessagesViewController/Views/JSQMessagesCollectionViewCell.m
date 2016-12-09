@@ -212,6 +212,9 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 
     self.avatarImageView.image = nil;
     self.avatarImageView.highlightedImage = nil;
+    self.avatarImageView.layer.cornerRadius = self.avatarContainerView.frame.size.width / 2;
+    self.avatarImageView.clipsToBounds = YES;
+    self.avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
     
     self.messageBubbleTimeLabel.text = nil;
     self.messageBubbleTimeLabelBackground.hidden = YES;
