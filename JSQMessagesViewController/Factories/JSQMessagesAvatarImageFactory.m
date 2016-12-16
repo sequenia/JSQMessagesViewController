@@ -62,14 +62,29 @@
 
 - (JSQMessagesAvatarImage *)avatarImageWithImage:(UIImage *)image
 {
-    UIImage *avatar = [self scaledAvatarImageWithImage:image];
-    UIImage *highlightedAvatar = [self circularAvatarHighlightedImage:image];
+    UIImage *squareImage = [self squareImageWithImage: image];
+    UIImage *avatar = [self circularAvatarImage: squareImage];
+    UIImage *highlightedAvatar = [self circularAvatarHighlightedImage: squareImage];
 
-    JSQMessagesAvatarImage *avatarImage = [[JSQMessagesAvatarImage alloc] initWithAvatarImage:avatar
-                                                                             highlightedImage:highlightedAvatar
-                                                                             placeholderImage:avatar];
+    JSQMessagesAvatarImage *avatarImage = [[JSQMessagesAvatarImage alloc] initWithAvatarImage: avatar
+                                                                             highlightedImage: highlightedAvatar
+                                                                             placeholderImage: avatar];
     avatarImage.originalImage = image;
     return avatarImage;
+}
+
+- (UIImage *) squareImageWithImage: (UIImage *) image {
+    double newCropSize;
+    newCropSize = MIN(image.size.width, image.size.height);
+    
+    double x = image.size.width/2.0 - newCropSize/2.0;
+    double y = image.size.height/2.0 - newCropSize/2.0;
+    
+    CGRect cropRect = CGRectMake(x, y, newCropSize, newCropSize);
+    CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
+    UIImage *cropped = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef);
+    return cropped;
 }
 
 - (UIImage *)scaledAvatarImageWithImage:(UIImage *)image {
