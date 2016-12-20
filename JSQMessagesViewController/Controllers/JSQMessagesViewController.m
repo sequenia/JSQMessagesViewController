@@ -372,7 +372,8 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     self.showTypingIndicator = NO;
     
     [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
-    [self.collectionView reloadData];
+    if ([photo mediaData])
+        [self.collectionView reloadData];
 }
 
 - (void)finishReceivingMessageAnimated:(BOOL)animated {
