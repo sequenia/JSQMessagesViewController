@@ -11,6 +11,7 @@
 
 @interface JSQSystemMessageItem ()
 
+@property (strong, nonatomic) JSQSystemMessageView *cachedMediaView;
 
 @end
 
@@ -30,12 +31,16 @@
 #pragma mark - JSQMessageMediaData
 
 - (nullable UIView *)mediaView {
+    if (self.cachedMediaView)
+        return self.cachedMediaView;
+    
     CGSize size = [self mediaViewDisplaySize];
     JSQSystemMessageView* view = [JSQSystemMessageView systemMessageView];
     view.titleLabel.text = self.title;
     view.subTitleLabel.text = self.subTitle;
     view.image.image = self.image ?: [self blankImage];
     view.frame = CGRectMake(0.0f, 0.0f, size.width, size.height);
+    self.cachedMediaView = view;
     return view;
 }
 
