@@ -19,6 +19,7 @@
 #import "JSQMessagesAvatarImageFactory.h"
 
 #import "UIColor+JSQMessages.h"
+#import <NSData+SQExtended.h>
 
 // TODO: define kJSQMessagesCollectionViewAvatarSizeDefault elsewhere so we can remove this import
 #import "JSQMessagesCollectionViewFlowLayout.h"
@@ -26,6 +27,8 @@
 @interface JSQMessagesAvatarImageFactory ()
 
 @property (assign, nonatomic, readonly) NSUInteger diameter;
+
+@property (nonatomic, readwrite) NSMutableDictionary *cache;
 
 @end
 
@@ -50,6 +53,16 @@
     return self;
 }
 
++ (instancetype)sharedInstance {
+    static JSQMessagesAvatarImageFactory *_sharedInstance = nil;
+    static dispatch_once_t onceSecurePredicate;
+    dispatch_once(&onceSecurePredicate,^{
+        _sharedInstance = [[self alloc] initWithDiameter: kJSQMessagesCollectionViewAvatarSizeDefault];
+        _sharedInstance.cache = [@{} mutableCopy];
+    });
+    return _sharedInstance;
+}
+
 #pragma mark - Public
 
 - (JSQMessagesAvatarImage *)avatarImageWithPlaceholder:(UIImage *)placeholderImage
@@ -62,20 +75,34 @@
 
 - (JSQMessagesAvatarImage *)avatarImageWithImage:(UIImage *)image
 {
-    UIImage *squareImage = [self squareImageWithImage: image];
+    NSDate* methodStart = [NSDate date];
+    NSString *key = [UIImagePNGRepresentation(image) sq_md5Hash];
+    JSQMessagesAvatarImage *fromCache = [self.cache valueForKey: key];
+    if (fromCache) {
+        NSLog(@"image[%@] from cache, time = %@", key, @(-[methodStart timeIntervalSinceNow]));
+        return fromCache;
+    }
+    
+    UIImage *squareImage = [self squareImageWithImage: image size:0];
     UIImage *avatar = [self circularAvatarImage: squareImage];
     UIImage *highlightedAvatar = [self circularAvatarHighlightedImage: squareImage];
-
+    
     JSQMessagesAvatarImage *avatarImage = [[JSQMessagesAvatarImage alloc] initWithAvatarImage: avatar
                                                                              highlightedImage: highlightedAvatar
                                                                              placeholderImage: avatar];
-    avatarImage.originalImage = image;
+    avatarImage.originalImage = [self squareImageWithImage: image size: 64];
+    [self.cache setValue:avatarImage forKey: key];
+    NSLog(@"image[%@] generate, time = %@", key, @([methodStart timeIntervalSinceNow]));
     return avatarImage;
 }
 
-- (UIImage *) squareImageWithImage: (UIImage *) image {
+- (UIImage *) squareImageWithImage: (UIImage *) image size: (CGFloat) size {
+    
     double newCropSize;
-    newCropSize = MIN(image.size.width, image.size.height);
+    if (size == 0)
+        newCropSize = MIN(image.size.width, image.size.height);
+    else
+        newCropSize = size;
     
     double x = image.size.width/2.0 - newCropSize/2.0;
     double y = image.size.height/2.0 - newCropSize/2.0;

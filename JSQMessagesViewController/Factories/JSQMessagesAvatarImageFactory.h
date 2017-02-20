@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface JSQMessagesAvatarImageFactory : NSObject
 
++ (instancetype)sharedInstance;
+
 /**
  *  Creates and returns a new instance of `JSQMessagesAvatarImageFactory` that uses
  *  the default diameter for creating avatars.
