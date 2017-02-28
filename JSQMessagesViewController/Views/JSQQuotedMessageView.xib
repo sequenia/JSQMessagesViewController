@@ -1,19 +1,23 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="JSQQuotedMessageView">
-            <rect key="frame" x="0.0" y="0.0" width="305" height="123.5"/>
+            <rect key="frame" x="0.0" y="0.0" width="305" height="124"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TDr-PN-aD4" userLabel="Separator View">
                     <rect key="frame" x="51" y="8" width="2" height="107.5"/>
-                    <color key="backgroundColor" red="0.29976126959999999" green="0.68824669679999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.29976126959999999" green="0.68824669679999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <accessibility key="accessibilityConfiguration" identifier="Separator View"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="2" id="9Fa-UD-oWW"/>
@@ -21,7 +25,7 @@
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FEb-S7-Jgv" userLabel="File View">
                     <rect key="frame" x="8" y="44" width="35" height="35"/>
-                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <accessibility key="accessibilityConfiguration" identifier="File View"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="FEb-S7-Jgv" secondAttribute="height" multiplier="1:1" id="ZWJ-8i-udr"/>
@@ -34,7 +38,7 @@
                         <constraint firstAttribute="height" constant="21" id="ELX-M7-HYa"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" text="Conent Label (If your table view has more than a couple dozen rows in it)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VtF-9Y-HiD">
@@ -43,7 +47,7 @@
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="dzA-sX-2g5"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.37647058823529411" green="0.49019607843137253" blue="0.54509803921568623" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.37647058823529411" green="0.49019607843137253" blue="0.54509803921568623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                     <variation key="default">
                         <mask key="constraints">
@@ -54,17 +58,17 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nUc-SD-cWW">
                     <rect key="frame" x="61" y="103" width="236" height="14"/>
                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="File Size Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PmS-o3-5F3">
                     <rect key="frame" x="61" y="90" width="237" height="13.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                    <color key="textColor" red="0.37647058823529411" green="0.49019607843137253" blue="0.54509803921568623" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.37647058823529411" green="0.49019607843137253" blue="0.54509803921568623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="FEb-S7-Jgv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="0L4-NS-ZQH"/>
                 <constraint firstItem="PmS-o3-5F3" firstAttribute="leading" secondItem="TDr-PN-aD4" secondAttribute="trailing" constant="8" id="2Xc-uy-pRE"/>

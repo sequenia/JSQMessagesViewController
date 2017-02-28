@@ -21,6 +21,7 @@
 #import "JSQMessagesCollectionViewCellIncoming.h"
 #import "JSQMessagesCollectionViewCellOutgoing.h"
 #import "JSQMessagesCollectionViewLayoutAttributes.h"
+#import "JSQLinkMessagesView.h"
 
 #import "UIView+JSQMessages.h"
 #import "JSQQuotedMessageView.h"
@@ -163,6 +164,18 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 }
 
 #pragma mark - Collection view cell
+
+- (void) showLinkViewWithData: (id<JSQMessageData>) data {
+  [self.linkView configureWithMessageData: data];
+  self.topBubbleViewHeightConstraint.constant = [self.linkView contentHeight];
+  
+  self.topBubbleView.hidden = NO;
+}
+
+- (void) hideLinkView {
+  self.topBubbleViewHeightConstraint.constant = 0;
+  self.topBubbleView.hidden = YES;
+}
 
 - (void) showQuotedViewWithData: (id<JSQMessageData>) data {
     [self.quotedView configureWithMessageData: data];
