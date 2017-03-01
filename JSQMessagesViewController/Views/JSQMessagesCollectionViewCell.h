@@ -90,6 +90,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface JSQMessagesCollectionViewCell : UICollectionViewCell
 
+- (void) showLinkViewWithData: (id<JSQMessageData>) data;
+
+- (void) hideLinkView;
+
 - (void) showQuotedViewWithData: (id<JSQMessageData>) data;
 
 - (void) hideQuotedView;

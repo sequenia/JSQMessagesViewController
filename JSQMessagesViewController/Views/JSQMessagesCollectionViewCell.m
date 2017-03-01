@@ -139,6 +139,7 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     self.messageBubbleTimeLabelBackground.hidden = YES;
     
     [self configureQuotedView];
+    [self configureLinkView];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jsq_handleTapGesture:)];
     [self addGestureRecognizer:tap];
@@ -156,6 +157,7 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     _textView = nil;
     _messageBubbleImageView = nil;
     _mediaView = nil;
+    _linkView = nil;
 
     _avatarImageView = nil;
 
@@ -417,6 +419,15 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     [self.topBubbleView addSubview: quotedView];
     [self.topBubbleView jsq_pinAllEdgesOfSubview: quotedView];
     self.quotedView = quotedView;
+}
+
+- (void) configureLinkView {
+  JSQLinkMessagesView* linkView = [JSQLinkMessagesView linkMessageView];
+  linkView.translatesAutoresizingMaskIntoConstraints = NO;
+  linkView.backgroundColor = [UIColor clearColor];
+  [self.topBubbleView addSubview: linkView];
+  [self.topBubbleView jsq_pinAllEdgesOfSubview: linkView];
+  self.linkView = linkView;
 }
 
 #pragma mark - Getters

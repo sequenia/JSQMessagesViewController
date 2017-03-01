@@ -19,6 +19,7 @@
 #import <Foundation/Foundation.h>
 
 #import "JSQMessageMediaData.h"
+#import "JSQMessageLinkData.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -104,6 +105,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  @warning You must not return `nil` from this method.
  */
 - (id<JSQMessageMediaData>)media;
+
+- (CGSize)linkMessageViewSizeForWidth:(CGFloat)width;
+- (id<JSQMessageLinkData>)link;
 
 @end
 

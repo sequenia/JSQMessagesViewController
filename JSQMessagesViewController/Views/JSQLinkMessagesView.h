@@ -12,6 +12,10 @@
 
 @interface JSQLinkMessagesView : UIView
 
++ (instancetype) linkMessageView;
+
++ (CGSize) viewSizeForWidth: (CGFloat) width withData: (id<JSQMessageData>) data;
+
 - (void) configureWithMessageData: (id<JSQMessageData>) messageData;
 
 - (CGFloat) contentHeight;

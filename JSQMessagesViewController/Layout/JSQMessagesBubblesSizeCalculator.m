@@ -121,6 +121,11 @@
             quotedViewSize = [messageData quotedMessageViewSizeForWidth: maximumTextWidth];
         }
         
+        CGSize linkViewSize = CGSizeZero;
+        if ([messageData link] != nil) {
+            linkViewSize = [messageData linkMessageViewSizeForWidth: maximumTextWidth];
+        }
+        
         // appending `timelabel` text only needed to properly calculate the size of the cell
         // because later we'll resize the text container by adding an exclusive path for the `timelabel` and
         // that won't affect on the text view size and size of the cell as well
@@ -146,7 +151,7 @@
         //  same as above, an extra 2 points of magix
         CGFloat finalWidth = MAX(MAX(quotedViewSize.width, stringSize.width) + horizontalInsetsTotal, self.minimumBubbleWidth) + self.additionalInset;
 
-        finalSize = CGSizeMake(finalWidth, stringSize.height + verticalInsets + quotedViewSize.height);
+        finalSize = CGSizeMake(finalWidth, stringSize.height + verticalInsets + quotedViewSize.height + 100);
         
         
     }
