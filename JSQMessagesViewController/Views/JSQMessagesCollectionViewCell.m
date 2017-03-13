@@ -24,7 +24,6 @@
 
 #import "UIView+JSQMessages.h"
 #import "JSQQuotedMessageView.h"
-#import "JSQFileMessageView.h"
 
 static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 
@@ -176,18 +175,6 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     self.topBubbleView.hidden = YES;
 }
 
-- (void) showFileViewWithData: (id<JSQMessageData>) data {
-    [[self fileView] configureWithMessageData: data];
-    self.topBubbleViewHeightConstraint.constant = [self.fileView contentHeight];
-
-    self.topBubbleView.hidden = NO;
-}
-
-- (void) hideFileView {
-    self.topBubbleViewHeightConstraint.constant = 0;
-    self.topBubbleView.hidden = YES;
-}
-
 - (void) setAvatarImageViewHidden: (BOOL) hidden
 {
     CGFloat widthConstant = hidden ? 0.0 : self.originAvatarSize.width;
@@ -221,10 +208,6 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     self.quotedView.contentLabel.text = @"";
     self.quotedView.fileSizeLabel.text = @"";
     self.quotedView.dateLabel.text = @"";
-    
-    self.fileView.fileNameLabel.text = @"";
-    self.fileView.fileSizeLabel.text = @"";
-    self.fileView.downloadView.hidden = YES;
     
     [self setAvatarImageViewHidden: NO];
 }
@@ -459,14 +442,6 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     }
     
     return NO;
-}
-
-- (void) setFileProgress:(CGFloat)progress {
-    [[self viewWithTag:111] setFileProgress: progress];
-}
-
-- (JSQFileMessageView *)fileView {
-    return [self viewWithTag:111];
 }
 
 @end

@@ -132,4 +132,22 @@
     });
 }
 
+- (UIImage *)jsq_scaleProportionalToSize:(CGSize)size {
+    float widthRatio = size.width/self.size.width;
+    float heightRatio = size.height/self.size.height;
+    
+    if(widthRatio > heightRatio)
+    {
+        size=CGSizeMake(self.size.width*heightRatio,self.size.height*heightRatio);
+    } else {
+        size=CGSizeMake(self.size.width*widthRatio,self.size.height*widthRatio);
+    }
+    
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
+    [self drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
 @end

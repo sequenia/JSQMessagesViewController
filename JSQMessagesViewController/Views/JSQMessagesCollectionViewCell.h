@@ -94,10 +94,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) hideQuotedView;
 
-- (void) showFileViewWithData: (id<JSQMessageData>) data;
-
-- (void) hideFileView;
-
 @property (weak, nonatomic, readwrite) JSQQuotedMessageView* quotedView;
 
 @property (weak, nonatomic, readwrite) IBOutlet UIView* topBubbleView;
@@ -229,8 +225,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  @warning Note that all message cells share the all actions registered here.
  */
 + (void)registerMenuAction:(SEL)action;
-
-- (void) setFileProgress: (CGFloat) progress;
 
 @end
 

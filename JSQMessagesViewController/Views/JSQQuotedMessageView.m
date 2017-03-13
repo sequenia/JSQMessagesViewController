@@ -11,8 +11,6 @@
 #import "UIView+JSQMessages.h"
 #import "JSQPhotoMediaItem.h"
 #import "UIImage+JSQMessages.h"
-#import "JSQFileMediaItem.h"
-#import <SQUtils/UIImage+SQExtended.h>
 
 @interface JSQQuotedMessageView ()
 

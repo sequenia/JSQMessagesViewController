@@ -94,6 +94,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)jsq_downloadImageFromURL: (NSURL*) url
                   withCompletion: (void(^)(UIImage* image, NSError* errorOrNil)) completion;
 
+- (UIImage *)jsq_scaleProportionalToSize:(CGSize)size;
+
 @end
 
 NS_ASSUME_NONNULL_END

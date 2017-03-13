@@ -24,7 +24,6 @@
 #import "UIImage+JSQMessages.h"
 #import "JSQHelper.h"
 #import "JSQMessageMediaOptional.h"
-#import <SQUtils/UIImage+SQExtended.h>
 
 #import <MobileCoreServices/UTCoreTypes.h>
 
@@ -68,7 +67,7 @@
         [UIImage jsq_downloadImageFromURL:[NSURL URLWithString:self.imageURL]
                            withCompletion:^(UIImage *image, NSError *errorOrNil) {
                                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                   UIImage *resultImage = [image sq_scaleProportionalToSize:[self mediaViewDisplaySize]];
+                                   UIImage *resultImage = [image jsq_scaleProportionalToSize:[self mediaViewDisplaySize]];
                                    dispatch_async(dispatch_get_main_queue(), ^{
                                        self.image = resultImage;
                                        JSQMessagesViewController *controller = [JSQHelper sharedInstance].currentChatController;
@@ -148,7 +147,7 @@
         _cachedQuoteImageView.image = nil;
         if(self.image){
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                UIImage *resultImage = [self.image sq_scaleProportionalToSize:_cachedQuoteImageView.frame.size];
+                UIImage *resultImage = [self.image jsq_scaleProportionalToSize:_cachedQuoteImageView.frame.size];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     _cachedQuoteImageView.image = resultImage;
                 });
@@ -158,7 +157,7 @@
             [UIImage jsq_downloadImageFromURL:[NSURL URLWithString:self.imageURL]
                                withCompletion:^(UIImage *image, NSError *errorOrNil) {
                                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                       UIImage *resultImage = [image sq_scaleProportionalToSize:_cachedQuoteImageView.frame.size];
+                                       UIImage *resultImage = [image jsq_scaleProportionalToSize:_cachedQuoteImageView.frame.size];
                                        self.image = resultImage;
                                        dispatch_async(dispatch_get_main_queue(), ^{
                                            _cachedQuoteImageView.image = resultImage;

@@ -117,9 +117,9 @@
         CGFloat maximumTextWidth = [self textBubbleWidthForLayout:layout] - avatarSize.width - layout.messageBubbleLeftRightMargin - horizontalInsetsTotal;
         
         CGSize quotedViewSize = CGSizeZero;
-        if ([messageData quotedMessage] != nil){
-            quotedViewSize = [messageData quotedMessageViewSizeForWidth: maximumTextWidth];
-        }
+//        if ([messageData quotedMessage] != nil){
+//            quotedViewSize = [messageData quotedMessageViewSizeForWidth: maximumTextWidth];
+//        }
         
         // appending `timelabel` text only needed to properly calculate the size of the cell
         // because later we'll resize the text container by adding an exclusive path for the `timelabel` and

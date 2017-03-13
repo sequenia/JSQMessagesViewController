@@ -42,6 +42,7 @@
     [super prepareForReuse];
     
     self.messageStatusImageView.image = nil;
+    self.messageStatusImageView.hidden = YES; // remove this, when status will be needed. (c) wolferine
     self.messageInfoButton.alpha = 0.0;
     self.infoButtonActionHandler = nil;
 }

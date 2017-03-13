@@ -244,7 +244,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @see `finishReceivingMessageAnimated:`.
  */
-- (void)finishReceivingPhotoMessage: (JSQPhotoMediaItem *) photo;
+- (void)finishReceivingPhotoMessage: (id <JSQMessageData>) photo;
 
 /**
  *  Checks if file exist in the application's directory.

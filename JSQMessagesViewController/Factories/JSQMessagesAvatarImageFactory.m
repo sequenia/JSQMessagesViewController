@@ -19,7 +19,7 @@
 #import "JSQMessagesAvatarImageFactory.h"
 
 #import "UIColor+JSQMessages.h"
-#import <NSData+SQExtended.h>
+#import <CommonCrypto/CommonCrypto.h>
 
 // TODO: define kJSQMessagesCollectionViewAvatarSizeDefault elsewhere so we can remove this import
 #import "JSQMessagesCollectionViewFlowLayout.h"
@@ -76,7 +76,7 @@
 - (JSQMessagesAvatarImage *)avatarImageWithImage:(UIImage *)image
 {
     NSDate* methodStart = [NSDate date];
-    NSString *key = [UIImagePNGRepresentation(image) sq_md5Hash];
+    NSString *key = [self sq_md5Hash: UIImagePNGRepresentation(image)];
     JSQMessagesAvatarImage *fromCache = [self.cache valueForKey: key];
     if (fromCache) {
         NSLog(@"image[%@] from cache, time = %@", key, @(-[methodStart timeIntervalSinceNow]));
@@ -94,6 +94,18 @@
     [self.cache setValue:avatarImage forKey: key];
     NSLog(@"image[%@] generate, time = %@", key, @([methodStart timeIntervalSinceNow]));
     return avatarImage;
+}
+
+- (NSString *)sq_md5Hash: (NSData *) data {
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    CC_MD5( data.bytes, (int)data.length, result ); // This is the md5 call
+    return [NSString stringWithFormat:
+            @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+            result[0], result[1], result[2], result[3],
+            result[4], result[5], result[6], result[7],
+            result[8], result[9], result[10], result[11],
+            result[12], result[13], result[14], result[15]
+            ];
 }
 
 - (UIImage *) squareImageWithImage: (UIImage *) image size: (CGFloat) size {
