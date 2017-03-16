@@ -97,6 +97,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (copy, nonatomic, readwrite) NSString* linkItemInfo;
 
+@property (copy, nonatomic, readwrite) NSString* linkUrl;
+
+@property (copy, nonatomic, readwrite) NSString* linkContent;
+
+@property (copy, nonatomic, readwrite) NSString* linkTitle;
+
+@property (copy, nonatomic, readwrite) UIImage* linkImage;
+
 /**
  *  @return String which identifies type of the data returned by `mediaData` method.
  *

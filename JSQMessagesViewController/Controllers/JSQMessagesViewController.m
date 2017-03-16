@@ -369,11 +369,22 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 
 - (void)finishReceivingPhotoMessage: (id <JSQMessageMediaData>) photo
 {
-    self.showTypingIndicator = NO;
+  self.showTypingIndicator = NO;
     
-    [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
-    if ([photo mediaData])
+  [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
+  if ([photo mediaData]) {
         [self.collectionView reloadData];
+  }
+}
+
+- (void)finishReceivingLinkMessage: (id <JSQMessageData>) data
+{
+  self.showTypingIndicator = NO;
+  
+  [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
+  if ([data link]) {
+    [self.collectionView reloadData];
+  }
 }
 
 - (void)finishReceivingMessageAnimated:(BOOL)animated {

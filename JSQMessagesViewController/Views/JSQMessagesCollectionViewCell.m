@@ -138,9 +138,6 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     self.messageBubbleTimeLabelBackground.layer.cornerRadius = 5.0;
     self.messageBubbleTimeLabelBackground.hidden = YES;
     
-    [self configureQuotedView];
-    [self configureLinkView];
-    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jsq_handleTapGesture:)];
     [self addGestureRecognizer:tap];
     self.tapGestureRecognizer = tap;
@@ -168,6 +165,8 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 #pragma mark - Collection view cell
 
 - (void) showLinkViewWithData: (id<JSQMessageData>) data {
+  [self configureLinkView];
+  
   [self.linkView configureWithMessageData: data];
   self.topBubbleViewHeightConstraint.constant = [self.linkView contentHeight];
   
@@ -175,11 +174,14 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 }
 
 - (void) hideLinkView {
+  [self.linkView removeFromSuperview];
   self.topBubbleViewHeightConstraint.constant = 0;
   self.topBubbleView.hidden = YES;
 }
 
 - (void) showQuotedViewWithData: (id<JSQMessageData>) data {
+    [self configureQuotedView];
+  
     [self.quotedView configureWithMessageData: data];
     self.topBubbleViewHeightConstraint.constant = [self.quotedView contentHeight];
     
@@ -413,6 +415,10 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 }
 
 - (void) configureQuotedView {
+  if (self.quotedView) {
+    [self.quotedView removeFromSuperview];
+  }
+  
     JSQQuotedMessageView* quotedView = [JSQQuotedMessageView qoutedMessageView];
     quotedView.translatesAutoresizingMaskIntoConstraints = NO;
     quotedView.backgroundColor = [UIColor clearColor];
@@ -422,6 +428,10 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 }
 
 - (void) configureLinkView {
+  if (self.linkView) {
+    [self.linkView removeFromSuperview];
+  }
+  
   JSQLinkMessagesView* linkView = [JSQLinkMessagesView linkMessageView];
   linkView.translatesAutoresizingMaskIntoConstraints = NO;
   linkView.backgroundColor = [UIColor clearColor];

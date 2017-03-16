@@ -151,7 +151,7 @@
         //  same as above, an extra 2 points of magix
         CGFloat finalWidth = MAX(MAX(quotedViewSize.width, stringSize.width) + horizontalInsetsTotal, self.minimumBubbleWidth) + self.additionalInset;
 
-        finalSize = CGSizeMake(finalWidth, stringSize.height + verticalInsets + quotedViewSize.height + 100);
+        finalSize = CGSizeMake(finalWidth, stringSize.height + verticalInsets + quotedViewSize.height + linkViewSize.height);
         
         
     }

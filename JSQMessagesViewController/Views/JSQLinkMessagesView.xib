@@ -15,7 +15,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Trq-fd-K3G" userLabel="Separator View">
-                    <rect key="frame" x="8" y="36.5" width="2" height="71.5"/>
+                    <rect key="frame" x="8" y="36" width="2" height="72"/>
                     <color key="backgroundColor" red="0.29976126959999999" green="0.68824669679999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <accessibility key="accessibilityConfiguration" identifier="Separator View"/>
                     <constraints>
@@ -23,63 +23,70 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sender Display Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fF-XQ-haO">
-                    <rect key="frame" x="18" y="36.5" width="164.5" height="21"/>
+                    <rect key="frame" x="18" y="36" width="164.5" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="250" text="Conent Label (If your table view has more than a couple dozen rows in it)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6C8-64-9Mc">
-                    <rect key="frame" x="18" y="57.5" width="277.5" height="50.5"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="50.5" id="UcH-ga-msF"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="sLB-LM-zRm"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.37647058820000001" green="0.49019607840000001" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="sLB-LM-zRm"/>
-                        </mask>
-                    </variation>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="254" text="Link" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yZo-Xm-wI7">
-                    <rect key="frame" x="8" y="8" width="31.5" height="20.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="254" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yZo-Xm-wI7">
+                    <rect key="frame" x="8" y="8" width="32" height="20"/>
+                    <attributedString key="attributedText">
+                        <fragment content="Link">
+                            <attributes>
+                                <font key="NSFont" size="17" name=".SFNSText"/>
+                                <font key="NSOriginalFont" size="17" name=".SFNSText"/>
+                                <integer key="NSUnderline" value="1"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
                     <nil key="highlightedColor"/>
                 </label>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="mT5-2G-cXh">
-                    <rect key="frame" x="142" y="56.5" width="20" height="31.5"/>
-                </activityIndicatorView>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vNC-JA-UQv">
+                    <rect key="frame" x="18" y="65" width="279" height="43"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <attributedString key="attributedText">
+                        <fragment>
+                            <string key="content">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                            <attributes>
+                                <font key="NSFont" metaFont="system" size="17"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <gestureRecognizers/>
             <constraints>
+                <constraint firstItem="Trq-fd-K3G" firstAttribute="bottom" secondItem="vNC-JA-UQv" secondAttribute="bottom" id="07T-1J-NW0"/>
                 <constraint firstItem="Trq-fd-K3G" firstAttribute="top" secondItem="5fF-XQ-haO" secondAttribute="top" id="22O-Ie-heU"/>
-                <constraint firstItem="Trq-fd-K3G" firstAttribute="top" secondItem="mT5-2G-cXh" secondAttribute="top" priority="750" constant="-20" id="76K-xV-BIE"/>
                 <constraint firstItem="yZo-Xm-wI7" firstAttribute="top" secondItem="gkj-zp-xe5" secondAttribute="top" constant="8" id="AT9-QY-5S3"/>
-                <constraint firstItem="6C8-64-9Mc" firstAttribute="top" secondItem="5fF-XQ-haO" secondAttribute="bottom" id="BqH-0d-4EQ"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6C8-64-9Mc" secondAttribute="trailing" constant="7" id="MUP-fE-ajT"/>
+                <constraint firstAttribute="trailing" secondItem="vNC-JA-UQv" secondAttribute="trailing" constant="8" id="GB3-4D-THI"/>
+                <constraint firstAttribute="bottom" secondItem="vNC-JA-UQv" secondAttribute="bottom" constant="8" id="Hxf-eD-fAQ"/>
+                <constraint firstItem="vNC-JA-UQv" firstAttribute="leading" secondItem="Trq-fd-K3G" secondAttribute="trailing" constant="8" id="JRX-pM-yaz"/>
                 <constraint firstItem="Trq-fd-K3G" firstAttribute="leading" secondItem="gkj-zp-xe5" secondAttribute="leading" constant="8" id="Q4m-Yt-a62"/>
-                <constraint firstItem="mT5-2G-cXh" firstAttribute="centerX" secondItem="gkj-zp-xe5" secondAttribute="centerX" id="Wky-j6-oRw"/>
-                <constraint firstAttribute="bottom" secondItem="6C8-64-9Mc" secondAttribute="bottom" constant="8" id="b2f-dU-6Zr"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5fF-XQ-haO" secondAttribute="trailing" constant="7" id="bHJ-jq-ea8"/>
-                <constraint firstItem="Trq-fd-K3G" firstAttribute="bottom" secondItem="mT5-2G-cXh" secondAttribute="bottom" priority="750" constant="20" id="deK-3R-G0a"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="yZo-Xm-wI7" secondAttribute="trailing" constant="7" id="fnV-oA-fD7"/>
                 <constraint firstItem="yZo-Xm-wI7" firstAttribute="leading" secondItem="gkj-zp-xe5" secondAttribute="leading" constant="8" id="k4O-Vn-JmB"/>
                 <constraint firstItem="5fF-XQ-haO" firstAttribute="top" secondItem="yZo-Xm-wI7" secondAttribute="bottom" constant="8" id="lHf-ys-HTD"/>
                 <constraint firstItem="5fF-XQ-haO" firstAttribute="leading" secondItem="Trq-fd-K3G" secondAttribute="trailing" constant="8" id="sag-Nl-LT6"/>
-                <constraint firstItem="6C8-64-9Mc" firstAttribute="leading" secondItem="Trq-fd-K3G" secondAttribute="trailing" constant="8" id="yKe-Id-PnI"/>
-                <constraint firstItem="Trq-fd-K3G" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="6C8-64-9Mc" secondAttribute="bottom" id="yjV-mu-ZOn"/>
+                <constraint firstItem="vNC-JA-UQv" firstAttribute="top" secondItem="5fF-XQ-haO" secondAttribute="bottom" constant="8" id="vt6-a2-PnH"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="linkContentLabel" destination="6C8-64-9Mc" id="7fB-GA-YN8"/>
+                <outlet property="linkContentLabel" destination="vNC-JA-UQv" id="4vg-sM-15P"/>
                 <outlet property="linkDescriptionLabel" destination="5fF-XQ-haO" id="udb-2x-Wcs"/>
                 <outlet property="linkLabel" destination="yZo-Xm-wI7" id="RtK-RE-rWX"/>
+                <outlet property="separatorView" destination="Trq-fd-K3G" id="HXV-0o-zaV"/>
+                <outletCollection property="gestureRecognizers" destination="CDe-gD-mZh" appends="YES" id="GTS-F2-on7"/>
             </connections>
             <point key="canvasLocation" x="522.5" y="-172"/>
         </view>
+        <tapGestureRecognizer id="CDe-gD-mZh">
+            <connections>
+                <action selector="tapToLink:" destination="gkj-zp-xe5" id="QIy-Q0-gmI"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
 </document>
