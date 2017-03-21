@@ -173,6 +173,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     JSQMessagesToolbarButtonFactory *toolbarButtonFactory = [[JSQMessagesToolbarButtonFactory alloc] initWithFont:[UIFont boldSystemFontOfSize:17.0]];
     self.inputToolbar.contentView.leftBarButtonItem = [toolbarButtonFactory defaultAccessoryButtonItemWithColor:self.toolbarAttachButtonColor highlightedColor:self.toolbarAttachButtonHighlightColor];
     self.inputToolbar.contentView.rightBarButtonItem = [toolbarButtonFactory defaultSendButtonItemWithColor:self.toolbarSendButtonColor highlightedColor:self.toolbarSendButtonHighlightColor disabledColor:self.toolbarSendButtonDisabledColor];
+    self.inputToolbar.contentView.textView.font = self.toolbarMessageFont;
     
     [self.inputToolbar removeFromSuperview];
 

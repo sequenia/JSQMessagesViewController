@@ -43,6 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, nonatomic, readwrite, nullable) UIColor *toolbarSendButtonHighlightColor;
 @property (copy, nonatomic, readwrite, nullable) UIColor *toolbarSendButtonDisabledColor;
 
+@property (copy, nonatomic, readwrite, nullable) UIFont *toolbarMessageFont;
+
 /**
  *  Returns the collection view object managed by this view controller.
  *  This view controller is the collection view's data source and delegate.

@@ -62,6 +62,7 @@
     [accessoryButton setImage:highlightedImage forState:UIControlStateHighlighted];
     
     accessoryButton.contentMode = UIViewContentModeScaleAspectFit;
+    accessoryButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
     accessoryButton.backgroundColor = [UIColor clearColor];
     accessoryButton.tintColor = color;
     accessoryButton.titleLabel.font = self.buttonFont;
