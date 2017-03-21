@@ -53,6 +53,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (UIButton *)defaultAccessoryButtonItem;
 
+- (UIButton *)defaultAccessoryButtonItemWithColor:(UIColor *)color highlightedColor:(UIColor *)highlightedColor;
+
 /**
  *  Creates and returns a new button that is styled as the default send button. 
  *  The button has title text `@"Send"` and no image.
@@ -60,6 +62,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return A newly created button.
  */
 - (UIButton *)defaultSendButtonItem;
+
+- (UIButton *)defaultSendButtonItemWithColor:(UIColor *)color highlightedColor:(UIColor *)highlightedColor disabledColor:(UIColor *)disabledColor;
 
 @end
 

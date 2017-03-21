@@ -36,6 +36,13 @@ NS_ASSUME_NONNULL_BEGIN
                                                          JSQMessagesCollectionViewDelegateFlowLayout,
                                                          UITextViewDelegate>
 
+@property (copy, nonatomic, readwrite, nullable) UIColor *toolbarAttachButtonColor;
+@property (copy, nonatomic, readwrite, nullable) UIColor *toolbarAttachButtonHighlightColor;
+
+@property (copy, nonatomic, readwrite, nullable) UIColor *toolbarSendButtonColor;
+@property (copy, nonatomic, readwrite, nullable) UIColor *toolbarSendButtonHighlightColor;
+@property (copy, nonatomic, readwrite, nullable) UIColor *toolbarSendButtonDisabledColor;
+
 /**
  *  Returns the collection view object managed by this view controller.
  *  This view controller is the collection view's data source and delegate.

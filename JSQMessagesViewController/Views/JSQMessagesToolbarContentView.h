@@ -36,6 +36,10 @@ FOUNDATION_EXPORT const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingD
  */
 @interface JSQMessagesToolbarContentView : UIView
 
+@property (nonatomic, copy) UIColor *buttonEnabledColor;
+
+@property (nonatomic, copy) UIColor *buttonDisabledColor;
+
 /**
  *  Returns the text view in which the user composes a message.
  */

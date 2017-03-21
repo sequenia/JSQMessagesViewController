@@ -32,6 +32,7 @@
 
 #import "JSQMessagesToolbarContentView.h"
 #import "JSQMessagesInputToolbar.h"
+#import "JSQMessagesToolbarButtonFactory.h"
 #import "JSQMessagesComposerTextView.h"
 
 #import "NSString+JSQMessages.h"
@@ -168,6 +169,11 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     self.inputToolbar.contentView.textView.placeHolder = [NSBundle jsq_localizedStringForKey:@"new_message"];
     self.inputToolbar.contentView.textView.accessibilityLabel = [NSBundle jsq_localizedStringForKey:@"new_message"];
     self.inputToolbar.contentView.textView.delegate = self;
+    
+    JSQMessagesToolbarButtonFactory *toolbarButtonFactory = [[JSQMessagesToolbarButtonFactory alloc] initWithFont:[UIFont boldSystemFontOfSize:17.0]];
+    self.inputToolbar.contentView.leftBarButtonItem = [toolbarButtonFactory defaultAccessoryButtonItemWithColor:self.toolbarAttachButtonColor highlightedColor:self.toolbarAttachButtonHighlightColor];
+    self.inputToolbar.contentView.rightBarButtonItem = [toolbarButtonFactory defaultSendButtonItemWithColor:self.toolbarSendButtonColor highlightedColor:self.toolbarSendButtonHighlightColor disabledColor:self.toolbarSendButtonDisabledColor];
+    
     [self.inputToolbar removeFromSuperview];
 
     self.automaticallyScrollsToMostRecentMessage = YES;
@@ -237,7 +243,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     [[[self class] nib] instantiateWithOwner:self options:nil];
 
     [self jsq_configureMessagesViewController];
