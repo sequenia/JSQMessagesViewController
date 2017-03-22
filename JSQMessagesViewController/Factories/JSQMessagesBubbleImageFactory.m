@@ -94,7 +94,7 @@
     NSParameterAssert(color != nil);
 
     UIImage *normalBubble = [self.bubbleImage jsq_imageMaskedWithColor:color];
-    UIImage *highlightedBubble = [self.bubbleImage jsq_imageMaskedWithColor:[color jsq_colorByDarkeningColorWithValue:0.12f]];
+    UIImage *highlightedBubble = [self.bubbleImage jsq_imageMaskedWithColor:[color jsq_colorByDarkeningColorWithValue:0.12f]]; 
 
     if (flippedForIncoming) {
         normalBubble = [self jsq_horizontallyFlippedImageFromImage:normalBubble];
