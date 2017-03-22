@@ -43,6 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, nonatomic, readwrite) UIColor *toolbarSendButtonHighlightColor;
 @property (copy, nonatomic, readwrite) UIColor *toolbarSendButtonDisabledColor;
 
+@property (copy, nonatomic, readwrite) UIFont *toolbarSendButtonFont;
+
 @property (copy, nonatomic, readwrite) UIFont *toolbarMessageFont;
 
 @property (copy, nonatomic, readwrite) UIFont *bubbleMessageTextFont;

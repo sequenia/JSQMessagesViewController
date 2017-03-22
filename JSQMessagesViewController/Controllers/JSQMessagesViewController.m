@@ -170,7 +170,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     self.inputToolbar.contentView.textView.accessibilityLabel = [NSBundle jsq_localizedStringForKey:@"new_message"];
     self.inputToolbar.contentView.textView.delegate = self;
     
-    JSQMessagesToolbarButtonFactory *toolbarButtonFactory = [[JSQMessagesToolbarButtonFactory alloc] initWithFont:[UIFont boldSystemFontOfSize:17.0]];
+    JSQMessagesToolbarButtonFactory *toolbarButtonFactory = [[JSQMessagesToolbarButtonFactory alloc] initWithFont:self.toolbarSendButtonFont];
     self.inputToolbar.contentView.leftBarButtonItem = [toolbarButtonFactory defaultAccessoryButtonItemWithColor:self.toolbarAttachButtonColor highlightedColor:self.toolbarAttachButtonHighlightColor];
     self.inputToolbar.contentView.rightBarButtonItem = [toolbarButtonFactory defaultSendButtonItemWithColor:self.toolbarSendButtonColor highlightedColor:self.toolbarSendButtonHighlightColor disabledColor:self.toolbarSendButtonDisabledColor];
     self.inputToolbar.contentView.textView.font = self.toolbarMessageFont;
