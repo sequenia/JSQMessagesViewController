@@ -65,6 +65,7 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
     self.minimumLineSpacing = 4.0f;
     
     _messageBubbleFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    _timeBubbleFont = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
     
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
         _messageBubbleLeftRightMargin = 240.0f;
@@ -155,6 +156,17 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
     
     NSParameterAssert(messageBubbleFont != nil);
     _messageBubbleFont = messageBubbleFont;
+    [self invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
+}
+
+- (void)setTimeBubbleFont:(UIFont *)timeBubbleFont
+{
+    if ([_timeBubbleFont isEqual:timeBubbleFont]) {
+        return;
+    }
+    
+    NSParameterAssert(timeBubbleFont != nil);
+    _timeBubbleFont = timeBubbleFont;
     [self invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
 }
 

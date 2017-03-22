@@ -238,6 +238,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) setFileProgress: (CGFloat) progress;
 
+- (JSQFileMessageView *)fileView;
+
 @end
 
 NS_ASSUME_NONNULL_END

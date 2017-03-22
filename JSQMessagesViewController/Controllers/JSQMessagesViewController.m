@@ -184,6 +184,10 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 
     self.incomingCellIdentifier = [JSQMessagesCollectionViewCellIncoming cellReuseIdentifier];
     self.incomingMediaCellIdentifier = [JSQMessagesCollectionViewCellIncoming mediaCellReuseIdentifier];
+    
+    JSQMessagesCollectionViewFlowLayout *layout = [self.collectionView collectionViewLayout];
+    layout.messageBubbleFont = _bubbleMessageTextFont;
+    layout.timeBubbleFont = _bubbleMessageTimeFont;
 
     // NOTE: let this behavior be opt-in for now
     // [JSQMessagesCollectionViewCell registerMenuAction:@selector(delete:)];
@@ -569,7 +573,9 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 
     JSQMessagesCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.delegate = collectionView;
-
+    cell.textView.font = _bubbleMessageTextFont;
+    cell.messageBubbleTimeLabel.font = _bubbleMessageTimeFont;
+    
     if (!isMediaMessage) {
         cell.textView.text = [messageItem text];
         NSParameterAssert(cell.textView.text != nil);

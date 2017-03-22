@@ -143,6 +143,7 @@ FOUNDATION_EXPORT const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingD
 @property (weak, nonatomic, nullable) IBOutlet UILabel *attachmentTitle;
 
 @property (weak, nonatomic, nullable) IBOutlet UILabel *attachmentSubtitle;
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton *removeButton;
 
 @end
 

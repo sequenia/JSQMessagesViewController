@@ -103,6 +103,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @discussion The default value is the preferred system font for `UIFontTextStyleBody`. This value must not be `nil`.
  */
 @property (strong, nonatomic) UIFont *messageBubbleFont;
+@property (strong, nonatomic) UIFont *timeBubbleFont;
 
 /**
  *  The horizontal spacing used to lay out the `messageBubbleContainerView` frame within each `JSQMessagesCollectionViewCell`.

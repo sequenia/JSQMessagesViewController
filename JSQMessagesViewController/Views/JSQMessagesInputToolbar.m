@@ -234,11 +234,21 @@ static void * kJSQMessagesInputToolbarKeyValueObservingContext = &kJSQMessagesIn
     self.contentView.topConstraint.constant = self.topConstraintConstantWithAttachment;
     self.contentView.imageViewWidthConstraint.constant = imageConstant;
     self.contentView.attachmentView.hidden = NO;
-    self.contentView.attachmentImageView.tintColor = [UIColor colorWithRed:53.f/255.f green:152.f/255.f blue:220.f/255.f alpha:1.f];
     self.contentView.attachmentImageView.image = image;
     self.contentView.attachmentImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.contentView.attachmentTitle.text = name;
     self.contentView.attachmentSubtitle.text = title;
+    
+    self.contentView.attachmentImageView.tintColor = _toolbarTintColor;
+    self.contentView.attachmentSeparator.backgroundColor = _toolbarTintColor;
+    [self.contentView.removeButton setTitleColor:_toolbarTintColor forState:UIControlStateNormal];
+    
+    self.contentView.attachmentTitle.font = _mediaMessageAuthorFont;
+    self.contentView.attachmentTitle.textColor = _mediaMessageAuthorColor;
+    self.contentView.attachmentSubtitle.font = _mediaMessageFont;
+    self.contentView.attachmentSubtitle.textColor = _mediaMessageColor;
+    
+    
     [self.superview layoutIfNeeded];
 }
 

@@ -67,7 +67,7 @@
     self.downloadView.hidden = NO;
     self.defaultFileIcon.hidden = YES;
     self.defaultFileIcon.contentMode = UIViewContentModeScaleAspectFit;
-    self.defaultFileIcon.image = [UIImage jsq_fileImage];
+    self.defaultFileIcon.image = [[UIImage jsq_fileImage] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 
 - (CGFloat) contentHeight {

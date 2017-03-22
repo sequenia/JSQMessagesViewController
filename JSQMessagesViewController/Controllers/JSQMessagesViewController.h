@@ -36,14 +36,17 @@ NS_ASSUME_NONNULL_BEGIN
                                                          JSQMessagesCollectionViewDelegateFlowLayout,
                                                          UITextViewDelegate>
 
-@property (copy, nonatomic, readwrite, nullable) UIColor *toolbarAttachButtonColor;
-@property (copy, nonatomic, readwrite, nullable) UIColor *toolbarAttachButtonHighlightColor;
+@property (copy, nonatomic, readwrite) UIColor *toolbarAttachButtonColor;
+@property (copy, nonatomic, readwrite) UIColor *toolbarAttachButtonHighlightColor;
 
-@property (copy, nonatomic, readwrite, nullable) UIColor *toolbarSendButtonColor;
-@property (copy, nonatomic, readwrite, nullable) UIColor *toolbarSendButtonHighlightColor;
-@property (copy, nonatomic, readwrite, nullable) UIColor *toolbarSendButtonDisabledColor;
+@property (copy, nonatomic, readwrite) UIColor *toolbarSendButtonColor;
+@property (copy, nonatomic, readwrite) UIColor *toolbarSendButtonHighlightColor;
+@property (copy, nonatomic, readwrite) UIColor *toolbarSendButtonDisabledColor;
 
-@property (copy, nonatomic, readwrite, nullable) UIFont *toolbarMessageFont;
+@property (copy, nonatomic, readwrite) UIFont *toolbarMessageFont;
+
+@property (copy, nonatomic, readwrite) UIFont *bubbleMessageTextFont;
+@property (copy, nonatomic, readwrite) UIFont *bubbleMessageTimeFont;
 
 /**
  *  Returns the collection view object managed by this view controller.

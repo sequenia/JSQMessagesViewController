@@ -60,12 +60,18 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface JSQMessagesInputToolbar : UIToolbar
 
-@property (copy, nonatomic, readwrite, nullable) UIColor *attachButtonColor;
-@property (copy, nonatomic, readwrite, nullable) UIColor *attachButtonHighlightColor;
+@property (copy, nonatomic, readwrite) UIColor *attachButtonColor;
+@property (copy, nonatomic, readwrite) UIColor *attachButtonHighlightColor;
 
-@property (copy, nonatomic, readwrite, nullable) UIColor *sendButtonColor;
-@property (copy, nonatomic, readwrite, nullable) UIColor *sendButtonHighlightColor;
-@property (copy, nonatomic, readwrite, nullable) UIColor *sendButtonDisabledColor;
+@property (copy, nonatomic, readwrite) UIColor *sendButtonColor;
+@property (copy, nonatomic, readwrite) UIColor *sendButtonHighlightColor;
+@property (copy, nonatomic, readwrite) UIColor *sendButtonDisabledColor;
+
+@property (copy, nonatomic, readwrite) UIColor *toolbarTintColor;
+@property (copy, nonatomic, readwrite) UIFont*  mediaMessageAuthorFont;
+@property (copy, nonatomic, readwrite) UIFont*  mediaMessageFont;
+@property (copy, nonatomic, readwrite) UIColor* mediaMessageAuthorColor;
+@property (copy, nonatomic, readwrite) UIColor* mediaMessageColor;
 
 /**
  *  The object that acts as the delegate of the toolbar.
