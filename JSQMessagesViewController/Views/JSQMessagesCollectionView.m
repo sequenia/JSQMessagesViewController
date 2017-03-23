@@ -28,7 +28,9 @@
 #import "UIColor+JSQMessages.h"
 
 
-@interface JSQMessagesCollectionView () <JSQMessagesLoadEarlierHeaderViewDelegate>
+@interface JSQMessagesCollectionView () <JSQMessagesLoadEarlierHeaderViewDelegate> {
+    UIImage *bubbleImageMask;
+}
 
 - (void)jsq_configureCollectionView;
 
@@ -98,6 +100,8 @@ forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
 
 - (JSQMessagesTypingIndicatorFooterView *)dequeueTypingIndicatorFooterViewForIndexPath:(NSIndexPath *)indexPath
 {
+    
+    JSQMessagesCollectionViewFlowLayout *layout = [self collectionViewLayout];
     JSQMessagesTypingIndicatorFooterView *footerView = [super dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter
                                                                                  withReuseIdentifier:[JSQMessagesTypingIndicatorFooterView footerReuseIdentifier]
                                                                                         forIndexPath:indexPath];
@@ -106,7 +110,8 @@ forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
                         messageBubbleColor:self.typingIndicatorMessageBubbleColor
                                   animated:YES
                        shouldDisplayOnLeft:self.typingIndicatorDisplaysOnLeft
-                         forCollectionView:self];
+                         forCollectionView:self
+                                bubbleMask:layout.messageBubbleFilledMaskImage];
 
     return footerView;
 }

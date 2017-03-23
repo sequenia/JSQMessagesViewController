@@ -26,6 +26,7 @@
 
 #import "JSQMessagesCollectionViewCellIncoming.h"
 #import "JSQMessagesCollectionViewCellOutgoing.h"
+#import "JSQMessagesBubblesSizeCalculator.h"
 
 #import "JSQMessagesTypingIndicatorFooterView.h"
 #import "JSQMessagesLoadEarlierHeaderView.h"
@@ -188,6 +189,8 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     JSQMessagesCollectionViewFlowLayout *layout = [self.collectionView collectionViewLayout];
     layout.messageBubbleFont = _bubbleMessageTextFont;
     layout.timeBubbleFont = _bubbleMessageTimeFont;
+    layout.messageBubbleFilledMaskImage = _messageBubbleFilledMaskImage;
+    layout.bubbleSizeCalculator = [[JSQMessagesBubblesSizeCalculator alloc] initWithMinimumBubbleWidth:_messageBubbleFilledMaskImage.size.width];
 
     // NOTE: let this behavior be opt-in for now
     // [JSQMessagesCollectionViewCell registerMenuAction:@selector(delete:)];

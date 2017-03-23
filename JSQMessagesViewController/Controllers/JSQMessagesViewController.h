@@ -50,6 +50,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, nonatomic, readwrite) UIFont *bubbleMessageTextFont;
 @property (copy, nonatomic, readwrite) UIFont *bubbleMessageTimeFont;
 
+@property (strong, nonatomic, readwrite) UIImage* messageBubbleFilledMaskImage;
+
 /**
  *  Returns the collection view object managed by this view controller.
  *  This view controller is the collection view's data source and delegate.

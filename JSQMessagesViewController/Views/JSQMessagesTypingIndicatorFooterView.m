@@ -77,6 +77,7 @@ const CGFloat kJSQMessagesTypingIndicatorFooterViewHeight = 46.0f;
                           animated:(BOOL)animated
                shouldDisplayOnLeft:(BOOL)shouldDisplayOnLeft
                  forCollectionView:(UICollectionView *)collectionView
+                        bubbleMask:(UIImage *)bubbleMask
 {
     NSParameterAssert(ellipsisColor != nil);
     NSParameterAssert(messageBubbleColor != nil);
@@ -84,7 +85,7 @@ const CGFloat kJSQMessagesTypingIndicatorFooterViewHeight = 46.0f;
 
     CGFloat bubbleMarginMinimumSpacing = 6.0f;
 
-    JSQMessagesBubbleImageFactory *bubbleImageFactory = [[JSQMessagesBubbleImageFactory alloc] init];
+    JSQMessagesBubbleImageFactory *bubbleImageFactory = [[JSQMessagesBubbleImageFactory alloc] initWithBubbleImage:bubbleMask];
 
     if (shouldDisplayOnLeft) {
         self.bubbleImageView.image = [bubbleImageFactory incomingMessagesBubbleImageWithColor:messageBubbleColor].messageBubbleImage;

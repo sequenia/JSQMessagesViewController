@@ -32,7 +32,9 @@
 
 @property (strong, nonatomic) UIImageView *cachedImageView;
 @property (strong, nonatomic) UIImageView *cachedQuoteImageView;
-
+@property (strong, nonatomic) UIImage *maskImage;
+@property (nonatomic, strong) UIColor *emptyImageColor;
+@property BOOL isEmptyImage;
 @property BOOL status;
 
 @end
@@ -42,7 +44,7 @@
 
 #pragma mark - Initialization
 
-- (instancetype)initWithImage:(UIImage *)image
+- (instancetype)initWithImage:(UIImage *)image maskImage:(UIImage *)maskImage emptyImageColor:(UIColor *)emptyImageColor
 {
     self = [super init];
     if (self) {
@@ -51,12 +53,15 @@
         _localURL = @"";
         _cachedImageView = nil;
         _cachedQuoteImageView = nil;
+        _isEmptyImage = YES;
+        _emptyImageColor = emptyImageColor;
         _status = YES;
+        _maskImage = maskImage;
     }
     return self;
 }
 
-- (instancetype)initWithURL:(NSString *)url
+- (instancetype)initWithURL:(NSString *)url maskImage:(UIImage *)maskImage emptyImageColor:(UIColor *)emptyImageColor
 {
     self = [super init];
     if (self) {
@@ -65,12 +70,18 @@
         _cachedImageView = nil;
         _cachedQuoteImageView = nil;
         _status = YES;
+        _isEmptyImage = YES;
+        _maskImage = maskImage;
+        _emptyImageColor = emptyImageColor;
         [UIImage jsq_downloadImageFromURL:[NSURL URLWithString:self.imageURL]
                            withCompletion:^(UIImage *image, NSError *errorOrNil) {
                                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                                    UIImage *resultImage = [image sq_scaleProportionalToSize:[self mediaViewDisplaySize]];
                                    dispatch_async(dispatch_get_main_queue(), ^{
                                        self.image = resultImage;
+                                       if(self.image) {
+                                           self.isEmptyImage = NO;
+                                       }
                                        JSQMessagesViewController *controller = [JSQHelper sharedInstance].currentChatController;
                                        if (controller)
                                            [controller finishReceivingPhotoMessage:self];
@@ -95,7 +106,9 @@
     _image = [image copy];
     _cachedImageView = nil;
     _cachedQuoteImageView = nil;
+    [self updateCachedImageView];
 }
+
 
 - (void)setAppliesMediaViewMaskAsOutgoing:(BOOL)appliesMediaViewMaskAsOutgoing
 {
@@ -109,7 +122,7 @@
 - (UIView *)mediaView
 {
     if (self.image == nil) {
-        return nil;
+        self.image = [UIImage sq_imageWithColor:_emptyImageColor];
     }
     
     if (self.cachedImageView == nil) {
@@ -127,16 +140,21 @@
     imageView.clipsToBounds = YES;
     
     if (self.appliesMediaViewMaskAsOutgoing) {
+        
         if (self.status) {
             [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:imageView
-                                                                        isOutgoing:self.appliesMediaViewMaskAsOutgoing];
+                                                                        isOutgoing:self.appliesMediaViewMaskAsOutgoing
+                                                                         maskImage:self.maskImage];
         } else {
             [JSQMessagesMediaViewBubbleImageMasker crp_applyBubbleImageMaskToMediaView:imageView
-                                                                            isOutgoing:self.appliesMediaViewMaskAsOutgoing];
+                                                                            isOutgoing:self.appliesMediaViewMaskAsOutgoing
+                                                                             maskImage:self.maskImage];
         }
+
     } else {
         [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:imageView
-                                                                    isOutgoing:self.appliesMediaViewMaskAsOutgoing];
+                                                                    isOutgoing:self.appliesMediaViewMaskAsOutgoing
+                                                                     maskImage:self.maskImage];
     }
     return imageView;
 }
@@ -224,7 +242,7 @@
 
 - (instancetype)copyWithZone:(NSZone *)zone
 {
-    JSQPhotoMediaItem *copy = [[JSQPhotoMediaItem allocWithZone:zone] initWithImage:self.image];
+    JSQPhotoMediaItem *copy = [[JSQPhotoMediaItem allocWithZone:zone] initWithImage:self.image maskImage:self.maskImage emptyImageColor:self.emptyImageColor];
     copy.appliesMediaViewMaskAsOutgoing = self.appliesMediaViewMaskAsOutgoing;
     return copy;
 }

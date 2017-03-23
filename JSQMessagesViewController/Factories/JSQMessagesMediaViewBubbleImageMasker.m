@@ -67,6 +67,18 @@
     }
 }
 
++ (void)applyBubbleImageMaskToMediaView:(UIView *)mediaView isOutgoing:(BOOL)isOutgoing maskImage:(UIImage *)maskImage
+{
+    JSQMessagesMediaViewBubbleImageMasker *masker = [[JSQMessagesMediaViewBubbleImageMasker alloc] initWithBubbleImageFactory:[[JSQMessagesBubbleImageFactory alloc] initWithBubbleImage:maskImage]];
+    
+    if (isOutgoing) {
+        [masker applyOutgoingBubbleImageMaskToMediaView:mediaView];
+    }
+    else {
+        [masker applyIncomingBubbleImageMaskToMediaView:mediaView];
+    }
+}
+
 #pragma mark - Private
 
 - (void)jsq_maskView:(UIView *)view withImage:(UIImage *)image
@@ -82,10 +94,10 @@
 
 #pragma mark CRP
 
-+ (void)crp_applyBubbleImageMaskToMediaView:(UIView *)mediaView isOutgoing:(BOOL)isOutgoing
++ (void)crp_applyBubbleImageMaskToMediaView:(UIView *)mediaView isOutgoing:(BOOL)isOutgoing maskImage:(nonnull UIImage *)maskImage
 {
     JSQMessagesBubbleImageFactory *factory =
-    [[JSQMessagesBubbleImageFactory alloc] initWithBubbleImage:[UIImage jsq_bubbleRegularStrokedImage]
+    [[JSQMessagesBubbleImageFactory alloc] initWithBubbleImage:maskImage
                                                      capInsets:UIEdgeInsetsZero
                                                layoutDirection:[UIApplication sharedApplication].userInterfaceLayoutDirection];
 

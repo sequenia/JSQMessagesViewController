@@ -38,6 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An initialized `JSQMessagesBubblesSizeCalculator`.
  */
+- (instancetype)initWithMinimumBubbleWidth:(NSUInteger)minimumBubbleWidth;
 - (nullable instancetype)initWithCache:(nonnull NSCache *)cache
                     minimumBubbleWidth:(NSUInteger)minimumBubbleWidth
                  usesFixedWidthBubbles:(BOOL)usesFixedWidthBubbles NS_DESIGNATED_INITIALIZER;

@@ -65,7 +65,8 @@ NS_ASSUME_NONNULL_BEGIN
                 messageBubbleColor:(UIColor *)messageBubbleColor
                           animated:(BOOL)animated
                shouldDisplayOnLeft:(BOOL)shouldDisplayOnLeft
-                 forCollectionView:(UICollectionView *)collectionView;
+                 forCollectionView:(UICollectionView *)collectionView
+                        bubbleMask:(UIImage *)bubbleMask;
 @end
 
 NS_ASSUME_NONNULL_END

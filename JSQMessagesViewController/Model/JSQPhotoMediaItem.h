@@ -54,8 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  you may initialize a `JSQPhotoMediaItem` object with a `nil` image. 
  *  Once the image has been retrieved, you can then set the image property.
  */
-- (instancetype)initWithImage:(nullable UIImage *)image;
-
+- (instancetype)initWithImage:(nullable UIImage *)image maskImage:(UIImage *)maskImage emptyImageColor:(UIColor *)emptyImageColor;
 /**
  *  Initializes and returns a photo media item object having the given image with url.
  *
@@ -65,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @discussion Image will be downloaded from the network.
  */
-- (instancetype)initWithURL:(NSString *)url;
+- (instancetype)initWithURL:(NSString *)url maskImage:(UIImage *)maskImage emptyImageColor:(UIColor *)emptyImageColor;;
 
 - (instancetype)initWithJSON:(NSDictionary *)dict;
 

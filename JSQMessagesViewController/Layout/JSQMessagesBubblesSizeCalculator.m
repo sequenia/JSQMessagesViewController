@@ -76,6 +76,16 @@
          usesFixedWidthBubbles:NO];
 }
 
+- (instancetype)initWithMinimumBubbleWidth:(NSUInteger)minimumBubbleWidth
+{
+    NSCache *cache = [NSCache new];
+    cache.name = @"JSQMessagesBubblesSizeCalculator.cache";
+    cache.countLimit = 200;
+    return [self initWithCache:cache
+            minimumBubbleWidth:minimumBubbleWidth
+         usesFixedWidthBubbles:NO];
+}
+
 #pragma mark - NSObject
 
 - (NSString *)description

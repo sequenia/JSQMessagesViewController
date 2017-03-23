@@ -87,8 +87,16 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param isOutgoing A boolean value specifiying whether or not the mask should be for an outgoing or incoming view.
  *  Specify `YES` for outgoing and `NO` for incoming.
  */
-+ (void)applyBubbleImageMaskToMediaView:(UIView *)mediaView isOutgoing:(BOOL)isOutgoing;
-+ (void)crp_applyBubbleImageMaskToMediaView:(UIView *)mediaView isOutgoing:(BOOL)isOutgoing;
++ (void)applyBubbleImageMaskToMediaView:(UIView *)mediaView
+                             isOutgoing:(BOOL)isOutgoing;
+
++ (void)applyBubbleImageMaskToMediaView:(UIView *)mediaView
+                             isOutgoing:(BOOL)isOutgoing
+                              maskImage:(UIImage *)maskImage;
+
++ (void)crp_applyBubbleImageMaskToMediaView:(UIView *)mediaView
+                                 isOutgoing:(BOOL)isOutgoing
+                                  maskImage:(UIImage *)maskImage;
 
 @end
 

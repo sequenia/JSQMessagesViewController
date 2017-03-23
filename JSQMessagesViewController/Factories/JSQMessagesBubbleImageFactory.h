@@ -43,6 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (instancetype)init;
 
+- (instancetype)initWithBubbleImage:(UIImage *)bubbleImage;
+
 /**
  *  Creates and returns a new instance of `JSQMessagesBubbleImageFactory` having the specified
  *  bubbleImage and capInsets. These values are used internally in the factory to produce

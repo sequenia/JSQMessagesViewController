@@ -63,6 +63,13 @@
                      layoutDirection:[UIApplication sharedApplication].userInterfaceLayoutDirection];
 }
 
+- (instancetype)initWithBubbleImage:(UIImage *)bubbleImage
+{
+    return [self initWithBubbleImage:bubbleImage
+                           capInsets:UIEdgeInsetsZero
+                     layoutDirection:[UIApplication sharedApplication].userInterfaceLayoutDirection];
+}
+
 #pragma mark - Public
 
 - (JSQMessagesBubbleImage *)outgoingMessagesBubbleImageWithColor:(UIColor *)color
