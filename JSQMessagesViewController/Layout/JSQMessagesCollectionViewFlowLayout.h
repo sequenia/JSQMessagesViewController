@@ -105,6 +105,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) UIFont *messageBubbleFont;
 @property (strong, nonatomic) UIFont *timeBubbleFont;
 @property (strong, nonatomic, readwrite) UIImage* messageBubbleFilledMaskImage;
+@property (strong, nonatomic, readwrite) UIImage* messageBubbleStrokedMaskImage;
 
 /**
  *  The horizontal spacing used to lay out the `messageBubbleContainerView` frame within each `JSQMessagesCollectionViewCell`.

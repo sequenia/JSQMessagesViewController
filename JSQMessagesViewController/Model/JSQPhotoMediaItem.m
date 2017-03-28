@@ -32,8 +32,7 @@
 
 @property (strong, nonatomic) UIImageView *cachedImageView;
 @property (strong, nonatomic) UIImageView *cachedQuoteImageView;
-@property (strong, nonatomic) UIImage *maskImage;
-@property (nonatomic, strong) UIColor *emptyImageColor;
+
 @property BOOL isEmptyImage;
 @property BOOL status;
 
@@ -44,7 +43,7 @@
 
 #pragma mark - Initialization
 
-- (instancetype)initWithImage:(UIImage *)image maskImage:(UIImage *)maskImage emptyImageColor:(UIColor *)emptyImageColor
+- (instancetype)initWithImage:(UIImage *)image maskImage:(UIImage *)maskImage strokedMask:(UIImage *)strokedMask emptyImageColor:(UIColor *)emptyImageColor errorColor:(UIColor *)errorColor
 {
     self = [super init];
     if (self) {
@@ -57,11 +56,13 @@
         _emptyImageColor = emptyImageColor;
         _status = YES;
         _maskImage = maskImage;
+        _strokedMaskImage = strokedMask;
+        _errorColor = errorColor;
     }
     return self;
 }
 
-- (instancetype)initWithURL:(NSString *)url maskImage:(UIImage *)maskImage emptyImageColor:(UIColor *)emptyImageColor
+- (instancetype)initWithURL:(NSString *)url maskImage:(UIImage *)maskImage strokedMask:(UIImage *)strokedMask emptyImageColor:(UIColor *)emptyImageColor errorColor:(UIColor *)errorColor
 {
     self = [super init];
     if (self) {
@@ -73,6 +74,8 @@
         _isEmptyImage = YES;
         _maskImage = maskImage;
         _emptyImageColor = emptyImageColor;
+        _strokedMaskImage = strokedMask;
+        _errorColor = errorColor;
         [UIImage jsq_downloadImageFromURL:[NSURL URLWithString:self.imageURL]
                            withCompletion:^(UIImage *image, NSError *errorOrNil) {
                                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -108,7 +111,6 @@
     _cachedQuoteImageView = nil;
     [self updateCachedImageView];
 }
-
 
 - (void)setAppliesMediaViewMaskAsOutgoing:(BOOL)appliesMediaViewMaskAsOutgoing
 {
@@ -146,9 +148,15 @@
                                                                         isOutgoing:self.appliesMediaViewMaskAsOutgoing
                                                                          maskImage:self.maskImage];
         } else {
-            [JSQMessagesMediaViewBubbleImageMasker crp_applyBubbleImageMaskToMediaView:imageView
-                                                                            isOutgoing:self.appliesMediaViewMaskAsOutgoing
-                                                                             maskImage:self.maskImage];
+            [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:imageView
+                                                                        isOutgoing:self.appliesMediaViewMaskAsOutgoing
+                                                                         maskImage:self.maskImage];
+            UIImageView *borderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
+            borderImageView.image = [UIImage jsq_imageWithColor:self.errorColor];
+            [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:borderImageView
+                                                                        isOutgoing:self.appliesMediaViewMaskAsOutgoing
+                                                                         maskImage:self.strokedMaskImage];
+            [imageView addSubview:borderImageView];
         }
 
     } else {
@@ -242,7 +250,7 @@
 
 - (instancetype)copyWithZone:(NSZone *)zone
 {
-    JSQPhotoMediaItem *copy = [[JSQPhotoMediaItem allocWithZone:zone] initWithImage:self.image maskImage:self.maskImage emptyImageColor:self.emptyImageColor];
+    JSQPhotoMediaItem *copy = [[JSQPhotoMediaItem allocWithZone:zone] initWithImage:self.image maskImage:self.maskImage strokedMask:self.strokedMaskImage emptyImageColor:self.emptyImageColor errorColor:self.errorColor];
     copy.appliesMediaViewMaskAsOutgoing = self.appliesMediaViewMaskAsOutgoing;
     return copy;
 }

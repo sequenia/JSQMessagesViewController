@@ -94,7 +94,7 @@
 
 #pragma mark CRP
 
-+ (void)crp_applyBubbleImageMaskToMediaView:(UIView *)mediaView isOutgoing:(BOOL)isOutgoing maskImage:(nonnull UIImage *)maskImage
++ (void)crp_applyBubbleImageMaskToMediaView:(UIView *)mediaView isOutgoing:(BOOL)isOutgoing maskImage:(UIImage *)maskImage
 {
     JSQMessagesBubbleImageFactory *factory =
     [[JSQMessagesBubbleImageFactory alloc] initWithBubbleImage:maskImage

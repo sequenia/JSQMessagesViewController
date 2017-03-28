@@ -31,6 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (UIImage *)jsq_imageMaskedWithColor:(UIColor *)maskColor;
 
++ (UIImage *)jsq_imageWithColor:(UIColor *)color;
+
 /**
  *  @return The regular message bubble image.
  */

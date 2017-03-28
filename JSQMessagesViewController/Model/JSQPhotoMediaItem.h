@@ -30,7 +30,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  The image for the photo media item. The default value is `nil`.
+ 
  */
+@property (strong, nonatomic) UIImage *maskImage;
+@property (strong, nonatomic) UIImage *strokedMaskImage;
+@property (nonatomic, strong) UIColor *emptyImageColor;
+@property (nonatomic, strong) UIColor *errorColor;
+
 @property (copy, nonatomic, nullable) UIImage *image;
 
 /**
@@ -53,8 +59,13 @@ NS_ASSUME_NONNULL_BEGIN
  *  @discussion If the image must be dowloaded from the network, 
  *  you may initialize a `JSQPhotoMediaItem` object with a `nil` image. 
  *  Once the image has been retrieved, you can then set the image property.
+ 
  */
-- (instancetype)initWithImage:(nullable UIImage *)image maskImage:(UIImage *)maskImage emptyImageColor:(UIColor *)emptyImageColor;
+- (instancetype)initWithImage:(UIImage *)image
+                    maskImage:(UIImage *)maskImage
+                  strokedMask:(UIImage *)strokedMask
+              emptyImageColor:(UIColor *)emptyImageColor
+                   errorColor:(UIColor *)errorColor;
 /**
  *  Initializes and returns a photo media item object having the given image with url.
  *
@@ -64,7 +75,11 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @discussion Image will be downloaded from the network.
  */
-- (instancetype)initWithURL:(NSString *)url maskImage:(UIImage *)maskImage emptyImageColor:(UIColor *)emptyImageColor;;
+- (instancetype)initWithURL:(NSString *)url
+                  maskImage:(UIImage *)maskImage
+                strokedMask:(UIImage *)strokedMask
+            emptyImageColor:(UIColor *)emptyImageColor
+                 errorColor:(UIColor *)errorColor;
 
 - (instancetype)initWithJSON:(NSDictionary *)dict;
 

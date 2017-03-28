@@ -190,6 +190,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     layout.messageBubbleFont = _bubbleMessageTextFont;
     layout.timeBubbleFont = _bubbleMessageTimeFont;
     layout.messageBubbleFilledMaskImage = _messageBubbleFilledMaskImage;
+    layout.messageBubbleStrokedMaskImage = _messageBubbleStrokedMaskImage;
     layout.bubbleSizeCalculator = [[JSQMessagesBubblesSizeCalculator alloc] initWithMinimumBubbleWidth:_messageBubbleFilledMaskImage.size.width];
 
     // NOTE: let this behavior be opt-in for now

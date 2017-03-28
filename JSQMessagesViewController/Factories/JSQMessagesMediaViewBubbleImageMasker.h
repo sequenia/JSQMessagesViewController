@@ -94,6 +94,11 @@ NS_ASSUME_NONNULL_BEGIN
                              isOutgoing:(BOOL)isOutgoing
                               maskImage:(UIImage *)maskImage;
 
++ (void)applyBubbleImageMaskToMediaView:(UIView *)mediaView
+                             isOutgoing:(BOOL)isOutgoing
+                              maskImage:(UIImage *)maskImage
+                            borderColor:(UIColor *)borderColor;
+
 + (void)crp_applyBubbleImageMaskToMediaView:(UIView *)mediaView
                                  isOutgoing:(BOOL)isOutgoing
                                   maskImage:(UIImage *)maskImage;

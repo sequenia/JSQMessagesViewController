@@ -56,13 +56,6 @@
     return self;
 }
 
-- (instancetype)init
-{
-    return [self initWithBubbleImage:[UIImage jsq_bubbleCompactImage]
-                           capInsets:UIEdgeInsetsZero
-                     layoutDirection:[UIApplication sharedApplication].userInterfaceLayoutDirection];
-}
-
 - (instancetype)initWithBubbleImage:(UIImage *)bubbleImage
 {
     return [self initWithBubbleImage:bubbleImage
