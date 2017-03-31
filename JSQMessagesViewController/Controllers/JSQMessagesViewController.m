@@ -124,6 +124,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarBottomLayoutGuide;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewBottomConstraint;
 
 @property (strong, nonatomic) NSIndexPath *selectedIndexPathForMenu;
 
@@ -263,6 +264,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 {
     [super viewWillAppear:animated];
     self.toolbarHeightConstraint.constant = self.inputToolbar.preferredDefaultHeight;
+    self.collectionViewBottomConstraint.constant = self.bottomCollectionSpacing;
     [self.view layoutIfNeeded];
     [self.collectionView.collectionViewLayout invalidateLayout];
 
@@ -927,6 +929,9 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 {
     [self jsq_setCollectionViewInsetsTopValue:self.topLayoutGuide.length + self.topContentAdditionalInset
                                   bottomValue:CGRectGetMaxY(self.collectionView.frame) - CGRectGetMinY(self.inputToolbar.frame)];
+//    [self jsq_setCollectionViewInsetsTopValue:0
+//                                  bottomValue:-90];
+//    NSLog(@"%@", NSStringFromUIEdgeInsets(self.collectionView.contentInset));
 }
 
 - (void)jsq_setCollectionViewInsetsTopValue:(CGFloat)top bottomValue:(CGFloat)bottom
