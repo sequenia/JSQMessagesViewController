@@ -22,11 +22,13 @@
 
 @implementation JSQFileMediaItem
 
-- (instancetype)initWithFiles:(NSArray<JSQFile *> *)files {
+- (instancetype)initWithFiles:(NSArray<JSQFile *> *)files
+                    maskImage:(UIImage *)maskImage {
     self = [super init];
     if (self) {
         _files = files;
         _downloading = NO;
+        _maskImage = maskImage;
     }
     return self;
 }
@@ -72,7 +74,8 @@
         self.cachedView = [JSQFileMessageView fileMessageView];
         self.cachedView.frame = CGRectMake(0.0f, 0.0f, size.width, size.height);
         [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:self.cachedView
-                                                                    isOutgoing:self.appliesMediaViewMaskAsOutgoing];
+                                                                    isOutgoing:self.appliesMediaViewMaskAsOutgoing
+                                                                     maskImage:self.maskImage];
     }
     return self.cachedView;
 }
@@ -146,7 +149,7 @@
 
 - (instancetype)copyWithZone:(NSZone *)zone
 {
-    JSQFileMediaItem *copy = [[JSQFileMediaItem allocWithZone:zone] initWithFiles:self.files];
+    JSQFileMediaItem *copy = [[JSQFileMediaItem allocWithZone:zone] initWithFiles:self.files maskImage:self.maskImage];
     copy.appliesMediaViewMaskAsOutgoing = self.appliesMediaViewMaskAsOutgoing;
     return copy;
 }

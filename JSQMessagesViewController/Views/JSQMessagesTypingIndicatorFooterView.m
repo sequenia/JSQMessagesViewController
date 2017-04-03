@@ -34,6 +34,7 @@ const CGFloat kJSQMessagesTypingIndicatorFooterViewHeight = 46.0f;
 @property (weak, nonatomic) IBOutlet JSQMessagesTypingView *typingView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *typingIndicatorImageViewRightHorizontalConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *typingIndicatorToBubbleImageAlignConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *typingTextLabel;
 
 @end
 
@@ -82,6 +83,7 @@ const CGFloat kJSQMessagesTypingIndicatorFooterViewHeight = 46.0f;
     NSParameterAssert(ellipsisColor != nil);
     NSParameterAssert(messageBubbleColor != nil);
     NSParameterAssert(collectionView != nil);
+    _typingTextLabel.hidden = YES;
 
     CGFloat bubbleMarginMinimumSpacing = 6.0f;
 
@@ -132,6 +134,17 @@ const CGFloat kJSQMessagesTypingIndicatorFooterViewHeight = 46.0f;
     pulseAnimation.repeatCount = NSIntegerMax;
     pulseAnimation.autoreverses = YES;
     return pulseAnimation;
+}
+
+- (void) configureWithMessage:(NSString *)message font:(UIFont *)font textColor:(UIColor *)textColor {
+    self.bubbleImageView.hidden = YES;
+    self.typingView.hidden = YES;
+    
+    self.typingTextLabel.hidden = NO;
+    self.typingTextLabel.text = message;
+    self.typingTextLabel.font = font;
+    self.typingTextLabel.textColor = textColor;
+    self.backgroundColor = [UIColor clearColor];
 }
 
 @end

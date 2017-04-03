@@ -100,20 +100,7 @@ forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
 
 - (JSQMessagesTypingIndicatorFooterView *)dequeueTypingIndicatorFooterViewForIndexPath:(NSIndexPath *)indexPath
 {
-    
-    JSQMessagesCollectionViewFlowLayout *layout = [self collectionViewLayout];
-    JSQMessagesTypingIndicatorFooterView *footerView = [super dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter
-                                                                                 withReuseIdentifier:[JSQMessagesTypingIndicatorFooterView footerReuseIdentifier]
-                                                                                        forIndexPath:indexPath];
-
-    [footerView configureWithEllipsisColor:self.typingIndicatorEllipsisColor
-                        messageBubbleColor:self.typingIndicatorMessageBubbleColor
-                                  animated:YES
-                       shouldDisplayOnLeft:self.typingIndicatorDisplaysOnLeft
-                         forCollectionView:self
-                                bubbleMask:layout.messageBubbleFilledMaskImage];
-
-    return footerView;
+    return [self.dataSource collectionView:self typingIndicatorFooterViewForIndexPath:indexPath];
 }
 
 #pragma mark - Load earlier messages header

@@ -67,6 +67,10 @@ NS_ASSUME_NONNULL_BEGIN
                shouldDisplayOnLeft:(BOOL)shouldDisplayOnLeft
                  forCollectionView:(UICollectionView *)collectionView
                         bubbleMask:(UIImage *)bubbleMask;
+
+- (void)configureWithMessage:(NSString *)message
+                        font:(UIFont *)font
+                   textColor:(UIColor *)textColor;
 @end
 
 NS_ASSUME_NONNULL_END

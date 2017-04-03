@@ -20,6 +20,7 @@
 #import <UIKit/UIKit.h>
 
 @class JSQMessagesCollectionView;
+@class JSQMessagesTypingIndicatorFooterView;
 @protocol JSQMessageData;
 @protocol JSQMessageBubbleImageDataSource;
 @protocol JSQMessageAvatarImageDataSource;
@@ -108,6 +109,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @see JSQMessagesCollectionViewFlowLayout.
  */
 - (nullable id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath;
+
+- (JSQMessagesTypingIndicatorFooterView *)collectionView:(JSQMessagesCollectionView *)collectionView typingIndicatorFooterViewForIndexPath:(NSIndexPath *)indexPath;
 
 @optional
 

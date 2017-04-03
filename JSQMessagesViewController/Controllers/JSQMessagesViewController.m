@@ -125,6 +125,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarBottomLayoutGuide;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewBottomConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *inputToolbarBottomConstraint;
 
 @property (strong, nonatomic) NSIndexPath *selectedIndexPathForMenu;
 
@@ -265,6 +266,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     [super viewWillAppear:animated];
     self.toolbarHeightConstraint.constant = self.inputToolbar.preferredDefaultHeight;
     self.collectionViewBottomConstraint.constant = self.bottomCollectionSpacing;
+    self.inputToolbarBottomConstraint.constant = self.bottomToolbarSpacing;
     [self.view layoutIfNeeded];
     [self.collectionView.collectionViewLayout invalidateLayout];
 
@@ -642,6 +644,21 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     [self collectionView:collectionView accessibilityForCell:cell indexPath:indexPath message:messageItem];
 
     return cell;
+}
+
+- (JSQMessagesTypingIndicatorFooterView *)collectionView:(JSQMessagesCollectionView *)collectionView typingIndicatorFooterViewForIndexPath:(NSIndexPath *)indexPath {
+    JSQMessagesCollectionViewFlowLayout *layout = [collectionView collectionViewLayout];
+    JSQMessagesTypingIndicatorFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter
+                                                                                 withReuseIdentifier:[JSQMessagesTypingIndicatorFooterView footerReuseIdentifier]
+                                                                                        forIndexPath:indexPath];
+    
+    [footerView configureWithEllipsisColor:collectionView.typingIndicatorEllipsisColor
+                        messageBubbleColor:collectionView.typingIndicatorMessageBubbleColor
+                                  animated:YES
+                       shouldDisplayOnLeft:collectionView.typingIndicatorDisplaysOnLeft
+                         forCollectionView:collectionView
+                                bubbleMask:layout.messageBubbleFilledMaskImage];
+    return footerView;
 }
 
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView

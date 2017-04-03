@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property BOOL downloading;
 
+@property (strong, nonatomic) UIImage *maskImage;
 /**
  *  The array of files. The default value is `nil`.
  */
@@ -39,7 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return An initialized `JSQFileMediaItem`.
  *
  */
-- (instancetype)initWithFiles:(NSArray <JSQFile *> *)files;
+- (instancetype)initWithFiles:(NSArray <JSQFile *> *)files
+                    maskImage:(UIImage *)maskImage;
 
 - (void)startDownloading;
 

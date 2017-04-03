@@ -54,6 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, readwrite) UIImage* messageBubbleStrokedMaskImage;
 
 @property (nonatomic, readwrite) CGFloat bottomCollectionSpacing;
+@property (nonatomic, readwrite) CGFloat bottomToolbarSpacing;
 
 /**
  *  Returns the collection view object managed by this view controller.
