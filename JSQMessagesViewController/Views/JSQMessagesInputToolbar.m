@@ -256,11 +256,8 @@ static void * kJSQMessagesInputToolbarKeyValueObservingContext = &kJSQMessagesIn
 {
     [super layoutSubviews];
     CGRect origFrame = self.frame;
-    [self sizeToFit];
-    CGRect newFrame = self.frame;
-    newFrame.origin.y = self.contentView.textView.isFirstResponder ? 0 : -self.bottomSpacing + 2.f;
-    self.frame = newFrame;
-    
+    origFrame.origin.y = _keyboardIsVisible ? 0 : -self.bottomSpacing;
+    self.frame = origFrame;
 }
 
 @end

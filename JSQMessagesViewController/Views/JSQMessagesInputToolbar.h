@@ -72,7 +72,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, nonatomic, readwrite) UIFont*  mediaMessageFont;
 @property (copy, nonatomic, readwrite) UIColor* mediaMessageAuthorColor;
 @property (copy, nonatomic, readwrite) UIColor* mediaMessageColor;
+
+
 @property (nonatomic) CGFloat bottomSpacing;
+@property (nonatomic) BOOL keyboardIsVisible;
 
 /**
  *  The object that acts as the delegate of the toolbar.

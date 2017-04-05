@@ -179,7 +179,6 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     self.inputToolbar.bottomSpacing = self.bottomToolbarSpacing;
     [self.inputToolbar removeFromSuperview];
 
-
     self.automaticallyScrollsToMostRecentMessage = YES;
 
     self.outgoingCellIdentifier = [JSQMessagesCollectionViewCellOutgoing cellReuseIdentifier];
@@ -266,10 +265,10 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     [super viewWillAppear:animated];
     self.toolbarHeightConstraint.constant = self.inputToolbar.preferredDefaultHeight;
     self.collectionViewBottomConstraint.constant = self.bottomCollectionSpacing;
-    self.inputToolbarBottomConstraint.constant = self.bottomToolbarSpacing;
     [self.view layoutIfNeeded];
     [self.collectionView.collectionViewLayout invalidateLayout];
-
+    [self.inputToolbar layoutSubviews];
+    self.inputToolbar.hidden = NO;
     if (self.automaticallyScrollsToMostRecentMessage) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self scrollToBottomAnimated:NO];
@@ -286,6 +285,8 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    self.inputToolbar.hidden = YES;
+    [self.inputToolbar layoutSubviews];
     self.collectionView.collectionViewLayout.springinessEnabled = NO;
 }
 
@@ -994,6 +995,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
         [[NSNotificationCenter defaultCenter] removeObserver:self
                                                         name:UIMenuControllerWillHideMenuNotification
                                                       object:nil];
+
     }
 }
 
@@ -1002,10 +1004,13 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     NSDictionary *userInfo = [notification userInfo];
 
     CGRect keyboardEndFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-
+    
     if (CGRectIsNull(keyboardEndFrame)) {
         return;
     }
+    
+    self.inputToolbar.keyboardIsVisible = CGRectGetHeight(self.inputToolbar.frame) != CGRectGetHeight(keyboardEndFrame);
+    CGFloat delta = self.inputToolbar.keyboardIsVisible ? _bottomToolbarSpacing : 0;
 
     UIViewAnimationCurve animationCurve = [userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
     NSInteger animationCurveOption = (animationCurve << 16);
@@ -1017,7 +1022,8 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
                         options:animationCurveOption
                      animations:^{
                          [self jsq_setCollectionViewInsetsTopValue:self.collectionView.contentInset.top
-                                                       bottomValue:CGRectGetHeight(keyboardEndFrame)];
+                                                       bottomValue:CGRectGetHeight(keyboardEndFrame) - delta];
+                         [self.inputToolbar layoutSubviews];
                      }
                      completion:nil];
 }
