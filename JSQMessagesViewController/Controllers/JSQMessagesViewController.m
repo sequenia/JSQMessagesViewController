@@ -125,7 +125,6 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarBottomLayoutGuide;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewBottomConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *inputToolbarBottomConstraint;
 
 @property (strong, nonatomic) NSIndexPath *selectedIndexPathForMenu;
 
@@ -177,8 +176,9 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     self.inputToolbar.contentView.leftBarButtonItem = [toolbarButtonFactory defaultAccessoryButtonItemWithColor:self.toolbarAttachButtonColor highlightedColor:self.toolbarAttachButtonHighlightColor];
     self.inputToolbar.contentView.rightBarButtonItem = [toolbarButtonFactory defaultSendButtonItemWithColor:self.toolbarSendButtonColor highlightedColor:self.toolbarSendButtonHighlightColor disabledColor:self.toolbarSendButtonDisabledColor];
     self.inputToolbar.contentView.textView.font = self.toolbarMessageFont;
-    
+    self.inputToolbar.bottomSpacing = self.bottomToolbarSpacing;
     [self.inputToolbar removeFromSuperview];
+
 
     self.automaticallyScrollsToMostRecentMessage = YES;
 
@@ -946,9 +946,6 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 {
     [self jsq_setCollectionViewInsetsTopValue:self.topLayoutGuide.length + self.topContentAdditionalInset
                                   bottomValue:CGRectGetMaxY(self.collectionView.frame) - CGRectGetMinY(self.inputToolbar.frame)];
-//    [self jsq_setCollectionViewInsetsTopValue:0
-//                                  bottomValue:-90];
-//    NSLog(@"%@", NSStringFromUIEdgeInsets(self.collectionView.contentInset));
 }
 
 - (void)jsq_setCollectionViewInsetsTopValue:(CGFloat)top bottomValue:(CGFloat)bottom

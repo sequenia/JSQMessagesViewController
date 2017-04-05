@@ -13,7 +13,6 @@
                 <outlet property="collectionView" destination="l9u-2b-4LK" id="bLP-6g-CkO"/>
                 <outlet property="collectionViewBottomConstraint" destination="7EU-U0-eZ4" id="2cM-M1-Ncv"/>
                 <outlet property="inputToolbar" destination="BoD-Az-3DM" id="w74-g9-1qA"/>
-                <outlet property="inputToolbarBottomConstraint" destination="WCW-WJ-yZE" id="aH6-UD-Udk"/>
                 <outlet property="view" destination="mUa-cS-ru4" id="nki-T1-RTI"/>
             </connections>
         </placeholder>
@@ -39,8 +38,8 @@
                 <constraint firstAttribute="trailing" secondItem="BoD-Az-3DM" secondAttribute="trailing" id="7xc-Ha-asg"/>
                 <constraint firstItem="l9u-2b-4LK" firstAttribute="leading" secondItem="mUa-cS-ru4" secondAttribute="leading" id="MmF-oh-Y75"/>
                 <constraint firstAttribute="trailing" secondItem="l9u-2b-4LK" secondAttribute="trailing" id="O9u-TA-A0e"/>
-                <constraint firstAttribute="bottom" secondItem="BoD-Az-3DM" secondAttribute="bottom" id="WCW-WJ-yZE"/>
                 <constraint firstItem="l9u-2b-4LK" firstAttribute="top" secondItem="mUa-cS-ru4" secondAttribute="top" id="dCQ-DM-Wdj"/>
+                <constraint firstAttribute="bottom" secondItem="BoD-Az-3DM" secondAttribute="bottom" id="fOo-iS-PXh"/>
                 <constraint firstItem="BoD-Az-3DM" firstAttribute="leading" secondItem="mUa-cS-ru4" secondAttribute="leading" id="ts7-8f-0lH"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
