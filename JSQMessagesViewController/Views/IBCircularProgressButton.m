@@ -289,7 +289,9 @@
     self.buttonBorderColor = tintColor;
     self.progressColor = tintColor;
     self.wrapperColor = tintColor;
+    self.buttonTintColor = tintColor;
     [self setNeedsDisplay];
+    [self configureLayer: _pathLayer];
 }
 
 - (void)setImage:(UIImage *)image {
