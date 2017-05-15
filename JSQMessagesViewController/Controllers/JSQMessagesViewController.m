@@ -1017,9 +1017,9 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 }
 
 - (void) jsq_didRecieveKeyboardDidHideNotification:(NSNotification *)notification {
-    if([[[UIDevice currentDevice] systemVersion] floatValue] < 10) {
+    if([[[UIDevice currentDevice] systemVersion] floatValue] < 9) {
         self.inputToolbar.keyboardIsVisible = NO;
-        [self.inputToolbar.superview layoutSubviews];
+        [self.inputToolbar layoutSubviews];
     }
 }
 
@@ -1033,15 +1033,17 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
         return;
     }
     
-    self.inputToolbar.keyboardIsVisible = CGRectGetHeight(self.inputToolbar.frame) + CGRectGetMinY(keyboardEndFrame) != CGRectGetHeight([UIScreen mainScreen].bounds);
+    BOOL newVisibility = CGRectGetHeight(self.inputToolbar.frame) + CGRectGetMinY(keyboardEndFrame) != CGRectGetHeight([UIScreen mainScreen].bounds);
+    BOOL prevVisibility = self.inputToolbar.keyboardIsVisible;
+    self.inputToolbar.keyboardIsVisible = newVisibility;
     
     CGFloat delta = self.inputToolbar.keyboardIsVisible ? _bottomToolbarSpacing : 0;
-
+    
     UIViewAnimationCurve animationCurve = [userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
     NSInteger animationCurveOption = (animationCurve << 16);
     
     double animationDuration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-
+    
     [UIView animateWithDuration:animationDuration
                           delay:0.0
                         options:animationCurveOption
@@ -1050,12 +1052,12 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
                                                        bottomValue:CGRectGetHeight(keyboardEndFrame) - delta];
                      }
                      completion:nil];
-
-    [UIView performWithoutAnimation:^{
-       
-        [self.inputToolbar layoutSubviews];
-    }];
-
+    
+    if(prevVisibility != newVisibility) {
+        [UIView performWithoutAnimation:^{
+            [self.inputToolbar layoutSubviews];
+        }];
+    }
 }
 
 @end
