@@ -269,6 +269,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     [self.collectionView.collectionViewLayout invalidateLayout];
     [self.inputToolbar layoutSubviews];
     self.inputToolbar.hidden = NO;
+    
     if (self.automaticallyScrollsToMostRecentMessage) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self scrollToBottomAnimated:NO];
@@ -280,7 +281,9 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self becomeFirstResponder];
+    [UIView performWithoutAnimation:^{
+        [self becomeFirstResponder];
+    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -294,7 +297,9 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [self resignFirstResponder];
+    [UIView performWithoutAnimation:^{
+        [self resignFirstResponder];
+    }];
 }
 
 #pragma mark - View rotation
@@ -1031,21 +1036,26 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     self.inputToolbar.keyboardIsVisible = CGRectGetHeight(self.inputToolbar.frame) + CGRectGetMinY(keyboardEndFrame) != CGRectGetHeight([UIScreen mainScreen].bounds);
     
     CGFloat delta = self.inputToolbar.keyboardIsVisible ? _bottomToolbarSpacing : 0;
-    
+
     UIViewAnimationCurve animationCurve = [userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
     NSInteger animationCurveOption = (animationCurve << 16);
     
     double animationDuration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    
+
     [UIView animateWithDuration:animationDuration
                           delay:0.0
                         options:animationCurveOption
                      animations:^{
                          [self jsq_setCollectionViewInsetsTopValue:self.collectionView.contentInset.top
                                                        bottomValue:CGRectGetHeight(keyboardEndFrame) - delta];
-                         [self.inputToolbar layoutSubviews];
                      }
                      completion:nil];
+
+    [UIView performWithoutAnimation:^{
+       
+        [self.inputToolbar layoutSubviews];
+    }];
+
 }
 
 @end
