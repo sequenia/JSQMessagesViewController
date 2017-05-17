@@ -1039,27 +1039,39 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     BOOL prevVisibility = self.inputToolbar.keyboardIsVisible;
     self.inputToolbar.keyboardIsVisible = newVisibility;
     
-    CGFloat delta = self.inputToolbar.keyboardIsVisible ? _bottomToolbarSpacing : 0;
-    
     UIViewAnimationCurve animationCurve = [userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
     NSInteger animationCurveOption = (animationCurve << 16);
     
     double animationDuration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    
+    CGFloat value;
+    if (self.inputToolbar.keyboardIsVisible)
+        value = CGRectGetHeight(keyboardEndFrame) - self.bottomToolbarSpacing;
+    else
+        value = self.inputToolbar.bottomSpacing;
     
     [UIView animateWithDuration:animationDuration
                           delay:0.0
                         options:animationCurveOption
                      animations:^{
                          [self jsq_setCollectionViewInsetsTopValue:self.collectionView.contentInset.top
-                                                       bottomValue:CGRectGetHeight(keyboardEndFrame) - delta];
+                                                       bottomValue:value];
                      }
                      completion:nil];
     
-    if(prevVisibility != newVisibility) {
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9 && [[[UIDevice currentDevice] systemVersion] floatValue] < 10) {
+        if(prevVisibility != newVisibility) {
+            [UIView performWithoutAnimation:^{
+                [self.inputToolbar layoutSubviews];
+            }];
+        }
+    }
+    else {
         [UIView performWithoutAnimation:^{
             [self.inputToolbar layoutSubviews];
         }];
     }
+    
 }
 
 @end
