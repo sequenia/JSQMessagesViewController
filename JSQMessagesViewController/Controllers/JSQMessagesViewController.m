@@ -497,6 +497,8 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     [self.collectionView scrollToItemAtIndexPath:indexPath
                                 atScrollPosition:scrollPosition
                                         animated:animated];
+    
+//    [self.collectionView setContentOffset:CGPointMake(0, collectionViewContentHeight - CGRectGetHeight(self.collectionView.bounds) + 100) animated:animated];
 }
 
 - (BOOL)isOutgoingMessage:(id<JSQMessageData>)messageItem
