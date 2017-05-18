@@ -349,6 +349,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)didReceiveMenuWillHideNotification:(NSNotification *)notification;
 
+- (void) showToolbarAnimated:(BOOL)animated;
+
+- (void) hideToolbarAnimated:(BOOL)animated;
+
+- (void) onUpdateBottomInsetAnimated:(BOOL)animated;
+
 @end
 
 NS_ASSUME_NONNULL_END
