@@ -882,10 +882,6 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     }
     
     [textView becomeFirstResponder];
-    
-    if (self.automaticallyScrollsToMostRecentMessage) {
-        [self scrollToBottomAnimated:YES];
-    }
 }
 
 - (void)textViewDidChange:(UITextView *)textView
@@ -1048,15 +1044,16 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     else
         value = MAX(self.bottomToolbarSpacing, CGRectGetHeight(self.inputToolbar.frame));
     
+    if (newVisibility) {
+        self.collectionView.contentOffset = CGPointMake(self.collectionView.contentOffset.x, self.collectionView.contentOffset.y + _currentKeyboardFrame.size.height);
+    }
+    
     [UIView animateWithDuration:animationDuration
                           delay:0.0
                         options:animationCurveOption
                      animations:^{
                          [self jsq_setCollectionViewInsetsTopValue:self.collectionView.contentInset.top
                                                        bottomValue:value];
-                         if(self.collectionView.contentSize.height > CGRectGetHeight(self.collectionView.bounds)) {
-                             self.collectionView.contentOffset = CGPointMake(0, self.collectionView.contentSize.height - CGRectGetHeight(self.collectionView.bounds) + (self.inputToolbar.keyboardIsVisible ? 0 : self.collectionView.contentInset.bottom));
-                         }
                      }
                      completion:nil];
     
@@ -1129,7 +1126,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
                              [self.inputToolbar layoutSubviews];
                              [self jsq_setCollectionViewInsetsTopValue:self.collectionView.contentInset.top
                                                            bottomValue:value];
-                             self.collectionView.contentOffset = CGPointMake(0, self.collectionView.contentSize.height - CGRectGetHeight(self.collectionView.bounds) + (self.inputToolbar.keyboardIsVisible ? 0 : self.collectionView.contentInset.bottom));
+                             [self doit];
                          }
                          completion:nil];
     }
@@ -1138,11 +1135,13 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
         [self jsq_setCollectionViewInsetsTopValue:self.collectionView.contentInset.top
                                       bottomValue:value];
         if(self.collectionView.contentSize.height > CGRectGetHeight(self.collectionView.bounds)) {
-            self.collectionView.contentOffset = CGPointMake(0, self.collectionView.contentSize.height - CGRectGetHeight(self.collectionView.bounds) + (self.inputToolbar.keyboardIsVisible ? 0 : self.collectionView.contentInset.bottom));
+            [self doit];
         }
     }
-    
-    
+}
+
+- (void) doit {
+    self.collectionView.contentOffset = CGPointMake(0, self.collectionView.contentSize.height - CGRectGetHeight(self.collectionView.bounds) + (self.inputToolbar.keyboardIsVisible ? 0 : self.collectionView.contentInset.bottom));
 }
 
 @end
