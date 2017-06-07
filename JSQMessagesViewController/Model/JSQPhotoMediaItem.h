@@ -20,6 +20,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class JSQPhotoMediaItem;
+
+@protocol JSQPhotoLoadedDelegate <NSObject>
+@optional
+- (void) jsq_imageLoaded: (JSQPhotoMediaItem *) item;
+@end
+
+
 /**
  *  The `JSQPhotoMediaItem` class is a concrete `JSQMediaItem` subclass that implements the `JSQMessageMediaData` protocol
  *  and represents a photo media message. An initialized `JSQPhotoMediaItem` object can be passed 
@@ -79,9 +87,8 @@ NS_ASSUME_NONNULL_BEGIN
                   maskImage:(UIImage *)maskImage
                 strokedMask:(UIImage *)strokedMask
             emptyImageColor:(UIColor *)emptyImageColor
-                 errorColor:(UIColor *)errorColor;
-
-- (instancetype)initWithJSON:(NSDictionary *)dict;
+                 errorColor:(UIColor *)errorColor
+                   delegate:(id <JSQPhotoLoadedDelegate>)delegate;
 
 @end
 

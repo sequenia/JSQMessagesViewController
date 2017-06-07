@@ -32,6 +32,7 @@
 
 @property (strong, nonatomic) UIImageView *cachedImageView;
 @property (strong, nonatomic) UIImageView *cachedQuoteImageView;
+@property (weak, nonatomic) id <JSQPhotoLoadedDelegate> delegate;
 
 @property BOOL isEmptyImage;
 @property BOOL status;
@@ -43,8 +44,11 @@
 
 #pragma mark - Initialization
 
-- (instancetype)initWithImage:(UIImage *)image maskImage:(UIImage *)maskImage strokedMask:(UIImage *)strokedMask emptyImageColor:(UIColor *)emptyImageColor errorColor:(UIColor *)errorColor
-{
+- (instancetype)initWithImage:(UIImage *)image
+                    maskImage:(UIImage *)maskImage
+                  strokedMask:(UIImage *)strokedMask
+              emptyImageColor:(UIColor *)emptyImageColor
+                   errorColor:(UIColor *)errorColor {
     self = [super init];
     if (self) {
         _image = [image copy];
@@ -62,8 +66,12 @@
     return self;
 }
 
-- (instancetype)initWithURL:(NSString *)url maskImage:(UIImage *)maskImage strokedMask:(UIImage *)strokedMask emptyImageColor:(UIColor *)emptyImageColor errorColor:(UIColor *)errorColor
-{
+- (instancetype)initWithURL:(NSString *)url
+                  maskImage:(UIImage *)maskImage
+                strokedMask:(UIImage *)strokedMask
+            emptyImageColor:(UIColor *)emptyImageColor
+                 errorColor:(UIColor *)errorColor
+                   delegate:(id <JSQPhotoLoadedDelegate>)delegate {
     self = [super init];
     if (self) {
         _image = nil;
@@ -76,6 +84,7 @@
         _emptyImageColor = emptyImageColor;
         _strokedMaskImage = strokedMask;
         _errorColor = errorColor;
+        _delegate = delegate;
         [UIImage jsq_downloadImageFromURL:[NSURL URLWithString:self.imageURL]
                            withCompletion:^(UIImage *image, NSError *errorOrNil) {
                                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -85,9 +94,9 @@
                                        if(self.image) {
                                            self.isEmptyImage = NO;
                                        }
-                                       JSQMessagesViewController *controller = [JSQHelper sharedInstance].currentChatController;
-                                       if (controller)
-                                           [controller finishReceivingPhotoMessage:self];
+                                       
+                                       if (self.delegate && [self.delegate respondsToSelector: @selector(jsq_imageLoaded:)])
+                                           [self.delegate jsq_imageLoaded: self];
                                    });
                                });
                            }];
