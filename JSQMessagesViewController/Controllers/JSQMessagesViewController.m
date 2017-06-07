@@ -1044,7 +1044,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     else
         value = MAX(self.bottomToolbarSpacing, CGRectGetHeight(self.inputToolbar.frame));
     
-    if (newVisibility) {
+    if (newVisibility && !prevVisibility) {
         self.collectionView.contentOffset = CGPointMake(self.collectionView.contentOffset.x, self.collectionView.contentOffset.y + _currentKeyboardFrame.size.height);
     }
     
