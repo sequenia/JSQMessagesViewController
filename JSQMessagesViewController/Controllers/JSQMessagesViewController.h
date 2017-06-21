@@ -244,6 +244,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)finishSendingMessageAnimated:(BOOL)animated;
 
+- (void)finishSendingMessageAnimated:(BOOL)animated clearInputText: (BOOL) clearInputText;
+
 /**
  *  Animates the receiving of a new message. See `finishReceivingMessageAnimated:` for more details.
  *

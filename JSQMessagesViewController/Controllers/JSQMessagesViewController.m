@@ -370,14 +370,22 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 }
 
 - (void)finishSendingMessageAnimated:(BOOL)animated {
+    [self finishSendingMessageAnimated: animated clearInputText: YES];
+}
+
+- (void)finishSendingMessageAnimated:(BOOL)animated clearInputText: (BOOL) clearInputText {
     
-    UITextView *textView = self.inputToolbar.contentView.textView;
-    textView.text = nil;
-    [textView.undoManager removeAllActions];
+    if (clearInputText) {
+        UITextView *textView = self.inputToolbar.contentView.textView;
+        textView.text = nil;
+        [textView.undoManager removeAllActions];
     
-    [self.inputToolbar toggleSendButtonEnabled];
+        [self.inputToolbar toggleSendButtonEnabled];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:UITextViewTextDidChangeNotification object:textView];
+        [[NSNotificationCenter defaultCenter] postNotificationName: UITextViewTextDidChangeNotification
+                                                            object: textView];
+   
+    }
     
     [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
     [self.collectionView reloadData];
