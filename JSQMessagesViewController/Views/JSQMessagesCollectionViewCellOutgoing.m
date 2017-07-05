@@ -18,11 +18,18 @@
 
 #import "JSQMessagesCollectionViewCellOutgoing.h"
 
+#define TRAILING_MEDIA  12
+#define TRAILING_TEXT   6
+
+#define BOTTOM_MEDIA    8
+#define BOTTOM_TEXT     4
+
 @interface JSQMessagesCollectionViewCellOutgoing ()
 
-@property (weak, nonatomic, readwrite) IBOutlet UIImageView *messageStatusImageView;
-
 @property (weak, nonatomic, readwrite) IBOutlet UIButton *messageInfoButton;
+
+@property (unsafe_unretained, nonatomic) IBOutlet NSLayoutConstraint *timeTrailing;
+@property (unsafe_unretained, nonatomic) IBOutlet NSLayoutConstraint *timeBottom;
 
 @end
 
@@ -41,8 +48,6 @@
 - (void)prepareForReuse {
     [super prepareForReuse];
     
-    self.messageStatusImageView.image = nil;
-    self.messageStatusImageView.hidden = YES; // remove this, when status will be needed. (c) wolferine
     self.messageInfoButton.alpha = 0.0;
     self.infoButtonActionHandler = nil;
 }
@@ -53,5 +58,14 @@
     }
 }
 
+- (void) setConstraintsForMedia: (BOOL) media {
+    if (media) {
+        self.timeTrailing.constant = TRAILING_MEDIA;
+        self.timeBottom.constant = BOTTOM_MEDIA;
+    } else {
+        self.timeTrailing.constant = TRAILING_TEXT;
+        self.timeBottom.constant = BOTTOM_TEXT;
+    }
+}
 
 @end

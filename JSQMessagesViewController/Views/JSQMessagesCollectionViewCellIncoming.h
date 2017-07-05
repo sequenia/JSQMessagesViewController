@@ -24,4 +24,6 @@
  */
 @interface JSQMessagesCollectionViewCellIncoming : JSQMessagesCollectionViewCell
 
+- (void) setConstraintsForMedia: (BOOL) media;
+
 @end
