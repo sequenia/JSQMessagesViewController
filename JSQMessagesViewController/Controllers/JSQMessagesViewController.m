@@ -1079,7 +1079,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     }
 }
 
-- (void) showToolbarAnimated:(BOOL)animated {
+- (void) new_showToolbarAnimated:(BOOL)animated {
     if(!self.inputToolbar.contentView.textView.isFirstResponder) {
         if(animated) {
             [self becomeFirstResponder];
@@ -1093,7 +1093,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     }
 }
 
-- (void) hideToolbarAnimated:(BOOL)animated {
+- (void) new_hideToolbarAnimated:(BOOL)animated {
     if(animated) {
         if(self.inputToolbar.contentView.textView.isFirstResponder) {
             [self.inputToolbar.contentView.textView resignFirstResponder];
@@ -1114,6 +1114,44 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
                 [self onUpdateBottomInsetAnimated:NO];
             }
         }];
+    }
+}
+
+- (void) showToolbarAnimated:(BOOL)animated {
+    if(!self.isFirstResponder) {
+        if(animated) {
+            [self becomeFirstResponder];
+        }
+        else {
+            [UIView performWithoutAnimation:^{
+                [self becomeFirstResponder];
+            }];
+        }
+    }
+}
+
+- (void) hideToolbarAnimated:(BOOL)animated {
+    if(self.isFirstResponder) {
+        if(animated) {
+            if(self.inputToolbar.contentView.textView.isFirstResponder) {
+                [UIView animateWithDuration:0.3
+                                 animations:^{
+                                     [self.parentViewController.view endEditing:YES];
+                                     [self onUpdateBottomInsetAnimated:NO];
+                                 }
+                                 completion:nil];
+            }
+            [self resignFirstResponder];
+        }
+        else {
+            [UIView performWithoutAnimation:^{
+                if(self.inputToolbar.contentView.textView.isFirstResponder) {
+                    [self.parentViewController.view endEditing:YES];
+                    [self onUpdateBottomInsetAnimated:NO];
+                }
+                [self resignFirstResponder];
+            }];
+        }
     }
 }
 

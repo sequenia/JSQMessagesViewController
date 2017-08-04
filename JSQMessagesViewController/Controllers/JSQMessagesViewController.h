@@ -355,6 +355,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) hideToolbarAnimated:(BOOL)animated;
 
+- (void) new_showToolbarAnimated:(BOOL)animated;
+
+- (void) new_hideToolbarAnimated:(BOOL)animated;
+
 - (void) onUpdateBottomInsetAnimated:(BOOL)animated;
 
 @end
