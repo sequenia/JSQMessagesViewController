@@ -1080,40 +1080,40 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 }
 
 - (void) showToolbarAnimated:(BOOL)animated {
-    if(!self.isFirstResponder) {
+    if(!self.inputToolbar.contentView.textView.isFirstResponder) {
         if(animated) {
             [self becomeFirstResponder];
-        }
-        else {
+            [self.inputToolbar.contentView.textView becomeFirstResponder];
+        } else {
             [UIView performWithoutAnimation:^{
                 [self becomeFirstResponder];
+                [self.inputToolbar.contentView.textView becomeFirstResponder];
             }];
         }
     }
 }
 
 - (void) hideToolbarAnimated:(BOOL)animated {
-    if(self.isFirstResponder) {
-        if(animated) {
-            if(self.inputToolbar.contentView.textView.isFirstResponder) {
-                [UIView animateWithDuration:0.3
-                                 animations:^{
-                                     [self.parentViewController.view endEditing:YES];
-                                     [self onUpdateBottomInsetAnimated:NO];
-                                 }
-                                 completion:nil];
-            }
+    if(animated) {
+        if(self.inputToolbar.contentView.textView.isFirstResponder) {
+            [self.inputToolbar.contentView.textView resignFirstResponder];
             [self resignFirstResponder];
+            [UIView animateWithDuration:0.3
+                             animations:^{
+                                 [self.parentViewController.view endEditing:YES];
+                                 [self onUpdateBottomInsetAnimated:NO];
+                             }
+                             completion:nil];
         }
-        else {
-            [UIView performWithoutAnimation:^{
-                if(self.inputToolbar.contentView.textView.isFirstResponder) {
-                    [self.parentViewController.view endEditing:YES];
-                    [self onUpdateBottomInsetAnimated:NO];
-                }
+    } else {
+        [UIView performWithoutAnimation:^{
+            if(self.inputToolbar.contentView.textView.isFirstResponder) {
+                [self.inputToolbar.contentView.textView resignFirstResponder];
                 [self resignFirstResponder];
-            }];
-        }
+                [self.parentViewController.view endEditing:YES];
+                [self onUpdateBottomInsetAnimated:NO];
+            }
+        }];
     }
 }
 
