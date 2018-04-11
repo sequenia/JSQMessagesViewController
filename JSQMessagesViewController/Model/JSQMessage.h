@@ -34,6 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Returns the string identifier that uniquely identifies the user who sent the message. 
  */
+@property (copy, nonatomic) NSString *messageId;
+
 @property (copy, nonatomic, readonly) NSString *senderId;
 
 /**
