@@ -29,7 +29,7 @@
 
 @interface JSQPhotoMediaItem ()
 
-@property (strong, nonatomic) UIImageView *cachedImageView;
+@property (strong, nonatomic) UIView *cachedImageView;
 @property (strong, nonatomic) UIImageView *cachedQuoteImageView;
 
 @property BOOL status;
@@ -96,6 +96,7 @@
     _cachedQuoteImageView = nil;
 }
 
+
 - (void)setAppliesMediaViewMaskAsOutgoing:(BOOL)appliesMediaViewMaskAsOutgoing
 {
     [super setAppliesMediaViewMaskAsOutgoing:appliesMediaViewMaskAsOutgoing];
@@ -118,26 +119,56 @@
     return self.cachedImageView;
 }
 
-- (UIImageView *) updateCachedImageView {
+- (UIView *) updateCachedImageView {
     CGSize size = [self mediaViewDisplaySize];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:self.image];
-    imageView.frame = CGRectMake(0.0f, 0.0f, size.width, size.height);
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
-    imageView.clipsToBounds = YES;
+    UIView *result;
+    if(self.image.size.width <= 0 && self.image.size.height <= 0) {
+        UIFont *font = [UIFont systemFontOfSize:17.f];
+
+        NSTextStorage *textStorage = [[NSTextStorage alloc] initWithString:[self mediaString]];
+        NSTextContainer *textContainer = [[NSTextContainer alloc] initWithSize:CGSizeMake(size.width, FLT_MAX)];
+        NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
+        [layoutManager addTextContainer:textContainer];
+        [textStorage addLayoutManager:layoutManager];
+        [textStorage addAttribute:NSFontAttributeName
+                            value:font
+                            range:NSMakeRange(0, [textStorage length])];
+        [textContainer setLineFragmentPadding:0.0];
+        (void) [layoutManager glyphRangeForTextContainer:textContainer];
+        
+        CGFloat height = [layoutManager usedRectForTextContainer:textContainer].size.height;
+        JSQMessagesCellTextView *textView = [[JSQMessagesCellTextView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, height + 30)];
+        textView.text = [self mediaString];
+        textView.textColor = self.appliesMediaViewMaskAsOutgoing ? [UIColor blackColor] : [UIColor whiteColor];
+        textView.backgroundColor = self.appliesMediaViewMaskAsOutgoing ? [UIColor colorWithHue:240.0f / 360.0f saturation:0.02f brightness:0.92f alpha:1.0f] : [UIColor colorWithRed:0.96 green:0.49 blue:0.2 alpha:1.f];
+        textView.editable = NO;
+        textView.font = font;
+        [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:textView isOutgoing:self.appliesMediaViewMaskAsOutgoing];
+        textView.dataDetectorTypes = UIDataDetectorTypeLink;
+        result = textView;
+    }
+    else {
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:self.image];
+        imageView.frame = CGRectMake(0.0f, 0.0f, size.width, size.height);
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.clipsToBounds = YES;
+        result = imageView;
+    }
+    
     
     if (self.appliesMediaViewMaskAsOutgoing) {
         if (self.status) {
-            [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:imageView
+            [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:result
                                                                         isOutgoing:self.appliesMediaViewMaskAsOutgoing];
         } else {
-            [JSQMessagesMediaViewBubbleImageMasker crp_applyBubbleImageMaskToMediaView:imageView
+            [JSQMessagesMediaViewBubbleImageMasker crp_applyBubbleImageMaskToMediaView:result
                                                                             isOutgoing:self.appliesMediaViewMaskAsOutgoing];
         }
     } else {
-        [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:imageView
+        [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:result
                                                                     isOutgoing:self.appliesMediaViewMaskAsOutgoing];
     }
-    return imageView;
+    return result;
 }
 
 - (UIImageView *)mediaQuotedView{

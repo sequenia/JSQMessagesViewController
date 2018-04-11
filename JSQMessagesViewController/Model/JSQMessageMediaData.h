@@ -89,6 +89,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSDictionary *)toDictionary;
 
+- (NSString *) mediaString;
+
 @optional
 
 @property BOOL sentStatus;

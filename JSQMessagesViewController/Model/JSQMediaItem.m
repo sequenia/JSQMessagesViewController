@@ -186,4 +186,8 @@
     return @"emptyMediaViewTitle";
 }
 
+- (NSString *) mediaString {
+    return @"";
+}
+
 @end
